@@ -1,8 +1,8 @@
-package com.baseballtonight.reservation.console;
+package com.baseballtonight.statics.SQL;
 
-import com.baseballtonight.reservation.data.user.User;
+import com.baseballtonight.reservation.data.users.User;
 
-public class SQL {
+public class ReservationSQL {
 	public static String select_preferred_games_SQL = String.format(
 		"SELECT id, name, stadium, dateAndTime, premium, `table`, blue, red, navy, green, DAYOFWEEK(dateAndTime) As part, opponent_club_num, home_club_num FROM reservation.games WHERE name LIKE '%%%s%%' ORDER BY dateAndTime ASC",
 		User.preferredClub.name);

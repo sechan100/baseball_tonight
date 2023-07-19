@@ -1,18 +1,16 @@
-package com.baseballtonight.reservation.data.user;
+package com.baseballtonight.reservation.data.users;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.*;
 
-import com.baseballtonight.reservation.console.Coloring;
-import com.baseballtonight.reservation.console.ConsoleUtil;
 import com.baseballtonight.reservation.data.club.Club;
+import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.statics.console.UserInput;
+
 public class UserDAO {
 	Connection con;
 	Statement state;
 	ResultSet rs;
-	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 	public UserDAO() {
 		String url = "jdbc:mysql://localhost:3306/?user=root";
@@ -40,10 +38,10 @@ public class UserDAO {
 		return Club.clubs.get(dao.getPreferredClubNum(userId)-1).name;
 	}
 	
-	public boolean checkUserRegistrationData(int userId) {
+	public boolean isRegistered(int userId) {
 		try {
-			String loadUserRegistrationSQL = "SELECT * FROM reservation.user WHERE id = " + userId;
-			ResultSet checkSet= state.executeQuery(loadUserRegistrationSQL);
+			String loadRegistrationSQL = "SELECT * FROM reservation.user WHERE id = " + userId;
+			ResultSet checkSet= state.executeQuery(loadRegistrationSQL);
 			///// ResultSet에 아무것도 없다면, 다음 두줄의 코드는 예외를 발생시킬 것.
 			checkSet.next();
 			checkSet.getInt(1);
@@ -68,7 +66,7 @@ public class UserDAO {
 		System.out.println(Club.clubList);
 		Coloring.greenOut("선호하는 구단을 선택하여 주십시오.");
 		System.out.print("구단 입력: ");
-		int PreClubNum = ConsoleUtil.receiveCustomRangeNum(1, 10);
+		int PreClubNum = UserInput.receiveLimitedRangeNum(1, 10);
 		return PreClubNum;
 	}
 
@@ -77,7 +75,7 @@ public class UserDAO {
 			String changePreferredClubSQL = String.format(
 				"UPDATE reservation.user\n"
 				+ "SET preferredClubNum = %d\n"
-				+ "WHERE id = %d", newPreferredClub, User.id);
+				+ "WHERE id = %d", newPreferredClub, User.getId());
 			state.executeUpdate(changePreferredClubSQL);
 			Coloring.greenOut("선호구단 정보 변경 완료.");
 		} catch(SQLException e) {

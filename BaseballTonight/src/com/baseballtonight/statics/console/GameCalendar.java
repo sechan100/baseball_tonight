@@ -1,4 +1,4 @@
-package com.baseballtonight.reservation.console;
+package com.baseballtonight.statics.console;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
-import com.baseballtonight.reservation.data.user.User;
+import com.baseballtonight.reservation.data.users.User;
+import com.baseballtonight.statics.SQL.ReservationSQL;
 
 public class GameCalendar {
 		public static String[] home_game = new String[11];
@@ -170,7 +171,7 @@ class GameCalendarDAO {
 	public HashMap<Integer, Integer> loadSchedule() {
 		try {
 			HashMap<Integer, Integer> game_id_map = new HashMap<>();
-			rs = state.executeQuery(SQL.select_preferred_games_SQL);
+			rs = state.executeQuery(ReservationSQL.select_preferred_games_SQL);
 			while(rs.next()){
 				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분 ";
 				int day = Integer.parseInt((rs.getString(4).substring(8, 9).equals("0") ? rs.getString(4).substring(9, 10) : rs.getString(4).substring(8, 10)));

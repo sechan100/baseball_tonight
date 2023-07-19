@@ -3,10 +3,10 @@ package com.baseballtonight.reservation.cancel;
 import java.io.*;
 import java.sql.*;
 
-import com.baseballtonight.reservation.console.Coloring;
-import com.baseballtonight.reservation.console.ConsoleUtil;
-import com.baseballtonight.reservation.data.user.User;
+import com.baseballtonight.reservation.data.users.User;
 import com.baseballtonight.reservation.myreserve.MyreserveDAO;
+import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.statics.console.Message;
 
 public class CancelDAO {
 	Connection con;
@@ -45,7 +45,7 @@ public class CancelDAO {
 				rs = state.executeQuery(cancelTargetReservationSelectSQL);
 				System.out.println();
 				rs.next();
-				if(rs.getInt(4) != User.getID()) {
+				if(rs.getInt(4) != User.getId()) {
 					throw new Exception();
 				}
 				String gameName = rs.getString(5);
@@ -90,6 +90,6 @@ public class CancelDAO {
 			}
 		}
 		Thread.sleep(1500);
-		ConsoleUtil.showCommand();
+		Message.showReservationCommands();
 	}
 }

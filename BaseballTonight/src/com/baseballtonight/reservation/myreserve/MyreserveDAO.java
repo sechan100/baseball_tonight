@@ -3,7 +3,7 @@ package com.baseballtonight.reservation.myreserve;
 import java.io.*;
 import java.sql.*;
 
-import com.baseballtonight.reservation.console.Coloring;
+import com.baseballtonight.statics.console.Coloring;
 
 public class MyreserveDAO {
 	// field

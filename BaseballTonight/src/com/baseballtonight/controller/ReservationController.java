@@ -1,12 +1,14 @@
-package com.baseballtonight.reservation.console;
+package com.baseballtonight.controller;
 
 import java.io.*;
 
-import com.baseballtonight.reservation.data.user.User;
+import com.baseballtonight.reservation.data.users.User;
 import com.baseballtonight.reservation.myreserve.MyreserveServer;
 import com.baseballtonight.reservation.reserve.*;
+import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.statics.console.Message;
 
-public class CLI {
+public class ReservationController {
 	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 	static String userCommand;
 
@@ -14,7 +16,7 @@ public class CLI {
 		User.setLogin();
 		Thread.sleep(1500);
 		System.out.print("[예매 및 좌석 페이지입니다]");
-		ConsoleUtil.showCommand();
+		Message.showReservationCommands();
 		while(!(userCommand = rd.readLine()).equals("exit")) {
 			switch(userCommand) {
 			case "reserve":
@@ -33,7 +35,7 @@ public class CLI {
 				break;
 
 			case "command.ls":
-				ConsoleUtil.showCommand();
+				Message.showReservationCommands();
 				break;
 
 			default:

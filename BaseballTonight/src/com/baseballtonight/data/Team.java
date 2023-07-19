@@ -1,10 +1,8 @@
-package com.baseballtonight.reservation.data.club;
-
-import java.util.ArrayList;
+package com.baseballtonight.data;
 
 import com.baseballtonight.statics.console.Coloring;
 
-public enum Club {
+public enum Team {
 	SSG(1, "SSG 랜더스", "인천 SSG 랜더스필드"),
 	KIWOOM(2, "키움 히어로즈", "고척 스카이돔"),
 	LG(3, "LG 트윈스", "잠실야구장"),
@@ -15,31 +13,17 @@ public enum Club {
 	LOTTE(8, "롯데 자이언츠", "사직 야구장"),
 	DOOSAN(9, "두산 베어스", "서울종합운동장 야구장"),
 	HANWHA(10, "한화 이글스", "대전 한화생명 이글스파크");
-	public static ArrayList<Club> clubs = new ArrayList<>();
 	public int clubNum;
 	public String name;
 	public String home;
 	
-	Club(int clubNum, String name, String home){
+	Team(int clubNum, String name, String home){
 		this.clubNum = clubNum;
 		this.name = name;
 		this.home = home;
 	}
 	
-	static {
-		clubs.add(SSG);
-		clubs.add(KIWOOM);
-		clubs.add(LG);
-		clubs.add(KT);
-		clubs.add(KIA);
-		clubs.add(NC);
-		clubs.add(SAMSUNG);
-		clubs.add(LOTTE);
-		clubs.add(DOOSAN);
-		clubs.add(HANWHA);	
-	}
-	
-	public static String clubList = 
+	public static String team_ls = 
 		  "------------------\n"
 		+ Coloring.getCyan("SSG 랜더스: 	1\n")
 		+ "------------------\n"
@@ -62,8 +46,8 @@ public enum Club {
 		+ Coloring.getCyan("한화 이글스:	10\n")
 		+ "------------------";
 	
-	public static Club getClubByNum(int clubNum) {
-		switch(clubNum){
+	public static Team getTeamByTeamNum(int team_num) {
+		switch(team_num){
 		case 1:
 			return SSG;
 		case 2:
@@ -89,3 +73,4 @@ public enum Club {
 		}
 	}
 }
+

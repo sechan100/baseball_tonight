@@ -1,22 +1,21 @@
-package com.baseballtonight.reservation.data.user;
+package com.baseballtonight.reservation.data.users;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-import com.baseballtonight.reservation.console.Coloring;
-import com.baseballtonight.reservation.console.ConsoleUtil;
 import com.baseballtonight.reservation.data.club.Club;
+import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.statics.console.Message;
+import com.baseballtonight.statics.console.UserInput;
 
 public class User {
-	public static int id;
+	private static int id;
 	public static Club preferredClub;
 
-	public static void setID(int id) {
+	public static void setId(int id) {
 		User.id = id;
 	}
 
-	public static int getID() {
+	public static int getId() {
 		return User.id;
 	}
 
@@ -24,11 +23,11 @@ public class User {
 		UserDAO dao = new UserDAO();
 		Coloring.greenOut("User ID를 입력하여 주십시오.");
 		System.out.print("ID: ");
-		int userId = ConsoleUtil.receiveNaturalNumber();
-		setID(userId);
+		int userId = UserInput.receiveNaturalNumber();
+		setId(userId);
 
 		// 로그인 정보가 있다면, 선호하는 구단 정보를 가져오기.
-		boolean canLogin = dao.checkUserRegistrationData(userId);
+		boolean canLogin = dao.isRegistered(userId);
 		while(true) {
 			if(canLogin) {
 				Club preferred = Club.clubs.get(dao.getPreferredClubNum(userId) - 1);
@@ -56,16 +55,16 @@ public class User {
 		Thread.sleep(1000);
 		//
 		Coloring.cyanOut("선호 구단을 변경하시겠습니까? (Y/N)");
-		if(ConsoleUtil.receiveYesOrNo()) {
+		if(UserInput.receiveYesOrNo()) {
 			int newPreferredClubNum = UserDAO.receivePreferredClubNum();
 			dao.changePreferredClub(newPreferredClubNum);
 			User.preferredClub = Club.getClubByNum(newPreferredClubNum);
 			Thread.sleep(1500);
-			ConsoleUtil.showCommand();
+			Message.showReservationCommands();
 		} else {
 			Coloring.purpleOut("선호구단을 변경하지 못했습니다. 메인 페이지로 이동합니다.");
 			Thread.sleep(1000);
-			ConsoleUtil.showCommand();
+			Message.showReservationCommands();
 		}
 	}
 }
