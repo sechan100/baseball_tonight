@@ -6,8 +6,8 @@ import com.baseballtonight.data.Team;
 import com.baseballtonight.data.dao.JoinDAO;
 import com.baseballtonight.data.dao.LoginDAO;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.statics.console.Coloring;
-import com.baseballtonight.statics.console.UserInput;
+import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.console.UserInput;
 
 public class JoinService {
 	static JoinDAO dao = new JoinDAO();

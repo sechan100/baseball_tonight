@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.util.console.Coloring;
 
 public class ReserveDAO {
 	DAO dao = new DAO();

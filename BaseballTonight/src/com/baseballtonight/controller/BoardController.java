@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.baseballtonight.data.Team;
 import com.baseballtonight.service.BoardService;
-import com.baseballtonight.statics.console.UserInput;
+import com.baseballtonight.util.console.UserInput;
 
 
 public class BoardController { // 새로 추가된 Controller class

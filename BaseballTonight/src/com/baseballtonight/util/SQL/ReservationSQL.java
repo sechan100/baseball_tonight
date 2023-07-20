@@ -1,4 +1,4 @@
-package com.baseballtonight.statics.SQL;
+package com.baseballtonight.util.SQL;
 
 import com.baseballtonight.data.dto.Member;
 

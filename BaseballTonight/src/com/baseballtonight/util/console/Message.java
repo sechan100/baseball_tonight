@@ -1,4 +1,4 @@
-package com.baseballtonight.statics.console;
+package com.baseballtonight.util.console;
 
 public class Message {
 	public static String app_starting_msg = Coloring.getCyan(""

@@ -6,9 +6,9 @@ import java.util.HashSet;
 import com.baseballtonight.data.Team;
 import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.service.StadiumInfoService;
-import com.baseballtonight.statics.console.Coloring;
-import com.baseballtonight.statics.console.Message;
-import com.baseballtonight.statics.console.UserInput;
+import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.console.Message;
+import com.baseballtonight.util.console.UserInput;
 
 public class StadiumInfoController {
 	// 해당 컨트롤러에서 입력 가능한 명령어 리스트.

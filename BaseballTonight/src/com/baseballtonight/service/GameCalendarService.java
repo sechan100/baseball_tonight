@@ -1,4 +1,4 @@
-package com.baseballtonight.statics.console;
+package com.baseballtonight.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,9 +6,10 @@ import java.util.HashMap;
 
 import com.baseballtonight.data.dao.DAO;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.statics.SQL.ReservationSQL;
+import com.baseballtonight.util.SQL.ReservationSQL;
+import com.baseballtonight.util.console.Coloring;
 
-public class GameCalendar {
+public class GameCalendarService {
 		public static String[] home_game = new String[11];
 		public static String[] away_game = new String[11];
 		public static HashMap<Integer, String> day_schedule_club = new HashMap<>();
@@ -166,13 +167,13 @@ class GameCalendarDAO {
 				// 홈 경기인 경우.
 				if(opponent_club_num > 100){
 					opponent_club_num -= 100;
-					GameCalendar.day_schedule_club.put(day, GameCalendar.home_game[opponent_club_num]);
-					GameCalendar.day_schedule_time.put(day, time);
+					GameCalendarService.day_schedule_club.put(day, GameCalendarService.home_game[opponent_club_num]);
+					GameCalendarService.day_schedule_time.put(day, time);
 				
 				// 어웨이 경기인 경우.
 				} else {
-					GameCalendar.day_schedule_club.put(day, GameCalendar.away_game[opponent_club_num]);
-					GameCalendar.day_schedule_time.put(day, time);
+					GameCalendarService.day_schedule_club.put(day, GameCalendarService.away_game[opponent_club_num]);
+					GameCalendarService.day_schedule_time.put(day, time);
 				}
 				game_id_map.put(day, rs.getInt(1));
 			}

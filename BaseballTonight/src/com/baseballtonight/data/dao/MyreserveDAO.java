@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.util.console.Coloring;
 
 public class MyreserveDAO {
 	DAO dao = new DAO();

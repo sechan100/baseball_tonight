@@ -7,9 +7,9 @@ import java.util.HashSet;
 import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.service.MyreserveModule;
 import com.baseballtonight.service.ReserveModule;
-import com.baseballtonight.statics.console.Coloring;
-import com.baseballtonight.statics.console.Message;
-import com.baseballtonight.statics.console.UserInput;
+import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.console.Message;
+import com.baseballtonight.util.console.UserInput;
 
 public class MainController {
 	public static Member mem;

@@ -2,7 +2,7 @@ package com.baseballtonight.service;
 
 import com.baseballtonight.data.Team;
 import com.baseballtonight.data.dao.StadiumInfoDAO;
-import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.util.console.Coloring;
 
 
 public class StadiumInfoService {

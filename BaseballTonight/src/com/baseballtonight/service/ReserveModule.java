@@ -9,10 +9,9 @@ import java.util.HashSet;
 import com.baseballtonight.controller.MainController;
 import com.baseballtonight.data.dao.ReserveDAO;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.statics.SQL.ReservationSQL;
-import com.baseballtonight.statics.console.Coloring;
-import com.baseballtonight.statics.console.GameCalendar;
-import com.baseballtonight.statics.console.UserInput;
+import com.baseballtonight.util.SQL.ReservationSQL;
+import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.console.UserInput;
 
 public class ReserveModule {
 	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
@@ -52,7 +51,7 @@ class Games {
 		if(user_answer) {
 			Coloring.purpleOut("선호 팀: " + Member.getPrf_team().name + "의 경기 정보 불러오는 중..");
 			Thread.sleep(1000);
-			game_id_map = GameCalendar.showCalendar();
+			game_id_map = GameCalendarService.showCalendar();
 		} else {
 			Coloring.purpleOut("예매 가능한 전체 경기 일정 불러오는 중..");
 			Thread.sleep(1000);

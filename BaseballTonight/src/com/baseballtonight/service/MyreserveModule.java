@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import com.baseballtonight.controller.MainController;
 import com.baseballtonight.data.dao.MyreserveDAO;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.util.console.Coloring;
 
 public class MyreserveModule {
 	static MyreserveDAO dao = new MyreserveDAO();

@@ -1,4 +1,4 @@
-package com.baseballtonight.statics.console;
+package com.baseballtonight.util.console;
 
 import java.io.*;
 import java.util.HashSet;

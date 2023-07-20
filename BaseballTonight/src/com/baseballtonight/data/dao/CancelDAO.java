@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 import com.baseballtonight.controller.MainController;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.statics.console.Coloring;
+import com.baseballtonight.util.console.Coloring;
 
 public class CancelDAO {
 	Connection con;
