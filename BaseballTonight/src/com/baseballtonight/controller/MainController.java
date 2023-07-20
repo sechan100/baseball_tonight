@@ -1,9 +1,12 @@
 package com.baseballtonight.controller;
 
 
+import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.data.dto.MemberDTO;
+import com.baseballtonight.reservation.myreserve.MyreserveServer;
+import com.baseballtonight.reservation.reserve.ReserveModule;
 import com.baseballtonight.statics.console.Message;
 import com.baseballtonight.statics.console.UserInput;
 
@@ -19,26 +22,31 @@ public class MainController {
 		main_cmd.add("exit");
 	}
 	
-	public static void mainMenu() {
+	public static void mainMenu() throws IOException, InterruptedException {
 		System.out.println(Message.main_cmd_ls);
 		MainController.cmdRun(UserInput.receiveContainedString(MainController.main_cmd));
 	}
 	
-	public static void cmdRun(String cmd) {
+	public static void cmdRun(String cmd) throws IOException, InterruptedException {
 		switch(cmd){
 		case "reserve":
+			ReserveModule.moduleRun();
 			break;
 			
 		case "myreserve":
+			MyreserveServer.serverRun();
 			break;
 			
 		case "stadium":
+			System.out.println("아직 안 붙엿어여ㅕ");
 			break;
 			
 		case "seats":
+			System.out.println("아직 업성요");
 			break;
 			
 		case "self":
+			
 			break;
 			
 		case "exit":

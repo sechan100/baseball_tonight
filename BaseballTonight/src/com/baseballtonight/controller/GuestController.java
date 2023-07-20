@@ -6,7 +6,7 @@ import com.baseballtonight.module.JoinModule;
 import com.baseballtonight.module.LoginModule;
 
 public class GuestController {
-	public static void cmdRun(String cmd) throws IOException {
+	public static void cmdRun(String cmd) throws IOException, InterruptedException {
 		switch(cmd){
 		case "join":
 			JoinModule.doJoin();
@@ -20,6 +20,8 @@ public class GuestController {
 			System.out.println("없는건디유");
 			break;
 		}
+		// 메인 페이지 실행
+		MainController.mainMenu();
 	}
 	
 	

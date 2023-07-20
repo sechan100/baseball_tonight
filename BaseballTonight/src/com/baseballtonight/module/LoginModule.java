@@ -34,14 +34,12 @@ public class LoginModule {
 					Coloring.greenOut("로그인 되셨습니다. " + user_id + "님, 환영합니다.");
 					break;
 				}
+				Coloring.redOut("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 			}
 		} catch(NullPointerException e) {
 			Coloring.redOut("회원정보가 없습니다. 회원가입 페이지로 이동합니다.");
 			JoinModule.doJoin();
 		} 
-		
-		// 메인 페이지 실행
-		MainController.mainMenu();
 		
 	}
 }

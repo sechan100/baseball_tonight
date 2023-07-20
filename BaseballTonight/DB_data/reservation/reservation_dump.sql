@@ -104,30 +104,6 @@ LOCK TABLES `seats` WRITE;
 INSERT INTO `seats` VALUES ('blue','107~109, 114~116, 209~211, 216~218',15000,17000),('green','401~422',7000,8000),('navy','301 ~ 334',10000,12000),('premium',NULL,70000,70000),('red','101~106, 117~122, 201~208, 219~226',12000,14000),('table','110~112, 212~215',40000,45000);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `id` int unsigned NOT NULL,
-  `preferredClubNum` int unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,10),(2,1),(3,2),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -138,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-19 22:44:34
+-- Dump completed on 2023-07-20  9:32:31

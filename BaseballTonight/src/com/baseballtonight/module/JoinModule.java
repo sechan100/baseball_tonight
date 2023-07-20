@@ -65,9 +65,6 @@ public class JoinModule {
 		MemberDTO mem = new MemberDTO(member_id, member_password, prf_team_num);
 		MainController.mem = mem;
 		Coloring.greenOut("회원가입이 완료되었습니다. " + member_id + "님, 환영합니다!");
-		
-		// 메인 페이지 실행
-		MainController.mainMenu();
 	
 	}
 }

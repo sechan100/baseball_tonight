@@ -12,7 +12,7 @@ public class Message {
 		+"-------------------------------\n"
 		+ Coloring.getCyan("경기 예매하기:	reserve \n")
 		+"-------------------------------\n"
-		+ Coloring.getCyan("예매내역 조회:	 myreserve \n")
+		+ Coloring.getCyan("예매내역 조회:	myreserve \n")
 		+"-------------------------------\n"
 		+ Coloring.getCyan("경기장 정보:	stadium \n")
 		+"-------------------------------\n"
