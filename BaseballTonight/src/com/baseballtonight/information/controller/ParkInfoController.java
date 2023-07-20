@@ -1,26 +1,32 @@
-package com.baseballtonight.infomation.controller;
+package com.baseballtonight.information.controller;
 
+
+
+import java.io.IOException;
 import java.util.Scanner;
 
-import com.baseballtonight.infomation.service.ParkInfoArticleService;
-import com.baseballtonight.infomation.service.ParkInfoService;
-import com.baseballtonight.infomation.util.Util;
+import com.baseballtonight.controller.MainController;
+import com.baseballtonight.information.service.ParkInfoService;
+import com.baseballtonight.information.util.Util;
 
 public class ParkInfoController {
     private Scanner sc;
     private int parkId;
+    private String mem_id;
     private ParkInfoService parkInfoService;
     private ParkInfoArticleController parkInfoArticleController; // ParkInfoArticleController 추가(controller 패키지에 articlecontroller 따로 분리)
     private String[] parkNames = {"롯데 자이언츠", "한화이글스", "KIA 타이거즈", "LG 트윈스", "두산 베어스", "NC 다이노스", "SSG 랜더스", "KT 위즈", "키움 히어로즈", "삼성 라이온즈"}; // database 상 야구장 id(primary) 와 index(+1)번호를 맞추는게 좋을듯
 
-    public ParkInfoController() {
+    public ParkInfoController(String mem_id) throws IOException, InterruptedException {
         sc = new Scanner(System.in);
+        this.mem_id = mem_id;
         ParkInfoController_selectPark();
         } // while 끝
 
 
 
-    private void ParkInfoController_selectPark() {
+    @SuppressWarnings("unused")
+	private void ParkInfoController_selectPark() throws IOException, InterruptedException {
 
         while1 : while (true) {
             showParkMenu();
@@ -53,7 +59,8 @@ public class ParkInfoController {
         }
     }
 
-    private void ParkInfoController_selectParkInfo() {
+    @SuppressWarnings("unused")
+	private void ParkInfoController_selectParkInfo() throws IOException, InterruptedException {
         while1 : while (true) {
             showParkInfoMenu();
 
@@ -77,10 +84,10 @@ public class ParkInfoController {
                 System.out.println();
                 continue;
             } else if (command == 0) {
-                new MainMenuController();
+                MainController.mainMenu();
                 break;
             } else if (command == 8) { // else-if 문 전부 추가됨
-            	parkInfoArticleController = new ParkInfoArticleController(parkId, parkNames[parkId]);
+            	parkInfoArticleController = new ParkInfoArticleController(parkId, parkNames[parkId],mem_id);
             	break;
             } else if (command == 9) {
                 ParkInfoController_selectPark();

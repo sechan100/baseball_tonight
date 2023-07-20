@@ -1,9 +1,9 @@
-package com.baseballtonight.infomation.dao;
+package com.baseballtonight.information.dao;
 
 import java.sql.*;
 
 public class ParkInfoDao {
-    private String url = "jdbc:mysql://localhost:3306/baseball_tonight";
+    private String url = "jdbc:mysql://localhost:3306/?user=root";
     private String userName = "root";
     private String password = "dlqhfka";
     private Connection connection;

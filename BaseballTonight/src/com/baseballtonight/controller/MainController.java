@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.data.dto.MemberDTO;
+import com.baseballtonight.information.App;
 import com.baseballtonight.reservation.myreserve.MyreserveModule;
 import com.baseballtonight.reservation.reserve.ReserveModule;
 import com.baseballtonight.statics.console.Message;
@@ -39,7 +40,7 @@ public class MainController {
 			break;
 			
 		case "stadium":
-			System.out.println("아직 안 붙엿어여ㅕ");
+			new App().start(MemberDTO.getMem_id());
 			break;
 			
 		case "seats":

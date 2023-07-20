@@ -1,4 +1,4 @@
-package com.baseballtonight.infomation.util;
+package com.baseballtonight.information.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,7 +6,8 @@ import java.util.Date;
 public class Util {
         public static boolean isNum(String str) { // 숫자(int) 잡기 method
         try {
-            Integer i = Integer.parseInt(str);
+            @SuppressWarnings("unused")
+			Integer i = Integer.parseInt(str);
         } catch (NumberFormatException e) {
             return false;
         }

@@ -1,8 +1,8 @@
-package com.baseballtonight.infomation.service;
+package com.baseballtonight.information.service;
 
 import java.sql.SQLException;
 
-import com.baseballtonight.infomation.dao.ParkInfoDao;
+import com.baseballtonight.information.dao.ParkInfoDao;
 
 public class ParkInfoService {
     private int parkId;
