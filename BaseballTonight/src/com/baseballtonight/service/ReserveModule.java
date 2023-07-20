@@ -1,4 +1,4 @@
-package com.baseballtonight.reservation.reserve;
+package com.baseballtonight.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,12 +7,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dao.DAO;
-import com.baseballtonight.data.dto.MemberDTO;
+import com.baseballtonight.data.dao.ReserveDAO;
+import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.statics.SQL.ReservationSQL;
 import com.baseballtonight.statics.console.Coloring;
 import com.baseballtonight.statics.console.GameCalendar;
-import com.baseballtonight.statics.console.Message;
 import com.baseballtonight.statics.console.UserInput;
 
 public class ReserveModule {
@@ -51,7 +50,7 @@ class Games {
 		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N)\n (N을 입력하시면 전체 일정을 봅니다.)");
 		boolean user_answer = UserInput.receiveYesOrNo();
 		if(user_answer) {
-			Coloring.purpleOut("선호 팀: " + MemberDTO.getPrf_team().name + "의 경기 정보 불러오는 중..");
+			Coloring.purpleOut("선호 팀: " + Member.getPrf_team().name + "의 경기 정보 불러오는 중..");
 			Thread.sleep(1000);
 			game_id_map = GameCalendar.showCalendar();
 		} else {

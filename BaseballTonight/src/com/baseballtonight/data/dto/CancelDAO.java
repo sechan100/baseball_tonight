@@ -1,4 +1,4 @@
-package com.baseballtonight.reservation.cancel;
+package com.baseballtonight.data.dto;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dto.MemberDTO;
-import com.baseballtonight.reservation.myreserve.MyreserveDAO;
+import com.baseballtonight.data.dao.MyreserveDAO;
 import com.baseballtonight.statics.console.Coloring;
 
 public class CancelDAO {
@@ -51,7 +50,7 @@ public class CancelDAO {
 				rs = state.executeQuery(cancelTargetReservationSelectSQL);
 				System.out.println();
 				rs.next();
-				if(rs.getString(4) != MemberDTO.getMem_id()) {
+				if(!rs.getString(4).equals(Member.getMem_id())) {
 					throw new Exception();
 				}
 				String gameName = rs.getString(5);

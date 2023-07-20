@@ -9,13 +9,11 @@ import java.sql.Statement;
 public class DAO {
 	
 	Connection con;
-	Statement state;
 	
 	public DAO() {
-		String url = "jdbc:mysql://localhost:3306/?user=root";
+		String url = "jdbc:mysql://localhost:3306/baseball_tonight";
 		try {
 			con = DriverManager.getConnection(url, "root", "dlqhfka");
-			state = con.createStatement();
 		} catch(Exception e) {
 			e.getMessage();
 		}
@@ -24,6 +22,7 @@ public class DAO {
 	public ResultSet select(String SQL) {
 		ResultSet rs;
 		try {
+			Statement state = con.createStatement();
 			rs = state.executeQuery(SQL);
 			return rs;
 		} catch(SQLException e) {
@@ -46,8 +45,8 @@ public class DAO {
 
 	public void update(String SQL) {
 		try {
+			Statement state = con.createStatement();
 			state.executeUpdate(SQL);
-			state.close();
 		} catch(SQLException e) {
 			System.out.println(e);
 			System.out.println("DAO update method 이거 예외");

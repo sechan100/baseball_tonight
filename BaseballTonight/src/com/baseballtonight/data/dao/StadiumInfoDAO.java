@@ -1,9 +1,9 @@
-package com.baseballtonight.information.dao;
+package com.baseballtonight.data.dao;
 
 import java.sql.*;
 
-public class ParkInfoDao {
-    private String url = "jdbc:mysql://localhost:3306/?user=root";
+public class StadiumInfoDAO {
+    private String url = "jdbc:mysql://localhost:3306/baseball_tonight";
     private String userName = "root";
     private String password = "dlqhfka";
     private Connection connection;
@@ -11,11 +11,16 @@ public class ParkInfoDao {
     private ResultSet resultSet;
 
     private String setNull = "등록된 정보가 없습니다\n";
-    public ParkInfoDao(int parkId) throws SQLException {
-        connection = DriverManager.getConnection(url, userName, password);
-        statement = connection.createStatement();
-        resultSet = statement.executeQuery("select * from park_info where id = " + parkId);
-        resultSet.next();
+    public StadiumInfoDAO(int parkId) {
+    	try {
+    		connection = DriverManager.getConnection(url, userName, password);
+    		statement = connection.createStatement();
+    		String sql = String.format("select * from park_info where id = %d", parkId);
+    		resultSet = statement.executeQuery(sql);
+    		resultSet.next();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
     }
 
     public String getParkName() {

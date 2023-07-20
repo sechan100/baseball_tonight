@@ -1,22 +1,22 @@
-package com.baseballtonight.information.service;
+package com.baseballtonight.service;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.baseballtonight.information.dao.ParkInfoArticleDao;
-import com.baseballtonight.information.dto.Article;
-import com.baseballtonight.information.dto.ArticleReply;
+import com.baseballtonight.data.dto.Article;
+import com.baseballtonight.data.dto.ArticleReply;
+import com.baseballtonight.data.dto.ParkInfoArticleDao;
 
 
 
-public class ParkInfoArticleService {
+public class BoardService {
 	
 	private ParkInfoArticleDao parkInfoArticleDao;
 	private ArrayList<Article> articles;
 	private ArrayList<ArticleReply> replys;
 	private String mem_id;
 	
-	public ParkInfoArticleService(int parkId, String mem_id) {
+	public BoardService(int parkId, String mem_id) {
 		this.mem_id = mem_id;
 		this.parkInfoArticleDao = new ParkInfoArticleDao(parkId);
 	}

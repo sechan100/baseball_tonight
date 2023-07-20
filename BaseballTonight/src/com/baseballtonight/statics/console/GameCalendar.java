@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.baseballtonight.data.dao.DAO;
-import com.baseballtonight.data.dto.MemberDTO;
+import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.statics.SQL.ReservationSQL;
 
 public class GameCalendar {
@@ -160,7 +160,7 @@ class GameCalendarDAO {
 			while(rs.next()){
 				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분 ";
 				int day = Integer.parseInt((rs.getString(4).substring(8, 9).equals("0") ? rs.getString(4).substring(9, 10) : rs.getString(4).substring(8, 10)));
-				int opponent_club_num = (rs.getInt(12) == MemberDTO.getPrf_team().num ? rs.getInt(13) : rs.getInt(12) + 100);
+				int opponent_club_num = (rs.getInt(12) == Member.getPrf_team().num ? rs.getInt(13) : rs.getInt(12) + 100);
 				// 홈 경기인 경우, 100을 더해서 홈 경기임을 표시.
 				
 				// 홈 경기인 경우.

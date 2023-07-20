@@ -2,28 +2,22 @@ package com.baseballtonight.controller;
 
 import java.io.IOException;
 
-import com.baseballtonight.module.JoinModule;
-import com.baseballtonight.module.LoginModule;
+import com.baseballtonight.service.JoinService;
+import com.baseballtonight.service.LoginService;
 
 public class GuestController {
 	public static void cmdRun(String cmd) throws IOException, InterruptedException {
 		switch(cmd){
 		case "join":
-			JoinModule.doJoin();
+			JoinService.doJoin();
 			break;
 			
 		case "login":
-			LoginModule.doLogin();
-			break;
+			LoginService.doLogin();
 			
-		default:
-			System.out.println("없는건디유");
+			// 메인 페이지 실행
+			MainController.mainMenu();
 			break;
 		}
-		// 메인 페이지 실행
-		MainController.mainMenu();
 	}
-	
-	
-	
 }

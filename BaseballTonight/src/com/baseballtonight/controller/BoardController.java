@@ -1,44 +1,35 @@
-package com.baseballtonight.information.controller;
+package com.baseballtonight.controller;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.baseballtonight.controller.MainController;
-import com.baseballtonight.information.service.ParkInfoArticleService;
-import com.baseballtonight.information.util.Util;
+import com.baseballtonight.data.Team;
+import com.baseballtonight.service.BoardService;
+import com.baseballtonight.statics.console.UserInput;
 
 
-public class ParkInfoArticleController { // 새로 추가된 Controller class
+public class BoardController { // 새로 추가된 Controller class
 	private Scanner sc;
+	@SuppressWarnings("unused")
 	private int parkId;
+	@SuppressWarnings("unused")
 	private String mem_id;
 	private String parkName;
-	private ParkInfoArticleService parkInfoArticleService; // service 패키지 ParkInfoArticleSerive 추가.
+	private BoardService parkInfoArticleService; // service 패키지 ParkInfoArticleSerive 추가.
 
 	@SuppressWarnings("unused")
-	public ParkInfoArticleController(int parkId, String parkName, String mem_id) throws IOException, InterruptedException {
+	public BoardController(int parkId, String parkName, String mem_id) throws IOException, InterruptedException {
 		this.parkName = parkName;
 		this.parkId = parkId;
 		this.mem_id = mem_id;
-		this.parkInfoArticleService = new ParkInfoArticleService(parkId,mem_id);
+		this.parkInfoArticleService = new BoardService(parkId,mem_id);
 		this.sc = new Scanner(System.in);
 		while1: while (true) {
 			showParkInfoArticleMenu();
 			System.out.println();
 			System.out.printf("원하는 메뉴를 입력하세요 >> ");
 
-			String input = sc.next();
-			sc.nextLine();
-			int command = -1;
-
-			if (Util.isNum(input)) {
-				command = Integer.parseInt(input);
-			} else {
-				System.out.println("잘못된 입력입니다. 메뉴에 해당하는 숫자를 입력하세요.\n");
-				System.out.println();
-
-				continue;
-			}
+			int command = UserInput.receiveLimitedRangeNum(0, 9);
 
 			if ((command > 5 && command != 9) || command < 0) {
 				System.out.println("없는 메뉴 입니다. 메뉴번호를 다시 입력하세요.\n");
@@ -48,7 +39,7 @@ public class ParkInfoArticleController { // 새로 추가된 Controller class
 				MainController.mainMenu();
 				break;
 			} else if (command == 9) {
-				new ParkInfoController(mem_id);
+				StadiumInfoController.cmdRun(Team.getTeamByTeamNum(parkId));
 				break;
 			} else {
 				if (command == 1) {
@@ -138,8 +129,8 @@ public class ParkInfoArticleController { // 새로 추가된 Controller class
 		System.out.println("3. 게시글 작성");
 		System.out.println("4. 게시글 수정");
 		System.out.println("5. 게시글 삭제");
-		System.out.println("9. 구단선택으로 돌아가기");
-		System.out.println("0. 메인으로 돌아가기\n");
+		System.out.println("9. 경기장 정보 페이지로 돌아가기");
+		System.out.println("0. 메인 메뉴\n");
 	}
 
 	private void showArticleDetailMenu() {

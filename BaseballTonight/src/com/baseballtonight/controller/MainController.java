@@ -4,15 +4,15 @@ package com.baseballtonight.controller;
 import java.io.IOException;
 import java.util.HashSet;
 
-import com.baseballtonight.data.dto.MemberDTO;
-import com.baseballtonight.information.App;
-import com.baseballtonight.reservation.myreserve.MyreserveModule;
-import com.baseballtonight.reservation.reserve.ReserveModule;
+import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.service.MyreserveModule;
+import com.baseballtonight.service.ReserveModule;
+import com.baseballtonight.statics.console.Coloring;
 import com.baseballtonight.statics.console.Message;
 import com.baseballtonight.statics.console.UserInput;
 
 public class MainController {
-	public static MemberDTO mem;
+	public static Member mem;
 	
 	public static HashSet<String> main_cmd = new HashSet<>();
 	static{
@@ -25,6 +25,7 @@ public class MainController {
 	}
 	
 	public static void mainMenu() throws IOException, InterruptedException {
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println(Message.main_cmd_ls);
 		MainController.cmdRun(UserInput.receiveContainedString(MainController.main_cmd));
 	}
@@ -40,7 +41,7 @@ public class MainController {
 			break;
 			
 		case "stadium":
-			new App().start(MemberDTO.getMem_id());
+			StadiumInfoController.showPrfStadiumInfo();
 			break;
 			
 		case "seats":
@@ -52,6 +53,8 @@ public class MainController {
 			break;
 			
 		case "exit":
+			Coloring.purpleOut("종료되었습니다.");
+			System.exit(0);
 			break;
 			
 		default:

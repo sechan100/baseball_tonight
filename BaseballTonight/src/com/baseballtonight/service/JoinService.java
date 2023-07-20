@@ -1,18 +1,18 @@
-package com.baseballtonight.module;
+package com.baseballtonight.service;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 
 import com.baseballtonight.data.Team;
-import com.baseballtonight.data.dao.DAO;
-import com.baseballtonight.data.dto.MemberDTO;
+import com.baseballtonight.data.dao.JoinDAO;
+import com.baseballtonight.data.dao.LoginDAO;
+import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.statics.console.Coloring;
 import com.baseballtonight.statics.console.UserInput;
 
-public class JoinModule {
+public class JoinService {
 	static JoinDAO dao = new JoinDAO();
 	
-	public static void doJoin() throws IOException {
+	public static void doJoin() throws IOException, InterruptedException {
 		String member_id;
 		String member_password;
 		int prf_team_num;
@@ -61,20 +61,10 @@ public class JoinModule {
 		dao.newJoin(member_id, member_password, prf_team_num);
 		
 		// MemberDTO 업데이트.
-		MemberDTO.setAll(member_id, member_password, prf_team_num);
-		Coloring.greenOut("회원가입이 완료되었습니다. " + member_id + "님, 환영합니다!");
+		Member.setAll(member_id, member_password, prf_team_num);
+		Coloring.greenOut("회원가입이 완료되었습니다. ID: " + member_id);
+		Thread.sleep(1500);
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	
 	}
-}
-
-class JoinDAO {
-	ResultSet rs;
-	DAO dao = new DAO();
-	
-	public void newJoin(String user_id, String user_password, int prf_team_num) {
-		String register_new_member_SQL = String.format("INSERT INTO members.member (user_id, user_password, preferred_team_num) VALUES ('%s', '%s', %d)", user_id, user_password, prf_team_num);
-		dao.update(register_new_member_SQL);
-	}
-
-
 }

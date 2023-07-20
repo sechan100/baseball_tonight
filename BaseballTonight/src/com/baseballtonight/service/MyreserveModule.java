@@ -1,12 +1,11 @@
-package com.baseballtonight.reservation.myreserve;
+package com.baseballtonight.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dto.MemberDTO;
-import com.baseballtonight.reservation.cancel.CancelServer;
-import com.baseballtonight.reservation.reserve.ReserveModule;
+import com.baseballtonight.data.dao.MyreserveDAO;
+import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.statics.console.Coloring;
 
 public class MyreserveModule {
@@ -17,7 +16,7 @@ public class MyreserveModule {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 			// 예매 정보 리스트 보이기.
-			boolean emptyReservation = dao.showReservationList(MemberDTO.getMem_id());
+			boolean emptyReservation = dao.showReservationList(Member.getMem_id());
 
 			// 예매 정보가 없다면 예매 페이지 이동을 추천, 아니라면 commandList 보이기.
 			if(emptyReservation) {
