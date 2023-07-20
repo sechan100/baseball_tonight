@@ -3,7 +3,6 @@ package com.baseballtonight.module;
 import java.io.IOException;
 import java.sql.ResultSet;
 
-import com.baseballtonight.controller.MainController;
 import com.baseballtonight.data.Team;
 import com.baseballtonight.data.dao.DAO;
 import com.baseballtonight.data.dto.MemberDTO;
@@ -61,9 +60,8 @@ public class JoinModule {
 		// DB 전달.
 		dao.newJoin(member_id, member_password, prf_team_num);
 		
-		// member객체 전달.
-		MemberDTO mem = new MemberDTO(member_id, member_password, prf_team_num);
-		MainController.mem = mem;
+		// MemberDTO 업데이트.
+		MemberDTO.setAll(member_id, member_password, prf_team_num);
 		Coloring.greenOut("회원가입이 완료되었습니다. " + member_id + "님, 환영합니다!");
 	
 	}

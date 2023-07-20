@@ -1,10 +1,14 @@
 package com.baseballtonight.reservation.reserve;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.baseballtonight.reservation.data.users.User;
+import com.baseballtonight.controller.MainController;
+import com.baseballtonight.data.dao.DAO;
+import com.baseballtonight.data.dto.MemberDTO;
 import com.baseballtonight.statics.SQL.ReservationSQL;
 import com.baseballtonight.statics.console.Coloring;
 import com.baseballtonight.statics.console.GameCalendar;
@@ -24,8 +28,8 @@ public class ReserveModule {
 			Games.choiceGamebyId();			
 		}
 		
-		Seats.choiceSeatType(dao);
-		Seats.choiceSeatBlock(dao);
+		Seats.choiceSeatType();
+		Seats.choiceSeatBlock();
 
 		// 선택한 예매 정보를 종합하여 update 쿼리로 전달.
 		dao.addNewReservation(Games.gameId, Seats.seatType, Seats.seatBlock);
@@ -34,7 +38,7 @@ public class ReserveModule {
 		Thread.sleep(1000);
 
 		// 초기화면으로 돌아가기
-		Message.showReservationCommands();
+		MainController.mainMenu();
 	}
 }
 
@@ -47,7 +51,7 @@ class Games {
 		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N)\n (N을 입력하시면 전체 일정을 봅니다.)");
 		boolean user_answer = UserInput.receiveYesOrNo();
 		if(user_answer) {
-			Coloring.purpleOut("선호 팀: " + User.preferredClub.name + "의 경기 정보 불러오는 중..");
+			Coloring.purpleOut("선호 팀: " + MemberDTO.getPrf_team().name + "의 경기 정보 불러오는 중..");
 			Thread.sleep(1000);
 			game_id_map = GameCalendar.showCalendar();
 		} else {
@@ -78,14 +82,15 @@ class Seats {
 	public static String seatType;
 	public static int seatBlock;
 	static HashSet<Integer> seatBlockSeat;
+	static ReserveDAO dao = new ReserveDAO();
 
-	public static void choiceSeatType(ReserveDAO dao) {
+	public static void choiceSeatType() {
 		dao.showSeatList(Games.gameId);
 		System.out.print("예매를 원하시는 좌석의 종류를 영문으로 입력하여 주십시오.\n\n>>> ");
 		seatType = UserInput.receiveSeatType();
 	}
 
-	public static void choiceSeatBlock(ReserveDAO dao) {
+	public static void choiceSeatBlock() {
 		seatBlockSeat = dao.showSeatBlock(seatType);
 		seatBlock = 0; // premium석 선택한 경우 기본값인 0을 seatBlock번호로 가지고 진입.
 		if(!seatType.equals("premium")) {

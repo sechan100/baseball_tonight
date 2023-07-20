@@ -13,14 +13,14 @@ public enum Team {
 	LOTTE(8, "롯데 자이언츠", "사직 야구장"),
 	DOOSAN(9, "두산 베어스", "서울종합운동장 야구장"),
 	HANWHA(10, "한화 이글스", "대전 한화생명 이글스파크");
-	public int clubNum;
+	public int num;
 	public String name;
-	public String home;
+	public String stadium;
 	
 	Team(int clubNum, String name, String home){
-		this.clubNum = clubNum;
+		this.num = clubNum;
 		this.name = name;
-		this.home = home;
+		this.stadium = home;
 	}
 	
 	public static String team_ls = 

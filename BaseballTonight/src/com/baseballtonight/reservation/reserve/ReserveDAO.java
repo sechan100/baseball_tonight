@@ -1,31 +1,21 @@
 package com.baseballtonight.reservation.reserve;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 
-import com.baseballtonight.reservation.data.users.User;
+import com.baseballtonight.data.dao.DAO;
+import com.baseballtonight.data.dto.MemberDTO;
 import com.baseballtonight.reservation.myreserve.MyreserveDAO;
 import com.baseballtonight.statics.console.Coloring;
 
 public class ReserveDAO {
-	Connection con;
-	Statement state;
-
-	public ReserveDAO() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/?user=root";
-			con = DriverManager.getConnection(url, "root", "dlqhfka");
-			state = con.createStatement();
-		} catch(Exception e) {
-			Coloring.redOut("DB connection Exception: " + e.getMessage());
-		}
-	}
-
+	DAO dao = new DAO();
 	public HashSet<Integer> showGameList(String SQL) {
 		try {
 			HashSet<Integer> gameIdSet = new HashSet<>();
-			ResultSet rs = state.executeQuery(SQL);
+			ResultSet rs = dao.select(SQL);
 			System.out
 				.println("--------------------------------------------------------------------------------------");
 			while(rs.next()) {
@@ -49,7 +39,8 @@ public class ReserveDAO {
 	public void showSeatList(int game_id) {
 		String loadSeatStatus = "SELECT *, DAYOFWEEK(dateAndTime) As part FROM reservation.games WHERE id = " + game_id;
 		try {
-			ResultSet rs = state.executeQuery(loadSeatStatus);
+			Statement st = dao.getState();
+			ResultSet rs = st.executeQuery(loadSeatStatus);
 			rs.next();
 			int[] priceData = loadPriceData(MyreserveDAO.getDayOfWeek(rs.getInt(11)));
 			String seatList = Coloring.getPurple(
@@ -78,17 +69,15 @@ public class ReserveDAO {
 				+ filterZero(rs.getString(10)) + " | 가격: " + priceData[5] + "\n"
 				+ "-------------------------------------------\n";
 			System.out.print(seatList);
-			rs.close();
 		} catch(SQLException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		} catch(Exception e){
 			System.out.println(e);
 		} 
 	}
 
 	public int[] loadPriceData(String dayOfWeek) throws SQLException {
-		Statement st = con.createStatement();
-		ResultSet priceData = st.executeQuery("SELECT * FROM reservation.seats ORDER BY weekdayPrice DESC");
+		ResultSet priceData = dao.select("SELECT * FROM reservation.seats ORDER BY weekdayPrice DESC");
 		int[] price = new int[6];
 		int ColumnNumberByDayOfWeek;
 		if(dayOfWeek.equals("월요일") ||
@@ -126,7 +115,7 @@ public class ReserveDAO {
 			HashSet<Integer> seatBlockSet  = new HashSet<>();
 			String loadSeatBlockScopeSQL = String.format(
 				"SELECT seatBlockScope FROM reservation.seats WHERE seatType = '%s'", seatType);
-			ResultSet rs = state.executeQuery(loadSeatBlockScopeSQL);
+			ResultSet rs = dao.select(loadSeatBlockScopeSQL);
 			StringBuilder blockScope = new StringBuilder();
 			while(rs.next()) {
 				String[] tem1 = rs.getString(1).split(", ");
@@ -155,19 +144,20 @@ public class ReserveDAO {
 	public void addNewReservation(int game_id, String seatType, int seatBlock) {
 		String addReservationSQL = String.format(
 			"INSERT INTO reservation.reservations (gameID, seatType, seatBlock, userID) "
-				+ "VALUES (%d, '%s', %d, %d)",
-			game_id, seatType, seatBlock, User.getId());
+				+ "VALUES (%d, '%s', %d, '%s')",
+			game_id, seatType, seatBlock, MemberDTO.getMem_id());
 		String updateGameInfoSQL = String.format(
 			"UPDATE reservation.games\n"
 				+ "SET `%s` = `%s` - 1\n"
 				+ "WHERE id = %d;",
 			seatType, seatType, game_id);
+		dao.update(addReservationSQL);
+		Statement st = dao.getState();
 		try {
-			Statement st = con.createStatement();
-			state.executeUpdate(addReservationSQL);
 			st.executeUpdate(updateGameInfoSQL);
 		} catch(SQLException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			System.out.println("에베");
 		}
 	}
 }

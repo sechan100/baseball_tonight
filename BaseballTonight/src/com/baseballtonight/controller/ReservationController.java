@@ -3,7 +3,7 @@ package com.baseballtonight.controller;
 import java.io.*;
 
 import com.baseballtonight.reservation.data.users.User;
-import com.baseballtonight.reservation.myreserve.MyreserveServer;
+import com.baseballtonight.reservation.myreserve.MyreserveModule;
 import com.baseballtonight.reservation.reserve.*;
 import com.baseballtonight.statics.console.Coloring;
 import com.baseballtonight.statics.console.Message;
@@ -24,7 +24,7 @@ public class ReservationController {
 				break;
 
 			case "myreserve":
-				MyreserveServer.serverRun();
+				MyreserveModule.serverRun();
 				break;
 
 			case "myclub":

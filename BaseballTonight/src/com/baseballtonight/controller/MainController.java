@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.data.dto.MemberDTO;
-import com.baseballtonight.reservation.myreserve.MyreserveServer;
+import com.baseballtonight.reservation.myreserve.MyreserveModule;
 import com.baseballtonight.reservation.reserve.ReserveModule;
 import com.baseballtonight.statics.console.Message;
 import com.baseballtonight.statics.console.UserInput;
 
 public class MainController {
 	public static MemberDTO mem;
+	
 	public static HashSet<String> main_cmd = new HashSet<>();
 	static{
 		main_cmd.add("reserve");
@@ -34,7 +35,7 @@ public class MainController {
 			break;
 			
 		case "myreserve":
-			MyreserveServer.serverRun();
+			MyreserveModule.serverRun();
 			break;
 			
 		case "stadium":

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.baseballtonight.controller.MainController;
 import com.baseballtonight.data.dao.DAO;
+import com.baseballtonight.data.dto.MemberDTO;
 import com.baseballtonight.statics.console.Coloring;
 import com.baseballtonight.statics.console.UserInput;
 
@@ -31,6 +31,8 @@ public class LoginModule {
 				
 				// DB 비밀번호와 입력한 비밀번호가 일치한다면 로그인 성공.
 				if(user_password.equals(user_password_confirm)){
+					int prf_team_num = dao.getPreferredTeamNumById(user_id);
+					MemberDTO.setAll(user_id, user_password, prf_team_num);
 					Coloring.greenOut("로그인 되셨습니다. " + user_id + "님, 환영합니다.");
 					break;
 				}
@@ -63,7 +65,18 @@ class LoginDAO {
 		}
 	}
 	
-	
+	public int getPreferredTeamNumById(String user_id) {
+		String load_user_id_SQL = String.format("SELECT preferred_team_num FROM members.member\n"
+			+ "WHERE user_id = '%s'", user_id);
+		ResultSet rs = dao.select(load_user_id_SQL);
+		try {
+			rs.next();
+			return rs.getInt(1);
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	
 	
 	

@@ -11,5 +11,6 @@ public class BaseballTonightApplication {
 		Thread.sleep(1500);
 		
 		AppEntering.enteringAsMember();
+		
 	}
 }

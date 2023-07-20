@@ -3,13 +3,13 @@ package com.baseballtonight.reservation.myreserve;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import com.baseballtonight.controller.MainController;
+import com.baseballtonight.data.dto.MemberDTO;
 import com.baseballtonight.reservation.cancel.CancelServer;
-import com.baseballtonight.reservation.data.users.User;
 import com.baseballtonight.reservation.reserve.ReserveModule;
 import com.baseballtonight.statics.console.Coloring;
-import com.baseballtonight.statics.console.Message;
 
-public class MyreserveServer {
+public class MyreserveModule {
 	static MyreserveDAO dao = new MyreserveDAO();
 
 	public static void serverRun() {
@@ -17,7 +17,7 @@ public class MyreserveServer {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 			// 예매 정보 리스트 보이기.
-			boolean emptyReservation = dao.showReservationList(User.getId());
+			boolean emptyReservation = dao.showReservationList(MemberDTO.getMem_id());
 
 			// 예매 정보가 없다면 예매 페이지 이동을 추천, 아니라면 commandList 보이기.
 			if(emptyReservation) {
@@ -29,7 +29,7 @@ public class MyreserveServer {
 						ReserveModule.moduleRun();
 						break;
 					} else if(userAnswer.equals("n")) {
-						Message.showReservationCommands();
+						MainController.mainMenu();
 						break;
 					} else {
 						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
@@ -46,7 +46,7 @@ public class MyreserveServer {
 					} else if(userAnswer.equals("n")) {
 						Coloring.purpleOut("취소페이지로 이동하지 못했습니다. 메인으로 이동합니다.");
 						Thread.sleep(1500);
-						Message.showReservationCommands();
+						MainController.mainMenu();
 						break;
 					} else {
 						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");

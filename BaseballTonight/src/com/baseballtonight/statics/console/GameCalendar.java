@@ -1,13 +1,11 @@
 package com.baseballtonight.statics.console;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 
-import com.baseballtonight.reservation.data.users.User;
+import com.baseballtonight.data.dao.DAO;
+import com.baseballtonight.data.dto.MemberDTO;
 import com.baseballtonight.statics.SQL.ReservationSQL;
 
 public class GameCalendar {
@@ -153,29 +151,16 @@ public class GameCalendar {
 }
 
 class GameCalendarDAO {
-	Connection con;
-	Statement state;
-	ResultSet rs;
-	
-	public GameCalendarDAO() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/?user=root";
-			con = DriverManager.getConnection(url, "root", "dlqhfka");
-			state = con.createStatement();
-		} catch(Exception e) {
-			Coloring.redOut("DB connection Exception: " + e.getMessage());
-		}
-	}
+	DAO dao = new DAO();
 	
 	public HashMap<Integer, Integer> loadSchedule() {
 		try {
 			HashMap<Integer, Integer> game_id_map = new HashMap<>();
-			rs = state.executeQuery(ReservationSQL.select_preferred_games_SQL);
+			ResultSet rs = dao.select(ReservationSQL.select_preferred_games_SQL);
 			while(rs.next()){
 				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분 ";
 				int day = Integer.parseInt((rs.getString(4).substring(8, 9).equals("0") ? rs.getString(4).substring(9, 10) : rs.getString(4).substring(8, 10)));
-				int opponent_club_num = (rs.getInt(12) == User.preferredClub.clubNum ? rs.getInt(13) : rs.getInt(12) + 100);
+				int opponent_club_num = (rs.getInt(12) == MemberDTO.getPrf_team().num ? rs.getInt(13) : rs.getInt(12) + 100);
 				// 홈 경기인 경우, 100을 더해서 홈 경기임을 표시.
 				
 				// 홈 경기인 경우.

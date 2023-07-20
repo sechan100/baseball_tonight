@@ -32,12 +32,25 @@ public class DAO {
 		}
 		return null;
 	}
+	
+	public Statement getState() {
+		try {
+			Statement newState = con.createStatement();
+			return newState;
+		} catch(SQLException e) {
+			System.out.println(e);
+			System.out.println("DAO에서 예외발생");
+		}
+		return null;
+	}
 
 	public void update(String SQL) {
 		try {
 			state.executeUpdate(SQL);
+			state.close();
 		} catch(SQLException e) {
 			System.out.println(e);
+			System.out.println("DAO update method 이거 예외");
 		}
 	}
 

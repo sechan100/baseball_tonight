@@ -1,27 +1,17 @@
 package com.baseballtonight.reservation.myreserve;
 
-import java.io.*;
-import java.sql.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import com.baseballtonight.data.dao.DAO;
 import com.baseballtonight.statics.console.Coloring;
 
 public class MyreserveDAO {
-	// field
-	Connection con;
-	Statement state;
-	ResultSet rs;
+	DAO dao = new DAO();
 	BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
-
-	public MyreserveDAO() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/?user=root";
-			con = DriverManager.getConnection(url, "root", "dlqhfka");
-			state = con.createStatement();
-		} catch(Exception e) {
-			System.out.println(e);
-		}
-	}
 
 	public static String getDayOfWeek(int dowNum) {
 		switch(dowNum) {
@@ -54,7 +44,7 @@ public class MyreserveDAO {
 		return DAT;
 	}
 
-	public boolean showReservationList(int userID) throws IOException, InterruptedException {
+	public boolean showReservationList(String userID) throws IOException, InterruptedException {
 		try {
 			String sql = "SELECT reservationID,\n"
 				+ " seatType,\n"
@@ -67,10 +57,10 @@ public class MyreserveDAO {
 				+ " FROM reservation.reservations\n"
 				+ "JOIN reservation.games\n"
 				+ "on gameID = id\n"
-				+ "WHERE userID =" + userID;
-			rs = state.executeQuery(sql);
+				+ "WHERE userID =" + "'" + userID + "'";
+			ResultSet rs = dao.select(sql);
 			System.out.println();
-			Coloring.greenOut(userID + "번 회원님의 예매 정보입니다.");
+			Coloring.greenOut(userID + " 회원님의 예매 정보입니다.");
 			System.out.println("---------------------------------------------------------------------------------------");
 			boolean emptyReservation = true;
 			while(rs.next()) {
@@ -92,6 +82,7 @@ public class MyreserveDAO {
 				System.out.print("---------------------------------------------------------------------------------------\n");
 				emptyReservation = false;
 			}
+			rs.close();
 			return emptyReservation;
 		} catch(SQLException e) {
 			System.out.println("showReservationList SQLE!");
