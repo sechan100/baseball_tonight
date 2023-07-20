@@ -1,4 +1,4 @@
-package com.baseballtonight.data.dto;
+package com.baseballtonight.data.dao;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dao.MyreserveDAO;
+import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.statics.console.Coloring;
 
 public class CancelDAO {
@@ -20,7 +20,7 @@ public class CancelDAO {
 	BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 	public CancelDAO() {
-		String url = "jdbc:mysql://localhost:3306/?user=root";
+		String url = "jdbc:mysql://localhost:3306/baseball_tonight";
 		try {
 			con = DriverManager.getConnection(url, "root", "dlqhfka");
 			state = con.createStatement();
@@ -43,8 +43,8 @@ public class CancelDAO {
 					+ " stadium,\n"
 					+ " dateAndTime,\n"
 					+ " DAYOFWEEK(dateAndTime) As part \n"
-					+ " FROM reservation.reservations\n"
-					+ "JOIN reservation.games\n"
+					+ " FROM reservations\n"
+					+ "JOIN games\n"
 					+ "on gameID = id\n"
 					+ "WHERE reservationID =" + reservationID;
 				rs = state.executeQuery(cancelTargetReservationSelectSQL);
@@ -78,7 +78,7 @@ public class CancelDAO {
 				Coloring.redOut("해당 번호로 조회한 예매가 존재하지 않습니다. 다시 입력해 주십시오.\n >>>");
 			}
 		}
-		String cancelReservationSQL = "DELETE FROM reservation.reservations\n"
+		String cancelReservationSQL = "DELETE FROM reservations\n"
 			+ "WHERE reservationID = " + reservationID;
 		while(true) {
 			System.out.print(">>>");

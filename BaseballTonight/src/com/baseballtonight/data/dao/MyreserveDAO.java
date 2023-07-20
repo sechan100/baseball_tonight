@@ -53,8 +53,8 @@ public class MyreserveDAO {
 				+ " stadium,\n"
 				+ " dateAndTime,\n"
 				+ " DAYOFWEEK(dateAndTime) As part \n"
-				+ " FROM reservation.reservations\n"
-				+ "JOIN reservation.games\n"
+				+ " FROM reservations\n"
+				+ "JOIN games\n"
 				+ "on gameID = id\n"
 				+ "WHERE userID =" + "'" + userID + "'";
 			ResultSet rs = dao.select(sql);

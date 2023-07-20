@@ -12,7 +12,7 @@ public class LoginDAO {
 	 * @return If user data is registered, return user_password, not null.
 	 */
 	public String getUserPasswordByUserId(String user_id) {
-		String select_user_id_SQL = String.format("SELECT user_password FROM members.member WHERE user_id = '%s';",
+		String select_user_id_SQL = String.format("SELECT user_password FROM member WHERE user_id = '%s';",
 			user_id);
 		ResultSet rs = dao.select(select_user_id_SQL);
 		try {
@@ -24,7 +24,7 @@ public class LoginDAO {
 	}
 
 	public int getPreferredTeamNumById(String user_id) {
-		String load_user_id_SQL = String.format("SELECT preferred_team_num FROM members.member\n"
+		String load_user_id_SQL = String.format("SELECT preferred_team_num FROM member\n"
 			+ "WHERE user_id = '%s'", user_id);
 		ResultSet rs = dao.select(load_user_id_SQL);
 		try {

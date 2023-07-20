@@ -1,12 +1,13 @@
-package com.baseballtonight.data.dto;
+package com.baseballtonight.data.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.baseballtonight.data.dao.DAO;
+import com.baseballtonight.data.dto.Article;
+import com.baseballtonight.data.dto.ArticleReply;
 
-public class ParkInfoArticleDao {
+public class ArticleDAO {
 	DAO dao = new DAO();
 	private ResultSet resultSet;
 	private int parkId;
@@ -14,7 +15,7 @@ public class ParkInfoArticleDao {
 	private ArrayList<Article> searchedArticles;
 	private ArrayList<ArticleReply> replys;
 
-	public ParkInfoArticleDao(int parkId) {
+	public ArticleDAO(int parkId) {
 		this.parkId = parkId;
 		try {
 			this.articles = new ArrayList<>();

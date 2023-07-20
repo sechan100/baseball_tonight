@@ -3,7 +3,7 @@ package com.baseballtonight.service;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.baseballtonight.data.dto.CancelDAO;
+import com.baseballtonight.data.dao.CancelDAO;
 
 public class CancelServer {
 

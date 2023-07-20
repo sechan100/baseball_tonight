@@ -35,7 +35,7 @@ public class ReserveDAO {
 	}
 
 	public void showSeatList(int game_id) {
-		String loadSeatStatus = "SELECT *, DAYOFWEEK(dateAndTime) As part FROM reservation.games WHERE id = " + game_id;
+		String loadSeatStatus = "SELECT *, DAYOFWEEK(dateAndTime) As part FROM games WHERE id = " + game_id;
 		try {
 			Statement st = dao.getState();
 			ResultSet rs = st.executeQuery(loadSeatStatus);
@@ -75,7 +75,7 @@ public class ReserveDAO {
 	}
 
 	public int[] loadPriceData(String dayOfWeek) throws SQLException {
-		ResultSet priceData = dao.select("SELECT * FROM reservation.seats ORDER BY weekdayPrice DESC");
+		ResultSet priceData = dao.select("SELECT * FROM seats ORDER BY weekdayPrice DESC");
 		int[] price = new int[6];
 		int ColumnNumberByDayOfWeek;
 		if(dayOfWeek.equals("월요일") ||
@@ -112,7 +112,7 @@ public class ReserveDAO {
 		try {
 			HashSet<Integer> seatBlockSet  = new HashSet<>();
 			String loadSeatBlockScopeSQL = String.format(
-				"SELECT seatBlockScope FROM reservation.seats WHERE seatType = '%s'", seatType);
+				"SELECT seatBlockScope FROM seats WHERE seatType = '%s'", seatType);
 			ResultSet rs = dao.select(loadSeatBlockScopeSQL);
 			StringBuilder blockScope = new StringBuilder();
 			while(rs.next()) {
@@ -141,11 +141,11 @@ public class ReserveDAO {
 
 	public void addNewReservation(int game_id, String seatType, int seatBlock) {
 		String addReservationSQL = String.format(
-			"INSERT INTO reservation.reservations (gameID, seatType, seatBlock, userID) "
+			"INSERT INTO reservations (gameID, seatType, seatBlock, userID) "
 				+ "VALUES (%d, '%s', %d, '%s')",
 			game_id, seatType, seatBlock, Member.getMem_id());
 		String updateGameInfoSQL = String.format(
-			"UPDATE reservation.games\n"
+			"UPDATE games\n"
 				+ "SET `%s` = `%s` - 1\n"
 				+ "WHERE id = %d;",
 			seatType, seatType, game_id);
@@ -155,7 +155,6 @@ public class ReserveDAO {
 			st.executeUpdate(updateGameInfoSQL);
 		} catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("에베");
 		}
 	}
 }
