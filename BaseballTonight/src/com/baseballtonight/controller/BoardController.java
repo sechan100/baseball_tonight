@@ -3,8 +3,9 @@ package com.baseballtonight.controller;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.baseballtonight.data.Team;
-import com.baseballtonight.service.BoardService;
+import com.baseballtonight.dto.Team;
+import com.baseballtonight.service.MainService;
+import com.baseballtonight.service.board.BoardService;
 import com.baseballtonight.util.console.UserInput;
 
 public class BoardController { // 새로 추가된 Controller class
@@ -36,7 +37,7 @@ public class BoardController { // 새로 추가된 Controller class
 				System.out.println();
 				continue;
 			} else if (command == 0) {
-				MainController.mainMenu();
+				MainService.mainMenu();
 				break;
 			} else if (command == 9) {
 				StadiumInfoController.cmdRun(Team.getTeamByTeamNum(parkId));

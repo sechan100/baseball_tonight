@@ -1,7 +1,9 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao.member;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.baseballtonight.dao.DAO;
 
 public class LoginDAO {
 	DAO dao = new DAO();

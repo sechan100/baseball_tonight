@@ -3,9 +3,10 @@ package com.baseballtonight.controller;
 import java.io.IOException;
 import java.util.HashSet;
 
-import com.baseballtonight.data.Team;
-import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.service.StadiumInfoService;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.dto.Team;
+import com.baseballtonight.service.MainService;
+import com.baseballtonight.service.information.StadiumInfoService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.Message;
 import com.baseballtonight.util.console.UserInput;
@@ -54,7 +55,7 @@ public class StadiumInfoController {
 			break;
 
 		case "board":
-			new BoardController(team.num, team.name, Member.getMem_id());
+			new BoardController(team.num, team.name, Member.getId());
 			break;
 
 		case "other":
@@ -66,7 +67,7 @@ public class StadiumInfoController {
 			break;
 
 		case "main":
-			MainController.mainMenu();
+			MainService.mainMenu();
 			break;
 		}
 	}
@@ -74,9 +75,9 @@ public class StadiumInfoController {
 	// (기본값) 선호하는 팀의 경기장 정보 보기.
 	public static void showPrfStadiumInfo() throws IOException, InterruptedException{
 		// ex) "회원님의 응원 구단인 한화이글스의 홈구장, 대전 한화생명 이글스파크의 정보 페이지입니다."처럼 출력.
-		System.out.println("회원님의 응원 구단인 " + Coloring.getPurple(Member.getPrf_team().name) + "의 홈구장, '"
-			+ Coloring.getYellow(Member.getPrf_team().stadium) + "'의 정보 페이지 입니다.\n\n");
-		StadiumInfoController.cmdRun(Member.getPrf_team());
+		System.out.println("회원님의 응원 구단인 " + Coloring.getPurple(Member.getPrfTeam().name) + "의 홈구장, '"
+			+ Coloring.getYellow(Member.getPrfTeam().stadium) + "'의 정보 페이지 입니다.\n\n");
+		StadiumInfoController.cmdRun(Member.getPrfTeam());
 	}
 	
 	// 선호하는 팀이 아닌 다른 구단의 경기장 정보 보기. (other 명령어의 응답 함수)

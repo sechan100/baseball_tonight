@@ -1,4 +1,4 @@
-package com.baseballtonight.data.dto;
+package com.baseballtonight.dto;
 
 public class Article {
 	

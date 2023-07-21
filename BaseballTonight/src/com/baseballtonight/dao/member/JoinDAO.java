@@ -1,6 +1,8 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao.member;
 
 import java.sql.ResultSet;
+
+import com.baseballtonight.dao.DAO;
 
 public class JoinDAO {
 	ResultSet rs;

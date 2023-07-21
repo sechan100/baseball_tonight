@@ -1,7 +1,7 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.information;
 
-import com.baseballtonight.data.Team;
-import com.baseballtonight.data.dao.StadiumInfoDAO;
+import com.baseballtonight.dao.information.StadiumInfoDAO;
+import com.baseballtonight.dto.Team;
 import com.baseballtonight.util.console.Coloring;
 
 

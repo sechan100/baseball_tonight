@@ -1,11 +1,12 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao.reservation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dao.DAO;
+import com.baseballtonight.dto.Member;
 import com.baseballtonight.util.console.Coloring;
 
 public class ReserveDAO {
@@ -146,7 +147,7 @@ public class ReserveDAO {
 		String addReservationSQL = String.format(
 			"INSERT INTO reservations (gameID, seatType, seatBlock, userID) "
 				+ "VALUES (%d, '%s', %d, '%s')",
-			game_id, seatType, seatBlock, Member.getMem_id());
+			game_id, seatType, seatBlock, Member.getId());
 		String updateGameInfoSQL = String.format(
 			"UPDATE games\n"
 				+ "SET `%s` = `%s` - 1\n"

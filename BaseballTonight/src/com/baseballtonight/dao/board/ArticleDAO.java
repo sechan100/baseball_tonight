@@ -1,11 +1,12 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao.board;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.baseballtonight.data.dto.Article;
-import com.baseballtonight.data.dto.ArticleReply;
+import com.baseballtonight.dao.DAO;
+import com.baseballtonight.dto.Article;
+import com.baseballtonight.dto.ArticleReply;
 
 public class ArticleDAO {
 	DAO dao = new DAO();

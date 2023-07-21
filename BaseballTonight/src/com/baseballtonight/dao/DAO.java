@@ -1,4 +1,4 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

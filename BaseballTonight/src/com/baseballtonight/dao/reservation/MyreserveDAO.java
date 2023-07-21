@@ -1,4 +1,4 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao.reservation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.baseballtonight.dao.DAO;
 import com.baseballtonight.util.console.Coloring;
 
 public class MyreserveDAO {

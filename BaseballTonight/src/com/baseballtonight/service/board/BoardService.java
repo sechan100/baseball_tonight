@@ -1,11 +1,11 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.board;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.baseballtonight.data.dao.ArticleDAO;
-import com.baseballtonight.data.dto.Article;
-import com.baseballtonight.data.dto.ArticleReply;
+import com.baseballtonight.dao.board.ArticleDAO;
+import com.baseballtonight.dto.Article;
+import com.baseballtonight.dto.ArticleReply;
 
 
 

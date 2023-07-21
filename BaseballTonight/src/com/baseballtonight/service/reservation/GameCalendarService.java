@@ -1,11 +1,11 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.reservation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.baseballtonight.data.dao.DAO;
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dao.DAO;
+import com.baseballtonight.dto.Member;
 import com.baseballtonight.util.console.Coloring;
 
 public class GameCalendarService {
@@ -158,12 +158,12 @@ class GameCalendarDAO {
 			HashMap<Integer, Integer> game_id_map = new HashMap<>();
 			String select_preferred_games_SQL = String.format(
 				"SELECT id, name, stadium, dateAndTime, premium, `table`, blue, red, navy, green, DAYOFWEEK(dateAndTime) As part, opponent_club_num, home_club_num FROM games WHERE name LIKE '%%%s%%' ORDER BY dateAndTime ASC",
-				Member.getPrf_team().name);
+				Member.getPrfTeam().name);
 			ResultSet rs = dao.select(select_preferred_games_SQL);
 			while(rs.next()){
 				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분 ";
 				int day = Integer.parseInt((rs.getString(4).substring(8, 9).equals("0") ? rs.getString(4).substring(9, 10) : rs.getString(4).substring(8, 10)));
-				int opponent_club_num = (rs.getInt(12) == Member.getPrf_team().num ? rs.getInt(13) : rs.getInt(12) + 100);
+				int opponent_club_num = (rs.getInt(12) == Member.getPrfTeam().num ? rs.getInt(13) : rs.getInt(12) + 100);
 				// 홈 경기인 경우, 100을 더해서 홈 경기임을 표시.
 				
 				// 홈 경기인 경우.

@@ -1,16 +1,16 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.member;
 
 import java.io.IOException;
 
 import com.baseballtonight.AppEntering;
-import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 
 public class LogoutService {
 	public static void serviceRun() throws IOException, InterruptedException {
-		Coloring.greenOut("현재 로그인 중인 아이디: " + Member.getMem_id());
+		Coloring.greenOut("현재 로그인 중인 아이디: " + Member.getId());
 		Coloring.greenOut("정말로 로그아웃 하시겠습니까? (Y/N)");
 		
 		// y or n 입력.
@@ -32,7 +32,7 @@ public class LogoutService {
 			Thread.sleep(1500);
 			
 			// 메인으로 이동.
-			MainController.mainMenu();
+			MainService.mainMenu();
 		}
 	}
 }

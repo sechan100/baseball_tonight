@@ -2,8 +2,9 @@ package com.baseballtonight.controller;
 
 import java.io.IOException;
 
-import com.baseballtonight.service.JoinService;
-import com.baseballtonight.service.LoginService;
+import com.baseballtonight.service.MainService;
+import com.baseballtonight.service.member.JoinService;
+import com.baseballtonight.service.member.LoginService;
 
 public class GuestController {
 	public static void cmdRun(String cmd) throws IOException, InterruptedException {
@@ -16,7 +17,7 @@ public class GuestController {
 			LoginService.doLogin();
 			
 			// 메인 페이지 실행
-			MainController.mainMenu();
+			MainService.mainMenu();
 			break;
 		}
 	}

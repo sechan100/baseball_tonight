@@ -1,11 +1,11 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.member;
 
 import java.io.IOException;
 
-import com.baseballtonight.data.Team;
-import com.baseballtonight.data.dao.JoinDAO;
-import com.baseballtonight.data.dao.LoginDAO;
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dao.member.JoinDAO;
+import com.baseballtonight.dao.member.LoginDAO;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.dto.Team;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 

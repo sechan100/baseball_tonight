@@ -1,33 +1,19 @@
-package com.baseballtonight.data.dao;
+package com.baseballtonight.dao.reservation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dao.DAO;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 
 public class CancelDAO {
-	Connection con;
-	Statement state;
-	ResultSet rs;
 	BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
-
-	public CancelDAO() {
-		String url = "jdbc:mysql://localhost:3306/baseball_tonight";
-		try {
-			con = DriverManager.getConnection(url, "root", "dlqhfka");
-			state = con.createStatement();
-		} catch(Exception e) {
-			e.getMessage();
-		}
-	}
+	DAO dao = new DAO();
 
 	public void cancelReservation() throws NumberFormatException, IOException, SQLException, InterruptedException {
 		System.out.print("\n취소를 원하시는 예매의 예매번호를 입력하여 주십시오.\n>>>");
@@ -47,10 +33,10 @@ public class CancelDAO {
 					+ "JOIN games\n"
 					+ "on gameID = id\n"
 					+ "WHERE reservationID =" + reservationID;
-				rs = state.executeQuery(cancelTargetReservationSelectSQL);
+				ResultSet rs = dao.select(cancelTargetReservationSelectSQL);
 				System.out.println();
 				rs.next();
-				if(!rs.getString(4).equals(Member.getMem_id())) {
+				if(!rs.getString(4).equals(Member.getId())) {
 					throw new Exception();
 				}
 				String gameName = rs.getString(5);
@@ -84,7 +70,7 @@ public class CancelDAO {
 			System.out.print(">>>");
 			String answer = rd.readLine().toLowerCase();
 			if(answer.equals("y")) {
-				state.executeUpdate(cancelReservationSQL);
+				dao.update(cancelReservationSQL);
 				Coloring.greenOut("예매 취소가 완료되었습니다. 감사합니다.");
 				break;
 			} else if(answer.equals("n")) {
@@ -95,6 +81,6 @@ public class CancelDAO {
 			}
 		}
 		Thread.sleep(1500);
-		MainController.mainMenu();
+		MainService.mainMenu();
 	}
 }

@@ -22,7 +22,7 @@ public class Message {
 		+"-------------------------------\n"
 		+ Coloring.getCyan("좌석 정보:		seats \n")
 		+"-------------------------------\n"
-		+ Coloring.getCyan("회원정보:		self \n")
+		+ Coloring.getCyan("내정보 조회:		self \n")
 		+"-------------------------------\n"
 		+ Coloring.getCyan("로그아웃:		logout \n")
 		+"-------------------------------\n"
@@ -30,6 +30,7 @@ public class Message {
 		+"-------------------------------";
 	
 	public static String stadium_info_cmd_ls = ""
+		+"-------------------------------\n"
 		+ Coloring.getCyan("식음료 정보:	eat\n")
 		+"-------------------------------\n"
 		+ Coloring.getCyan("경기장 찾기-버스:	bus\n")
@@ -44,6 +45,17 @@ public class Message {
 		+"-------------------------------\n"
 		+ Coloring.getCyan("메인 메뉴:		main\n")
 		+"-------------------------------\n";
+	
+	public static String self_cmd_ls = ""
+		+"-------------------------------\n"
+		+ Coloring.getCyan("비밀번호 변경:	password\n")
+		+"-------------------------------\n"
+		+ Coloring.getCyan("응원구단 변경:	team\n")
+		+"-------------------------------\n"
+		+ Coloring.getCyan("메인 메뉴:	main\n")
+		+"-------------------------------\n";
+
+	
 
 	public static void showMemberCommands() {
 		System.out.println("\n\n" + main_cmd_ls);

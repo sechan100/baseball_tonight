@@ -1,4 +1,4 @@
-package com.baseballtonight.data;
+package com.baseballtonight.dto;
 
 import com.baseballtonight.util.console.Coloring;
 

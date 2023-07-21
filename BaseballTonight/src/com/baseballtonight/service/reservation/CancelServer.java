@@ -1,9 +1,9 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.reservation;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.baseballtonight.data.dao.CancelDAO;
+import com.baseballtonight.dao.reservation.CancelDAO;
 
 public class CancelServer {
 

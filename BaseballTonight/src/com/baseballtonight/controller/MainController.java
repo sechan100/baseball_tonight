@@ -4,13 +4,12 @@ package com.baseballtonight.controller;
 import java.io.IOException;
 import java.util.HashSet;
 
-import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.service.LogoutService;
-import com.baseballtonight.service.MyreserveService;
-import com.baseballtonight.service.ReserveService;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.self.SelfService;
+import com.baseballtonight.service.member.LogoutService;
+import com.baseballtonight.service.reservation.MyreserveService;
+import com.baseballtonight.service.reservation.ReserveService;
 import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.Message;
-import com.baseballtonight.util.console.UserInput;
 
 public class MainController {
 	public static Member mem;
@@ -24,13 +23,6 @@ public class MainController {
 		main_cmd.add("self");
 		main_cmd.add("logout");
 		main_cmd.add("exit");
-	}
-	
-	public static void mainMenu() throws IOException, InterruptedException {
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.println(Message.app_starting_msg);
-		System.out.println(Message.main_cmd_ls);
-		MainController.cmdRun(UserInput.receiveContainedString(MainController.main_cmd));
 	}
 	
 	public static void cmdRun(String cmd) throws IOException, InterruptedException {
@@ -52,7 +44,7 @@ public class MainController {
 			break;
 			
 		case "self":
-			
+			SelfService.serviceRun();
 			break;
 			
 		case "logout":

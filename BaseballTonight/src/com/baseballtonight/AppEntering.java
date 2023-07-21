@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.controller.GuestController;
-import com.baseballtonight.controller.MainController;
+import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.Message;
 import com.baseballtonight.util.console.UserInput;
@@ -32,7 +32,7 @@ public class AppEntering {
 			String userCmd = UserInput.receiveContainedString(cmd_set);
 			GuestController.cmdRun(userCmd);
 			if(userCmd.equals("login")){
-				MainController.mainMenu();
+				MainService.mainMenu();
 				break;
 			}
 		}

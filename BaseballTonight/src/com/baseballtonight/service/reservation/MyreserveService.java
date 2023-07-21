@@ -1,11 +1,12 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.reservation;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dao.MyreserveDAO;
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dao.reservation.MyreserveDAO;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 
 public class MyreserveService {
@@ -16,7 +17,7 @@ public class MyreserveService {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
 			// 예매 정보 리스트 보이기.
-			boolean emptyReservation = dao.showReservationList(Member.getMem_id());
+			boolean emptyReservation = dao.showReservationList(Member.getId());
 
 			// 예매 정보가 없다면 예매 페이지 이동을 추천, 아니라면 commandList 보이기.
 			if(emptyReservation) {
@@ -28,7 +29,7 @@ public class MyreserveService {
 						ReserveService.serviceRun();
 						break;
 					} else if(userAnswer.equals("n")) {
-						MainController.mainMenu();
+						MainService.mainMenu();
 						break;
 					} else {
 						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
@@ -45,7 +46,7 @@ public class MyreserveService {
 					} else if(userAnswer.equals("n")) {
 						Coloring.purpleOut("취소페이지로 이동하지 못했습니다. 메인으로 이동합니다.");
 						Thread.sleep(1500);
-						MainController.mainMenu();
+						MainService.mainMenu();
 						break;
 					} else {
 						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");

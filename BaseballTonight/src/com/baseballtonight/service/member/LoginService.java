@@ -1,10 +1,10 @@
-package com.baseballtonight.service;
+package com.baseballtonight.service.member;
 
 import java.io.IOException;
 
-import com.baseballtonight.controller.MainController;
-import com.baseballtonight.data.dao.LoginDAO;
-import com.baseballtonight.data.dto.Member;
+import com.baseballtonight.dao.member.LoginDAO;
+import com.baseballtonight.dto.Member;
+import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 
@@ -64,7 +64,7 @@ public class LoginService {
 				Member.setAll(user_id, user_password, prf_team_num);
 				Coloring.greenOut("로그인 되셨습니다. " + user_id + "님, 환영합니다.");
 				Thread.sleep(1000);
-				MainController.mainMenu();
+				MainService.mainMenu();
 				break;
 			}
 			Coloring.redOut("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
