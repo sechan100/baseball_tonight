@@ -46,6 +46,7 @@ public class UserInput {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
 			try {
+				System.out.print(">>>");
 				int num = Integer.parseInt(rd.readLine());
 				if(!set.contains(num)) {
 					throw new NumberFormatException();

@@ -8,10 +8,10 @@ import com.baseballtonight.data.dao.MyreserveDAO;
 import com.baseballtonight.data.dto.Member;
 import com.baseballtonight.util.console.Coloring;
 
-public class MyreserveModule {
+public class MyreserveService {
 	static MyreserveDAO dao = new MyreserveDAO();
 
-	public static void serverRun() {
+	public static void serviceRun() {
 		try {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 
@@ -25,7 +25,7 @@ public class MyreserveModule {
 					System.out.print(">>>");
 					String userAnswer = rd.readLine().toLowerCase();
 					if(userAnswer.equals("y")) {
-						ReserveModule.moduleRun();
+						ReserveService.serviceRun();
 						break;
 					} else if(userAnswer.equals("n")) {
 						MainController.mainMenu();

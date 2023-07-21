@@ -14,7 +14,7 @@ public class AppEntering {
 		while(true){
 			System.out.println(Message.app_starting_msg);
 			Thread.sleep(1000);
-			Coloring.greenOut("회원가입 후 이용 가능합니다. 이미 계정이 있으시다면 로그인 해주세요.");
+			Coloring.greenOut("로그인 후 이용가능합니다. 계정이 없으시다면 회원가입을 해주세요.");
 			System.out.println(""
 				+ "-------------\n"
 				+ Coloring.getCyan("회원가입: join \n")

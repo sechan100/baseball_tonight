@@ -9,15 +9,14 @@ import java.util.HashSet;
 import com.baseballtonight.controller.MainController;
 import com.baseballtonight.data.dao.ReserveDAO;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.util.SQL.ReservationSQL;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 
-public class ReserveModule {
+public class ReserveService {
 	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 	static ReserveDAO dao = new ReserveDAO();
 
-	public static void moduleRun() throws IOException, InterruptedException {
+	public static void serviceRun() throws IOException, InterruptedException {
 
 		boolean show_preferred_game_schedule = Games.showGameList(dao);
 		if(show_preferred_game_schedule){
@@ -46,16 +45,18 @@ class Games {
 	public static int gameId;
 
 	public static boolean showGameList(ReserveDAO dao) throws IOException, InterruptedException {
-		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N)\n (N을 입력하시면 전체 일정을 봅니다.)");
+		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N) (N: 전체 경기일정 보기)");
 		boolean user_answer = UserInput.receiveYesOrNo();
 		if(user_answer) {
-			Coloring.purpleOut("선호 팀: " + Member.getPrf_team().name + "의 경기 정보 불러오는 중..");
+			Coloring.greenOut("선호 팀: " + Member.getPrf_team().name + "의 경기 정보 불러오는 중..");
 			Thread.sleep(1000);
 			game_id_map = GameCalendarService.showCalendar();
 		} else {
-			Coloring.purpleOut("예매 가능한 전체 경기 일정 불러오는 중..");
+			Coloring.greenOut("예매 가능한 전체 경기 일정 불러오는 중..");
 			Thread.sleep(1000);
-			gameIdSet = dao.showGameList(ReservationSQL.select_all_games_SQL);
+			
+			String select_all_games_SQL = "SELECT id, name, stadium, dateAndTime, premium, `table`, blue, red, navy, green, DAYOFWEEK(dateAndTime) As part, opponent_club_num, home_club_num FROM games ORDER BY dateAndTime ASC";
+			gameIdSet = dao.showGameList(select_all_games_SQL);
 		}
 		// 선호하는 팀의 경기 일정만을 본 경우, true return.
 		return user_answer;
@@ -83,6 +84,7 @@ class Seats {
 	static ReserveDAO dao = new ReserveDAO();
 
 	public static void choiceSeatType() {
+		System.out.println("\n\n\n");
 		dao.showSeatList(Games.gameId);
 		System.out.print("예매를 원하시는 좌석의 종류를 영문으로 입력하여 주십시오.\n\n>>> ");
 		seatType = UserInput.receiveSeatType();
@@ -92,7 +94,7 @@ class Seats {
 		seatBlockSeat = dao.showSeatBlock(seatType);
 		seatBlock = 0; // premium석 선택한 경우 기본값인 0을 seatBlock번호로 가지고 진입.
 		if(!seatType.equals("premium")) {
-			System.out.println(seatType + "석 블럭중, 관람을 원하시는 블럭 번호를 입력하여 주십시오.");
+			Coloring.greenOut(seatType + "석 블럭중, 관람을 원하시는 블럭 번호를 입력하여 주십시오.");
 			seatBlock = UserInput.receiveContainedNum(seatBlockSeat);
 		}
 	}

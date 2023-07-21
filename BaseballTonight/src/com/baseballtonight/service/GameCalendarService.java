@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import com.baseballtonight.data.dao.DAO;
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.util.SQL.ReservationSQL;
 import com.baseballtonight.util.console.Coloring;
 
 public class GameCalendarService {
@@ -16,16 +15,16 @@ public class GameCalendarService {
 		public static HashMap<Integer, String> day_schedule_time = new HashMap<>();
 		static {
 			home_game[0] = ("         ");
-			home_game[1] = Coloring.getCyan("   SSG   ");
-			home_game[2] = Coloring.getCyan(" KIWOOM  ");
-			home_game[3] = Coloring.getCyan("   LG    ");
-			home_game[4] = Coloring.getCyan("   KT    ");
-			home_game[5] = Coloring.getCyan("   KIA   ");
-			home_game[6] = Coloring.getCyan("   NC    ");
-			home_game[7] = Coloring.getCyan(" SAMSUNG ");
-			home_game[8] = Coloring.getCyan("  LOTTE  ");
-			home_game[9] = Coloring.getCyan(" DOOSAN  ");
-			home_game[10] = Coloring.getCyan(" HANWHA  ");
+			home_game[1] = Coloring.getPurple("   SSG   ");
+			home_game[2] = Coloring.getPurple(" KIWOOM  ");
+			home_game[3] = Coloring.getPurple("   LG    ");
+			home_game[4] = Coloring.getPurple("   KT    ");
+			home_game[5] = Coloring.getPurple("   KIA   ");
+			home_game[6] = Coloring.getPurple("   NC    ");
+			home_game[7] = Coloring.getPurple(" SAMSUNG ");
+			home_game[8] = Coloring.getPurple("  LOTTE  ");
+			home_game[9] = Coloring.getPurple(" DOOSAN  ");
+			home_game[10] = Coloring.getPurple(" HANWHA  ");
 			///////////
 			away_game[0] = ("         ");
 			away_game[1] = ("   SSG   ");
@@ -157,7 +156,10 @@ class GameCalendarDAO {
 	public HashMap<Integer, Integer> loadSchedule() {
 		try {
 			HashMap<Integer, Integer> game_id_map = new HashMap<>();
-			ResultSet rs = dao.select(ReservationSQL.select_preferred_games_SQL);
+			String select_preferred_games_SQL = String.format(
+				"SELECT id, name, stadium, dateAndTime, premium, `table`, blue, red, navy, green, DAYOFWEEK(dateAndTime) As part, opponent_club_num, home_club_num FROM games WHERE name LIKE '%%%s%%' ORDER BY dateAndTime ASC",
+				Member.getPrf_team().name);
+			ResultSet rs = dao.select(select_preferred_games_SQL);
 			while(rs.next()){
 				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분 ";
 				int day = Integer.parseInt((rs.getString(4).substring(8, 9).equals("0") ? rs.getString(4).substring(9, 10) : rs.getString(4).substring(8, 10)));

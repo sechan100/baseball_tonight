@@ -118,17 +118,20 @@ public class ReserveDAO {
 			while(rs.next()) {
 				String[] tem1 = rs.getString(1).split(", ");
 				for(String scope : tem1) {
-					blockScope.append("\n| ");
+					blockScope.append(Coloring.getCyan("\n| "));
 					int startBlock = Integer.parseInt(scope.substring(0, scope.indexOf("~")).trim()); // 앞 번호
 					int endBlock = Integer.parseInt(scope.substring(scope.indexOf("~") + 1).trim()); // 뒷 번호
 					while(startBlock <= endBlock) {
-						blockScope.append(startBlock + " | ");
+						blockScope.append(startBlock + Coloring.getCyan(" | "));
 						seatBlockSet.add(startBlock);
 						startBlock++;
 					}
 				}
 			}
-			Coloring.greenOut(seatType + "석에서 예매 가능한 블럭목록입니다." + blockScope);
+			Coloring.greenOut(seatType + "석에서 예매 가능한 블럭목록입니다.");
+			System.out.println("------------------------------------------------------------");
+			System.out.println(blockScope);
+			System.out.println("------------------------------------------------------------");
 			rs.close();
 			return seatBlockSet;
 		} catch(NullPointerException NPE) { // premium석 선택한 경우.

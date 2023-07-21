@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.data.dto.Member;
-import com.baseballtonight.service.MyreserveModule;
-import com.baseballtonight.service.ReserveModule;
+import com.baseballtonight.service.LogoutService;
+import com.baseballtonight.service.MyreserveService;
+import com.baseballtonight.service.ReserveService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.Message;
 import com.baseballtonight.util.console.UserInput;
@@ -21,11 +22,13 @@ public class MainController {
 		main_cmd.add("stadium");
 		main_cmd.add("seats");
 		main_cmd.add("self");
+		main_cmd.add("logout");
 		main_cmd.add("exit");
 	}
 	
 	public static void mainMenu() throws IOException, InterruptedException {
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.println(Message.app_starting_msg);
 		System.out.println(Message.main_cmd_ls);
 		MainController.cmdRun(UserInput.receiveContainedString(MainController.main_cmd));
 	}
@@ -33,11 +36,11 @@ public class MainController {
 	public static void cmdRun(String cmd) throws IOException, InterruptedException {
 		switch(cmd){
 		case "reserve":
-			ReserveModule.moduleRun();
+			ReserveService.serviceRun();
 			break;
 			
 		case "myreserve":
-			MyreserveModule.serverRun();
+			MyreserveService.serviceRun();
 			break;
 			
 		case "stadium":
@@ -50,6 +53,10 @@ public class MainController {
 			
 		case "self":
 			
+			break;
+			
+		case "logout":
+			LogoutService.serviceRun();
 			break;
 			
 		case "exit":

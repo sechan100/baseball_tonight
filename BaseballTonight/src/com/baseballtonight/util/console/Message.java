@@ -1,15 +1,18 @@
 package com.baseballtonight.util.console;
 
 public class Message {
-	public static String app_starting_msg = Coloring.getCyan(""
-		+ " ___   _   __  ___  ___   _   _    _     ___   _   _  _  _   __  _ _  ___ \n"
-		+ "| o ) / \\ / _|| __|| o ) / \\ | |  | |   |_ _| / \\ | \\| || | / _|| U ||_ _|\n"
-		+ "| o \\| o |\\_ \\| _| | o \\| o || |_ | |_   | | ( o )| \\\\ || |( |_n|   | | | \n"
-		+ "|___/|_n_||__/|___||___/|_n_||___||___|  |_|  \\_/ |_|\\_||_| \\__/|_n_| |_| \n"
-		+ "                                                                          ");
+	public static String app_starting_msg = ""
+		+ Coloring.getCyan("______                    _             _  _          _____                _         _      _   \n")
+		+ Coloring.getCyan("| ___ \\                  | |           | || |        |_   _|              (_)       | |    | |  \n")
+		+ Coloring.getCyan("| |_/ /  __ _  ___   ___ | |__    __ _ | || |  ____    | |    ___   _ __   _   __ _ | |__  | |_ \n")
+		+ Coloring.getCyan("| ___ \\ / _` |/ __| / _ \\| '_ \\  / _` || || | |____|   | |   / _ \\ | '_ \\ | | / _` || '_ \\ | __|\n")
+		+ Coloring.getCyan("| |_/ /| (_| |\\__ \\|  __/| |_) || (_| || || |          | |  | (_) || | | || || (_| || | | || |_ \n")
+		+ Coloring.getBlue("\\____/  \\__,_||___/ \\___||_.__/  \\__,_||_||_|          \\_/   \\___/ |_| |_||_| \\__, ||_| |_| \\__|\n")
+		+ Coloring.getBlue("                                                                               __/ |            \n")
+		+ Coloring.getBlue("                                                                              |___/             \n");
 	
 	public static String main_cmd_ls = 
-		"	<메인 페이지>\n"
+		  Coloring.getBlue("	<MAIN - MENU>\n")
 		+"-------------------------------\n"
 		+ Coloring.getCyan("경기 예매하기:	reserve \n")
 		+"-------------------------------\n"
@@ -20,6 +23,8 @@ public class Message {
 		+ Coloring.getCyan("좌석 정보:		seats \n")
 		+"-------------------------------\n"
 		+ Coloring.getCyan("회원정보:		self \n")
+		+"-------------------------------\n"
+		+ Coloring.getCyan("로그아웃:		logout \n")
 		+"-------------------------------\n"
 		+ Coloring.getCyan("애플리케이션 종료:	exit \n")
 		+"-------------------------------";

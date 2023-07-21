@@ -21,38 +21,36 @@ public class BoardService {
 		this.parkInfoArticleDao = new ArticleDAO(parkId);
 	}
 	
-	public void showArticleList() {
+	public void showArticleList() { // 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		articles = parkInfoArticleDao.getArticleList();
-		
-		System.out.println();
-		System.out.println("<게시글 목록>");
-		System.out.println();
-		if (articles.size() == 0) {
-			System.out.println("게시글이 없습니다.");
-			System.out.println();
-		}
+				
 		for (Article a : articles) {
-			System.out.println(a.id + "번 게시글 " + "( 제목 : " + a.title + " )" + " ( 조회수 : " + a.hit + " ) " + " ( 추천수 : " + a.recommend + " ) ");
+			System.out.printf(" %-5d%-10s%-13s%-6d%-6d%s\n",a.id,a.memberId,a.regDate,a.hit,a.recommend,a.title);
 		}
-		System.out.println();
 	}
 	
-	public void showSearchedArticle(String searchKey) {
+	public void showSearchedArticle(String searchKey) {         // 수정함 07/20!!!!!!!!!!!!!!!!!!!!!!!!!
 		articles = parkInfoArticleDao.getSearchedArticle(searchKey);
 		System.out.println();
 		System.out.println("< 검색 결과 >\n");
 		
-		if(articles.size() == 0) {
-			System.out.println("검색된 게시글이 없습니다.");
+		System.out.println("\n");
+		System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" 9. 뒤로가기                        <"+searchKey+" 검색결과 >                           0. 메인메뉴  \n");
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" 번호   작성자         등록일     조회   추천    제목      \n");
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        for (Article a : articles) {
+			System.out.printf(" %-5d%-10s%-13s%-6d%-6d%s\n",a.id,a.memberId,a.regDate,a.hit,a.recommend,a.title);
 		}
-		for (Article a : articles) {
-			System.out.println(a.id + "번 게시글 " + "( 제목 : " + a.title + " )" + " ( 조회수 : " + a.hit + " ) " + " ( 작성일 : " + a.regDate + " ) ");
-		}
+		System.out.printf("-------------------------------------------------------------------------------------------\n");
+		System.out.printf(" 3. 글쓰기                                                         1. 검색   2. 게시글 열기     \n");
+		
 		
 		
 	}
 	
-	public int showArticleDetail(String articleTitle,Scanner sc)	{
+	public int showArticleDetail(String articleTitle,Scanner sc)	{ // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!
 		Article article = parkInfoArticleDao.getArticle(articleTitle);
 		
 		if(article == null) {
@@ -63,14 +61,16 @@ public class BoardService {
 			return -1;
 		}
 		
-		System.out.println(article.id + "번 게시글 ( 조회수 : " + article.hit + " ) "
-				+ " (작성시간 : " + article.regDate + " )");
-		System.out.println("작성자 : " + article.memberId); 
-		System.out.println("제목 : " + article.title);
-		System.out.println("내용 : " + article.body);
-		System.out.println("추천수 : " + article.recommend);
-		System.out.println();
-		System.out.println();
+		System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" 5. 뒤로가기                                                        3. 수정     4.삭제        \n");
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" %-30s        %-24s  조회 : %-6d   추천 : %-6d\n",article.memberId,article.regDate,article.hit,article.recommend);
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" %s \n", article.title);
+        System.out.println();
+        System.out.printf(" %s \n", article.body);
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" 1. 추천  2. 추천취소                                                                        \n");
 		return 0;
 	}
 	
@@ -149,19 +149,16 @@ public class BoardService {
 		}
 	}
 	
-	public void showArticleRecommendList(String articleTitle) {
+	public void showArticleRecommendList(String articleTitle) {  // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this.replys = parkInfoArticleDao.getArticleReplyList(parkInfoArticleDao.getArticle(articleTitle).id);
-		System.out.println();
-		System.out.println("<댓글 목록>");
-		System.out.println();
-		if (replys.size() == 0) {
-			System.out.println("댓글이 없습니다.");
-			System.out.println();
-		}
+		System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf(" 작성자           작성일         댓글                                        6. 댓글작성       \n" );
+        System.out.printf("-------------------------------------------------------------------------------------------\n");
 		for (ArticleReply ar : replys) {
-			System.out.println(ar.memberId + " : " + ar.body + " ( " + ar.regDate + " )");
+			System.out.printf(" %-13s %-13s %s\n",ar.memberId,ar.regDate,ar.body);
 		}
 		System.out.println();
+		
 	}
 	
 	public void doArticleReplyWrite(String articleTitle, String body) {
