@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.self.SelfService;
+import com.baseballtonight.service.MainService;
 import com.baseballtonight.service.member.LogoutService;
 import com.baseballtonight.service.reservation.MyreserveService;
 import com.baseballtonight.service.reservation.ReserveService;
@@ -19,7 +20,6 @@ public class MainController {
 		main_cmd.add("reserve");
 		main_cmd.add("myreserve");
 		main_cmd.add("stadium");
-		main_cmd.add("seats");
 		main_cmd.add("self");
 		main_cmd.add("logout");
 		main_cmd.add("exit");
@@ -38,10 +38,7 @@ public class MainController {
 		case "stadium":
 			StadiumInfoController.showPrfStadiumInfo();
 			break;
-			
-		case "seats":
-			System.out.println("아직 업성요");
-			break;
+		
 			
 		case "self":
 			SelfService.serviceRun();
@@ -59,6 +56,7 @@ public class MainController {
 		default:
 			break;
 		}
+		MainService.mainMenu();
 	}
 	
 }

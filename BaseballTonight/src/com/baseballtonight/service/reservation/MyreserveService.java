@@ -3,10 +3,8 @@ package com.baseballtonight.service.reservation;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import com.baseballtonight.controller.MainController;
 import com.baseballtonight.dao.reservation.MyreserveDAO;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 
 public class MyreserveService {
@@ -29,7 +27,6 @@ public class MyreserveService {
 						ReserveService.serviceRun();
 						break;
 					} else if(userAnswer.equals("n")) {
-						MainService.mainMenu();
 						break;
 					} else {
 						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
@@ -46,7 +43,6 @@ public class MyreserveService {
 					} else if(userAnswer.equals("n")) {
 						Coloring.purpleOut("취소페이지로 이동하지 못했습니다. 메인으로 이동합니다.");
 						Thread.sleep(1500);
-						MainService.mainMenu();
 						break;
 					} else {
 						Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");

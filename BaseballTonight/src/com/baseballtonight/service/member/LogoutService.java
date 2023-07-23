@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.baseballtonight.AppEntering;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 
@@ -30,9 +29,6 @@ public class LogoutService {
 			// 출력.
 			Coloring.purpleOut("로그아웃에 실패하였습니다. 메인페이지로 이동합니다.");
 			Thread.sleep(1500);
-			
-			// 메인으로 이동.
-			MainService.mainMenu();
 		}
 	}
 }

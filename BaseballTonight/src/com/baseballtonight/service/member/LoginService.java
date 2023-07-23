@@ -31,7 +31,8 @@ public class LoginService {
 				if(user_password.equals(user_password_confirm)) {
 					int prf_team_num = dao.getPreferredTeamNumById(user_id);
 					Member.setAll(user_id, user_password, prf_team_num);
-					Coloring.greenOut("로그인 되셨습니다. " + user_id + "님, 환영합니다.");
+					Coloring.greenOut("로그인 되셨습니다. " + user_id + "님, 환영합니다.\n"
+						+ "응원 팀: " + Member.getPrfTeam().name);
 					Thread.sleep(1000);
 					break;
 				}

@@ -13,27 +13,27 @@ public class JoinService {
 	static JoinDAO dao = new JoinDAO();
 	
 	public static void doJoin() throws IOException, InterruptedException {
-		String member_id;
-		String member_password;
-		int prf_team_num;
+		String memId;
+		String memPassword;
+		int prfTeam_num;
 		
 		while(true){
 			// 아이디 입력.
 			Coloring.greenOut("\n회원가입: 아이디");
-			member_id = UserInput.receiveNoSpaceString();
+			memId = UserInput.receiveNoSpaceString();
 			
-			
-			/* 이미 등록된 아이디가 있는지 비밀번호를 한번 불러와본다. 
-			 * null이라면 신규 가입가능, 뭔가 존재한다면 이미 존재하는 아이디이므로 아이디 다시 입력.
-			 */
+			// 이미 등록된 아이디가 있는지 확인.(DB에서 비밀번호를 가져와서 null이 아니라면 기존 회원으로 판단.)
 			LoginDAO dao = new LoginDAO();
-			String registered_password = dao.getUserPasswordByUserId(member_id);
-			if(registered_password != null){
+			String registeredPassword = dao.getUserPasswordByUserId(memId);
+			
+			// 계정이 이미 존재하는 경우: 로그인 페이지로 이동하거나 회원가입 재시도.
+			// (아이디를 통해서 불러온 password값이 null이 아닌 경우)
+			if(registeredPassword != null){
 				Coloring.greenOut("\n이미 존재하는 아이디입니다. 해당 아이디로 로그인 할까요?(Y/N) (N: 회원가입 재시도)");
 				if(UserInput.receiveYesOrNo()){
 					Coloring.purpleOut("\n로그인 페이지로 이동합니다.");
 					Thread.sleep(1000);
-					LoginService.doLoginSincePassword(member_id);
+					LoginService.doLoginSincePassword(memId);
 					break;
 				} else {
 					continue;
@@ -45,33 +45,39 @@ public class JoinService {
 		while(true) {
 			// 비밀번호 입력.
 			Coloring.greenOut("\n회원가입: 비밀번호");
-			member_password = UserInput.receiveNoSpaceString();
+			memPassword = UserInput.receiveNoSpaceString();
+			
 			
 			// 비밀번호 확인
 			Coloring.greenOut("\n회원가입: 비밀번호 확인");
 			String member_password_confirm = UserInput.receiveNoSpaceString();
 			
+			
 			// '비밀번호 != 비밀번호 확인'이라면 == 일 때까지 무한 루프.
-			if(!member_password.equals(member_password_confirm)){
+			if(!memPassword.equals(member_password_confirm)){
 				Coloring.redOut("\n비밀번호 확인이 일치하지 않습니다. 다시 입력해 주십시오.");
 				continue;
 			}
 			break;
 		}
-		// 응원하는 팀을 선택.
-		System.out.println("\n회원가입: 응원하는 팀을 선택하여 주십시오.");
+		
+		// 응원팀 선택.
+		System.out.println("\n회원가입: 응원 팀을 선택하여 주십시오.");
+		Thread.sleep(1000);
+		
+		// 팀 리스트 출력.
 		System.out.println(Team.team_ls);
-		prf_team_num = UserInput.receiveLimitedRangeNum(1, 10);
+		prfTeam_num = UserInput.receiveLimitedRangeNum(1, 10);
 
 		
-		// DB 전달.
-		dao.newJoin(member_id, member_password, prf_team_num);
+		// DB 등록.
+		dao.newJoin(memId, memPassword, prfTeam_num);
 		
-		// MemberDTO 업데이트.
-		Member.setAll(member_id, member_password, prf_team_num);
-		Coloring.greenOut("회원가입이 완료되었습니다. ID: " + member_id);
+		
+		// Member에 상태 업데이트.
+		Member.setAll(memId, memPassword, prfTeam_num);
+		Coloring.greenOut("회원가입이 완료되었습니다. ID: " + memId);
 		Thread.sleep(1500);
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-	
 	}
 }

@@ -16,9 +16,9 @@ public class GuestController {
 		case "login":
 			LoginService.doLogin();
 			
-			// 메인 페이지 실행
-			MainService.mainMenu();
 			break;
 		}
+		// 메인 페이지 실행
+		MainService.mainMenu();
 	}
 }

@@ -8,7 +8,6 @@ import java.util.HashSet;
 
 import com.baseballtonight.dao.reservation.ReserveDAO;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 
@@ -33,9 +32,6 @@ public class ReserveService {
 		Thread.sleep(300);
 		Coloring.cyanOut("예매가 완료되었습니다. 감사합니다.");
 		Thread.sleep(1000);
-
-		// 초기화면으로 돌아가기
-		MainService.mainMenu();
 	}
 }
 
@@ -45,12 +41,13 @@ class Games {
 	public static int gameId;
 
 	public static boolean showGameList(ReserveDAO dao) throws IOException, InterruptedException {
-		Coloring.greenOut("선호하는 팀의 경기 일정만을 보시겠습니까? (Y/N) (N: 전체 경기일정 보기)");
+		Coloring.greenOut("응원 팀의 경기 일정만을 보시겠습니까? (Y/N) (N: 전체 경기일정 보기)");
 		boolean user_answer = UserInput.receiveYesOrNo();
 		if(user_answer) {
-			Coloring.greenOut("선호 팀: " + Member.getPrfTeam().name + "의 경기 정보 불러오는 중..");
+			Coloring.greenOut("응원 팀: " + Member.getPrfTeam().name + "의 경기 정보 불러오는 중..");
 			Thread.sleep(1000);
 			game_id_map = GameCalendarService.showCalendar();
+			System.out.println(Coloring.getPurple("보라색: ") + "응원 팀 홈 경기");
 		} else {
 			Coloring.greenOut("예매 가능한 전체 경기 일정 불러오는 중..");
 			Thread.sleep(1000);

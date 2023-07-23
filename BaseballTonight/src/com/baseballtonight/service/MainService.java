@@ -10,7 +10,7 @@ public class MainService {
 	public static void mainMenu() throws IOException, InterruptedException {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println(Message.app_starting_msg);
-		System.out.println(Message.main_cmd_ls);
+		System.out.println(Message.main_menu_cmd_ls);
 		MainController.cmdRun(UserInput.receiveContainedString(MainController.main_cmd));
 	}
 }

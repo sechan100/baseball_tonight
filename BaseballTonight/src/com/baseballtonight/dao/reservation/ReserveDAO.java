@@ -76,7 +76,7 @@ public class ReserveDAO {
 	}
 
 	public int[] loadPriceData(String dayOfWeek) throws SQLException {
-		ResultSet priceData = dao.select("SELECT * FROM seats ORDER BY weekdayPrice DESC");
+		ResultSet priceData = dao.select("SELECT seatType_name, seatBlock_scope, weekdayPrice, weekendPrice FROM seatType ORDER BY weekdayPrice DESC");
 		int[] price = new int[6];
 		int ColumnNumberByDayOfWeek;
 		if(dayOfWeek.equals("월요일") ||
@@ -112,23 +112,37 @@ public class ReserveDAO {
 	public HashSet<Integer> showSeatBlock(String seatType) {
 		try {
 			HashSet<Integer> seatBlockSet  = new HashSet<>();
-			String loadSeatBlockScopeSQL = String.format(
-				"SELECT seatBlockScope FROM seats WHERE seatType = '%s'", seatType);
-			ResultSet rs = dao.select(loadSeatBlockScopeSQL);
+			String loadSeatBlockScope_sql = String.format(
+				"SELECT seatBlock_scope FROM seatType WHERE seatType_name = '%s'", seatType);
+			ResultSet rs = dao.select(loadSeatBlockScope_sql);
+			
 			StringBuilder blockScope = new StringBuilder();
-			while(rs.next()) {
-				String[] tem1 = rs.getString(1).split(", ");
-				for(String scope : tem1) {
-					blockScope.append(Coloring.getCyan("\n| "));
-					int startBlock = Integer.parseInt(scope.substring(0, scope.indexOf("~")).trim()); // 앞 번호
-					int endBlock = Integer.parseInt(scope.substring(scope.indexOf("~") + 1).trim()); // 뒷 번호
-					while(startBlock <= endBlock) {
-						blockScope.append(startBlock + Coloring.getCyan(" | "));
-						seatBlockSet.add(startBlock);
-						startBlock++;
-					}
+			
+			rs.next();
+			
+			// 공백 제거.
+			String noSpace_scope = rs.getString(1).replace(" ", "");
+			
+			// 블록 번호 하나씩 배열에 담기.
+			String[] blocks = noSpace_scope.split(",");
+			
+			// 줄바꿈 카운트 변수.
+			int lineBreakCount = 0;
+			
+			// 하나씩 stringBuilder에 추가하기.
+			for(String b: blocks){
+				blockScope.append(b + Coloring.getCyan(" | "));
+				lineBreakCount++;
+				
+				// 만약 5개의 블럭을 출력했으면 줄 한번 바꾸기.
+				if(lineBreakCount == 5){					
+					blockScope.append("\n");
+					lineBreakCount = 0;
 				}
+				
 			}
+
+			// 출력하기.
 			Coloring.greenOut(seatType + "석에서 예매 가능한 블럭목록입니다.");
 			System.out.println("------------------------------------------------------------");
 			System.out.println(blockScope);

@@ -7,13 +7,12 @@ import com.baseballtonight.service.MainService;
 public class SelfController {
 	public static void cmdRun(String cmd) throws IOException, InterruptedException {
 		switch(cmd){
-		case "id":
-			break;
-			
 		case "password":
+			SelfService.changePassword();
 			break;
 			
-		case "prfteam":
+		case "team":
+			SelfService.changePrfTean();
 			break;
 			
 		case "main":
