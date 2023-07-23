@@ -1,8 +1,9 @@
-package com.baseballtonight.self;
+package com.baseballtonight.service.member;
 
 import java.io.IOException;
 import java.util.HashSet;
 
+import com.baseballtonight.controller.SelfController;
 import com.baseballtonight.dao.member.LoginDAO;
 import com.baseballtonight.dao.member.MemberDAO;
 import com.baseballtonight.dto.Member;
