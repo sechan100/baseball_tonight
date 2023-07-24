@@ -11,10 +11,15 @@ public class CancelServer {
 		CancelDAO dao = new CancelDAO();
 		try {
 			dao.cancelReservation();
+			
 		} catch(SQLException e) {
+			
 			e.getMessage();
+			
 		} catch(Exception e) {
+			
 			e.getMessage();
+			
 		}
 	}
 }

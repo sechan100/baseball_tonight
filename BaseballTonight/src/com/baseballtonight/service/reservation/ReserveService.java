@@ -1,35 +1,58 @@
 package com.baseballtonight.service.reservation;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.baseballtonight.controller.BlockViewController;
 import com.baseballtonight.dao.reservation.ReserveDAO;
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.util.console.Coloring;
 import com.baseballtonight.util.console.UserInput;
 
 public class ReserveService {
-	static BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 	static ReserveDAO dao = new ReserveDAO();
-
+	
+	// 예매에 필요한 필드들.
+	public static int game_id;
+	public static String seatType;
+	public static int seatBlock;
+	public static int seatColumn;
+	public static int seatRow;
+	//
+	
 	public static void serviceRun() throws IOException, InterruptedException {
 
-		boolean show_preferred_game_schedule = Games.showGameList(dao);
-		if(show_preferred_game_schedule){
-			Games.choiceGamebyDay();						
+		// 응원팀 경기만을 조회했다면 true.
+		boolean showPrfTeamGameOnly = Games.showGameList(dao);
+		
+		if(showPrfTeamGameOnly){
+			
+			// 응원팀 경기만을 조회했을시. -> 달력 날짜를 기반으로 선택.
+			game_id = Games.choiceGamebyDay();		
+			
 		} else {
-			Games.choiceGamebyId();			
+			
+			// 전체 경기를 조회했을 경우. -> game 번호로 선택.
+			game_id = Games.choiceGamebyId();		
+			
 		}
 		
-		Seats.choiceSeatType();
-		Seats.choiceSeatBlock();
+		// 좌석 타입 정하기.
+		seatType = SeatType.choiceSeatType();
+		
+		// 좌석 블록 선택하기.
+		BlockViewController.showSeatBlocks(seatType);
+		seatBlock = SeatType.choiceSeatBlock();
+		
+		
+		// 좌석 선택.
+		int seat_id = SeatChoiceService.choiceSeat();
 
+		
 		// 선택한 예매 정보를 종합하여 update 쿼리로 전달.
-		dao.addNewReservation(Games.gameId, Seats.seatType, Seats.seatBlock);
-		Thread.sleep(300);
+		dao.addNewReservation(game_id, seatType, seatBlock, seat_id);
+		Thread.sleep(400);
 		Coloring.cyanOut("예매가 완료되었습니다. 감사합니다.");
 		Thread.sleep(1000);
 	}
@@ -59,40 +82,52 @@ class Games {
 		return user_answer;
 	}
 
-	public static void choiceGamebyId() {
+	public static int choiceGamebyId() {
 		System.out.print(Coloring.getGreen(
 			"관람을 원하시는 경기를 선택하시고, 해당 경기의 \'게임번호\'를 입력하여 주십시오.\n") + "게임번호:");
 		gameId = UserInput.receiveContainedNum(gameIdSet);
-
+		return gameId;
 	}
-	public static void choiceGamebyDay() {
+	public static int choiceGamebyDay() {
 		System.out.print(Coloring.getGreen(
 			"관람을 원하시는 경기의 \'날짜(일)\'를 입력하여 주십시오.\n") + "일:");
 		int game_day = UserInput.receiveContainedNum(new HashSet<Integer>(game_id_map.keySet()));
 		gameId = game_id_map.get(game_day);
-		
+		return gameId;
 	}
 }
 
-class Seats {
+class SeatType {
 	public static String seatType;
 	public static int seatBlock;
-	static HashSet<Integer> seatBlockSeat;
+	static HashSet<Integer> seatBlock_set;
 	static ReserveDAO dao = new ReserveDAO();
 
-	public static void choiceSeatType() {
+	public static String choiceSeatType() {
 		System.out.println("\n\n\n");
+		
+		// 좌석 타입 리스트 출력, 입력 받기.
 		dao.showSeatList(Games.gameId);
 		System.out.print("예매를 원하시는 좌석의 종류를 영문으로 입력하여 주십시오.\n\n>>> ");
 		seatType = UserInput.receiveSeatType();
+		return seatType;
 	}
+	
 
-	public static void choiceSeatBlock() {
-		seatBlockSeat = dao.showSeatBlock(seatType);
-		seatBlock = 0; // premium석 선택한 경우 기본값인 0을 seatBlock번호로 가지고 진입.
+	public static int choiceSeatBlock() throws InterruptedException {
+		
+		// 블록 리스트 보이기.
+		seatBlock_set = dao.seatBlockScope(seatType);
+		
+		// premium석 선택한 경우 기본값인 0을 seatBlock번호로 가진다.
+		seatBlock = 1;
+		
+		// premium석이 아닌 경우는 블럭 번호를 받는다.
 		if(!seatType.equals("premium")) {
 			Coloring.greenOut(seatType + "석 블럭중, 관람을 원하시는 블럭 번호를 입력하여 주십시오.");
-			seatBlock = UserInput.receiveContainedNum(seatBlockSeat);
+			seatBlock = UserInput.receiveContainedNum(seatBlock_set);
 		}
+		return seatBlock;
 	}
+	
 }

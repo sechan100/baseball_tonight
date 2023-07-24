@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import com.baseballtonight.dao.DAO;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.util.console.Coloring;
 
 public class MemberDAO {
 	static DAO dao = new DAO();

@@ -53,7 +53,8 @@ public class MyreserveDAO {
 				+ " name,\n"
 				+ " stadium,\n"
 				+ " dateAndTime,\n"
-				+ " DAYOFWEEK(dateAndTime) As part \n"
+				+ " DAYOFWEEK(dateAndTime) As part, \n"
+				+ " seat_id \n"
 				+ " FROM reservations\n"
 				+ "JOIN games\n"
 				+ "on gameID = id\n"
@@ -61,7 +62,7 @@ public class MyreserveDAO {
 			ResultSet rs = dao.select(sql);
 			System.out.println();
 			Coloring.greenOut(userID + " 회원님의 예매 정보입니다.");
-			System.out.println("---------------------------------------------------------------------------------------");
+			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			boolean emptyReservation = true;
 			while(rs.next()) {
 				int reservationID = rs.getInt(1);
@@ -76,10 +77,12 @@ public class MyreserveDAO {
 				System.out.print(" | ");
 				System.out.print(Coloring.yellow + stadium + Coloring.exit);
 				System.out.print(" | ");
-				System.out.print(seatType+"석 " + seatBlock + "블록 ");
+				System.out.print(seatType+"석 " + seatBlock + "블록 ");				
+				System.out.print(" | ");
+				System.out.print(new SeatDAO().getColumnAndRowBySeatId(rs.getInt("seat_id")));				
 				System.out.print(" | ");
 				System.out.print(startWhen);
-				System.out.print("---------------------------------------------------------------------------------------\n");
+				System.out.print("--------------------------------------------------------------------------------------------------------------------------------\n");
 				emptyReservation = false;
 			}
 			rs.close();
