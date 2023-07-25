@@ -1,4 +1,4 @@
-package com.baseballtonight.util.console;
+package com.baseballtonight.util;
 
 import java.io.*;
 import java.util.HashSet;
@@ -21,25 +21,17 @@ public class UserInput {
 	}
 
 	public static String receiveSeatType() {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
-		HashSet<String> seatTypeSet = new HashSet<>();
-		seatTypeSet.add("premium");
-		seatTypeSet.add("table");
-		seatTypeSet.add("blue");
-		seatTypeSet.add("red");
-		seatTypeSet.add("navy");
-		seatTypeSet.add("green");
-		while(true) {
-			try {
-				String seatType = rd.readLine().toLowerCase();
-				if(!seatTypeSet.contains(seatType)) {
-					throw new NumberFormatException();
-				}
-				return seatType;
-			} catch(Exception e) {
-				Coloring.redOut("올바른 좌석 유형을 입력해 주십시오.");
-			}
-		}
+		HashSet<String> seatType_set = new HashSet<>();
+		seatType_set.add("premium");
+		seatType_set.add("table");
+		seatType_set.add("blue");
+		seatType_set.add("red");
+		seatType_set.add("navy");
+		seatType_set.add("green");
+		
+		String seatType = UserInput.receiveContainedString(seatType_set);
+		
+		return seatType;
 	}
 
 	public static int receiveContainedNum(HashSet<Integer> set) {

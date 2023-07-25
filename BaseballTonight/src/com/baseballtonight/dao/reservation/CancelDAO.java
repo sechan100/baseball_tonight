@@ -9,8 +9,9 @@ import java.sql.SQLException;
 import com.baseballtonight.dao.DAO;
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.service.MainService;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.SQLUtil;
+import com.baseballtonight.util.UserInput;
 
 public class CancelDAO {
 	BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
@@ -45,7 +46,7 @@ public class CancelDAO {
 				}
 				String gameName = rs.getString(5);
 				String stadium = rs.getString(6);
-				String DayOfWeek = MyreserveDAO.getDayOfWeek(rs.getInt(8));
+				String DayOfWeek = SQLUtil.getDayOfWeek(rs.getInt(8));
 				StringBuilder startWhen = MyreserveDAO.trimDateAndTime(rs.getString(7), DayOfWeek);
 				String seatType = rs.getString(2);
 				int seatBlock = rs.getInt(3);

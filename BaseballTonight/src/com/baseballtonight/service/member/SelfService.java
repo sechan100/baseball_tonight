@@ -8,9 +8,9 @@ import com.baseballtonight.dao.member.LoginDAO;
 import com.baseballtonight.dao.member.MemberDAO;
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.dto.Team;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.Message;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.Message;
+import com.baseballtonight.util.UserInput;
 
 public class SelfService {
 	static MemberDAO dao = new MemberDAO();

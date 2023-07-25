@@ -3,8 +3,8 @@ package com.baseballtonight.service.reservation;
 import java.util.HashSet;
 
 import com.baseballtonight.dao.reservation.SeatDAO;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.UserInput;
 
 public class SeatChoiceService {
 	static SeatDAO dao = new SeatDAO();

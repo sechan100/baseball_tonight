@@ -1,6 +1,6 @@
 package com.baseballtonight.dto;
 
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.Coloring;
 
 public enum Team {
 	SSG(1, "SSG 랜더스", "인천 SSG 랜더스필드"),

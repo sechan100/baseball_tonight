@@ -1,4 +1,4 @@
-package com.baseballtonight.util.console;
+package com.baseballtonight.util;
 
 public class Coloring {
     public static final String red      = "\u001B[31m" ;

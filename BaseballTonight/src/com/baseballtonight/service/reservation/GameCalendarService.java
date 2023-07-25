@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import com.baseballtonight.dao.DAO;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.Coloring;
 
 public class GameCalendarService {
 		public static String[] home_game = new String[11];

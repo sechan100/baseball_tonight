@@ -1,18 +1,22 @@
 package com.baseballtonight.view.block;
 
-import com.baseballtonight.dao.reservation.BlockViewDAO;
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.dao.reservation.BlockDAO;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.PageControll;
 
 public class GreenBlockView implements BlockView {
 	public static int crt_page = 1;
 	
-	static BlockViewDAO dao = new BlockViewDAO();
+	static BlockDAO dao = new BlockDAO();
 
 	
+	// PageControll enum has 'CHOICE' too, but it cann't reach here. (already handled case)
+	@SuppressWarnings("incomplete-switch") 
 	@Override
 	public void showBlock(String pageLocation) {
-			switch(pageLocation) {
-			case "a":
+		PageControll location = PageControll.getPageControllByCmd(pageLocation);
+			switch(location) {
+			case PREVIOUS:
 				
 				if(crt_page == 1){
 					
@@ -35,7 +39,7 @@ public class GreenBlockView implements BlockView {
 				break;
 
 				
-			case "d":
+			case NEXT:
 				
 				if(crt_page == 1){
 					showSecondPage();
@@ -63,12 +67,12 @@ public class GreenBlockView implements BlockView {
 		crt_page = 1;
 		
 		// 예약 가능한 좌석 개수 불러오기.
-		String seat_401 = dao.getAvailableSeatNum(401);
-		String seat_402 = dao.getAvailableSeatNum(402);
-		String seat_403 = dao.getAvailableSeatNum(403);
-		String seat_404 = dao.getAvailableSeatNum(404);
-		String seat_405 = dao.getAvailableSeatNum(405);
-		String seat_406 = dao.getAvailableSeatNum(406);
+		String seat_401 = dao.getAvailableSeatNumOrSoldOutString(401);
+		String seat_402 = dao.getAvailableSeatNumOrSoldOutString(402);
+		String seat_403 = dao.getAvailableSeatNumOrSoldOutString(403);
+		String seat_404 = dao.getAvailableSeatNumOrSoldOutString(404);
+		String seat_405 = dao.getAvailableSeatNumOrSoldOutString(405);
+		String seat_406 = dao.getAvailableSeatNumOrSoldOutString(406);
 
 		// 출력 view.
 		String blockView = String.format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -95,12 +99,12 @@ public class GreenBlockView implements BlockView {
 		crt_page = 2;
 		
 		// 예약 가능한 좌석 개수 불러오기.
-		String seat_407 = dao.getAvailableSeatNum(407);
-		String seat_408 = dao.getAvailableSeatNum(408);
-		String seat_409 = dao.getAvailableSeatNum(409);
-		String seat_410 = dao.getAvailableSeatNum(410);
-		String seat_411 = dao.getAvailableSeatNum(411);
-		String seat_412 = dao.getAvailableSeatNum(412);
+		String seat_407 = dao.getAvailableSeatNumOrSoldOutString(407);
+		String seat_408 = dao.getAvailableSeatNumOrSoldOutString(408);
+		String seat_409 = dao.getAvailableSeatNumOrSoldOutString(409);
+		String seat_410 = dao.getAvailableSeatNumOrSoldOutString(410);
+		String seat_411 = dao.getAvailableSeatNumOrSoldOutString(411);
+		String seat_412 = dao.getAvailableSeatNumOrSoldOutString(412);
 
 		// 출력 view.
 		String blockView = String.format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -127,12 +131,12 @@ public class GreenBlockView implements BlockView {
 		crt_page = 3;
 		
 		// 예약 가능한 좌석 개수 불러오기.
-		String seat_413 = dao.getAvailableSeatNum(413);
-		String seat_414 = dao.getAvailableSeatNum(414);
-		String seat_415 = dao.getAvailableSeatNum(415);
-		String seat_416 = dao.getAvailableSeatNum(416);
-		String seat_417 = dao.getAvailableSeatNum(417);
-		String seat_418 = dao.getAvailableSeatNum(418);
+		String seat_413 = dao.getAvailableSeatNumOrSoldOutString(413);
+		String seat_414 = dao.getAvailableSeatNumOrSoldOutString(414);
+		String seat_415 = dao.getAvailableSeatNumOrSoldOutString(415);
+		String seat_416 = dao.getAvailableSeatNumOrSoldOutString(416);
+		String seat_417 = dao.getAvailableSeatNumOrSoldOutString(417);
+		String seat_418 = dao.getAvailableSeatNumOrSoldOutString(418);
 
 		// 출력 view.
 		String blockView = String.format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -142,7 +146,7 @@ public class GreenBlockView implements BlockView {
 				+ "|					|					|					|					|					|					|\n"
 				+ "|		413			|		414			|		415			|		416			|		417			|		418			|\n"
 				+ "|					|					|					|					|					|					|\n"
-				+ "|	예매가능: %s		|	예매가능: %s		|	예매가능: %s		|	예매가능: %s 		|	예매가능: %s		|	예매가능: %s		|\n"
+				+ "|	예매가능: %s		|	예매가능: %s		|	예매가능: %s		|	예매가능: %s		|	예매가능: %s		|	예매가능: %s		|\n"
 				+ "|					|					|					|					|					|					|\n"
 				+ "+========================================================================================================================+\n",
 			seat_413,
@@ -159,10 +163,10 @@ public class GreenBlockView implements BlockView {
 		crt_page = 4;
 		
 		// 예약 가능한 좌석 개수 불러오기.
-		String seat_419 = dao.getAvailableSeatNum(419);
-		String seat_420 = dao.getAvailableSeatNum(420);
-		String seat_421 = dao.getAvailableSeatNum(421);
-		String seat_422 = dao.getAvailableSeatNum(422);
+		String seat_419 = dao.getAvailableSeatNumOrSoldOutString(419);
+		String seat_420 = dao.getAvailableSeatNumOrSoldOutString(420);
+		String seat_421 = dao.getAvailableSeatNumOrSoldOutString(421);
+		String seat_422 = dao.getAvailableSeatNumOrSoldOutString(422);
 
 		// 출력 view.
 		String blockView = String.format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"

@@ -1,18 +1,22 @@
 package com.baseballtonight.view.block;
 
-import com.baseballtonight.dao.reservation.BlockViewDAO;
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.dao.reservation.BlockDAO;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.PageControll;
 
 public class BlueBlockView implements BlockView{
 	public static int crt_page = 1;
 	
-	static BlockViewDAO dao = new BlockViewDAO();
+	static BlockDAO dao = new BlockDAO();
 
 	
+	// PageControll enum has 'CHOICE' too, but it cann't reach here. (already handled case)
+	@SuppressWarnings("incomplete-switch") 
 	@Override
 	public void showBlock(String pageLocation) {
-			switch(pageLocation) {
-			case "a":
+		PageControll location = PageControll.getPageControllByCmd(pageLocation);
+			switch(location) {
+			case PREVIOUS:
 				
 				if(crt_page == 1){
 					Coloring.purpleOut("이전 페이지가 없습니다.");
@@ -23,7 +27,7 @@ public class BlueBlockView implements BlockView{
 				break;
 
 				
-			case "d":
+			case NEXT:
 				
 				if(crt_page == 1){
 					showSecondPage();
@@ -40,12 +44,12 @@ public class BlueBlockView implements BlockView{
 		crt_page = 1;
 		
 		// 예약 가능한 좌석 개수 불러오기.
-		String seat_107 = dao.getAvailableSeatNum(107);
-		String seat_108 = dao.getAvailableSeatNum(108);
-		String seat_109 = dao.getAvailableSeatNum(109);
-		String seat_209 = dao.getAvailableSeatNum(209);
-		String seat_210 = dao.getAvailableSeatNum(210);
-		String seat_211 = dao.getAvailableSeatNum(211);
+		String seat_107 = dao.getAvailableSeatNumOrSoldOutString(107);
+		String seat_108 = dao.getAvailableSeatNumOrSoldOutString(108);
+		String seat_109 = dao.getAvailableSeatNumOrSoldOutString(109);
+		String seat_209 = dao.getAvailableSeatNumOrSoldOutString(209);
+		String seat_210 = dao.getAvailableSeatNumOrSoldOutString(210);
+		String seat_211 = dao.getAvailableSeatNumOrSoldOutString(211);
 
 		// 출력 view.
 		String blockView = String.format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -78,12 +82,12 @@ public class BlueBlockView implements BlockView{
 		crt_page = 2;
 		
 		// 예약 가능한 좌석 개수 불러오기.
-		String seat_114 = dao.getAvailableSeatNum(114);
-		String seat_115 = dao.getAvailableSeatNum(115);
-		String seat_116 = dao.getAvailableSeatNum(116);
-		String seat_216 = dao.getAvailableSeatNum(216);
-		String seat_217 = dao.getAvailableSeatNum(217);
-		String seat_218 = dao.getAvailableSeatNum(218);
+		String seat_114 = dao.getAvailableSeatNumOrSoldOutString(114);
+		String seat_115 = dao.getAvailableSeatNumOrSoldOutString(115);
+		String seat_116 = dao.getAvailableSeatNumOrSoldOutString(116);
+		String seat_216 = dao.getAvailableSeatNumOrSoldOutString(216);
+		String seat_217 = dao.getAvailableSeatNumOrSoldOutString(217);
+		String seat_218 = dao.getAvailableSeatNumOrSoldOutString(218);
 
 		// 출력 view.
 		String blockView = String.format("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"

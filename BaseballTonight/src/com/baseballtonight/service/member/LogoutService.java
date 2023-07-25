@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.baseballtonight.AppEntering;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.UserInput;
 
 public class LogoutService {
 	public static void serviceRun() throws IOException, InterruptedException {

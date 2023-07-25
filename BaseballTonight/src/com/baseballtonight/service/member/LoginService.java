@@ -5,8 +5,8 @@ import java.io.IOException;
 import com.baseballtonight.dao.member.LoginDAO;
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.service.MainService;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.UserInput;
 
 public class LoginService {
 	static String user_id;

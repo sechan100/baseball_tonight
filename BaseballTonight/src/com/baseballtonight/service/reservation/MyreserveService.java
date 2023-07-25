@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 import com.baseballtonight.dao.reservation.MyreserveDAO;
 import com.baseballtonight.dto.Member;
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.Coloring;
 
 public class MyreserveService {
 	static MyreserveDAO dao = new MyreserveDAO();

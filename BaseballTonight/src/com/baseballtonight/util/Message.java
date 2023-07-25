@@ -1,4 +1,4 @@
-package com.baseballtonight.util.console;
+package com.baseballtonight.util;
 
 public class Message {
 	public static String app_starting_msg =

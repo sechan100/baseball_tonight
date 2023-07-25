@@ -5,9 +5,9 @@ import java.util.HashSet;
 
 import com.baseballtonight.controller.GuestController;
 import com.baseballtonight.service.MainService;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.Message;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.Message;
+import com.baseballtonight.util.UserInput;
 
 public class AppEntering {
 	public static void enteringAsGuest() throws InterruptedException, IOException {

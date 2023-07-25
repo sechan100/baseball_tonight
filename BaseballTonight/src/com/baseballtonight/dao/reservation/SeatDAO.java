@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import com.baseballtonight.dao.DAO;
 import com.baseballtonight.service.reservation.ReserveService;
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.Coloring;
 
 public class SeatDAO {
 	DAO dao = new DAO();
@@ -18,7 +18,7 @@ public class SeatDAO {
 				+ "seat_block = %d AND \n"
 				+ "seat_row = %d AND \n"
 				+ "seat_column = %d",
-			ReserveService.game_id, ReserveService.seatBlock, row, column);
+			ReserveService.gameId, ReserveService.seatBlock, row, column);
 
 		ResultSet rs = dao.select(loasSeatId_sql);
 		try {
@@ -41,7 +41,7 @@ public class SeatDAO {
 				+ "seat_block = %d AND \n"
 				+ "seat_row = %d AND \n"
 				+ "seat_column = %d",
-			ReserveService.game_id, ReserveService.seatBlock, row, column);
+			ReserveService.gameId, ReserveService.seatBlock, row, column);
 		ResultSet rs = dao.select(loasSeatStatus_sql);
 		try {
 			rs.next();
@@ -71,7 +71,7 @@ public class SeatDAO {
 				+ "seat_block = %d AND \n"
 				+ "seat_row = %d AND \n"
 				+ "seat_column = %d",
-			ReserveService.game_id, ReserveService.seatBlock, row, column);
+			ReserveService.gameId, ReserveService.seatBlock, row, column);
 		ResultSet rs = dao.select(loasSeatStatus_sql);
 		try {
 			rs.next();

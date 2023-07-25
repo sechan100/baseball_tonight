@@ -7,32 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.baseballtonight.dao.DAO;
-import com.baseballtonight.util.console.Coloring;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.SQLUtil;
 
 public class MyreserveDAO {
 	DAO dao = new DAO();
 	BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
-
-	public static String getDayOfWeek(int dowNum) {
-		switch(dowNum) {
-		case 1:
-			return "일요일";
-		case 2:
-			return "월요일";
-		case 3:
-			return "화요일";
-		case 4:
-			return "수요일";
-		case 5:
-			return "목요일";
-		case 6:
-			return "금요일";
-		case 7:
-			return "토요일";
-		default:
-			return "null요일";
-		}
-	}
 
 	public static StringBuilder trimDateAndTime(String dat, String dow) {
 		StringBuilder DAT = new StringBuilder();
@@ -68,7 +48,7 @@ public class MyreserveDAO {
 				int reservationID = rs.getInt(1);
 				String gameName = rs.getString(5);
 				String stadium = rs.getString(6);
-				String DayOfWeek = MyreserveDAO.getDayOfWeek(rs.getInt(8));
+				String DayOfWeek = SQLUtil.getDayOfWeek(rs.getInt(8));
 				StringBuilder startWhen = MyreserveDAO.trimDateAndTime(rs.getString(7), DayOfWeek);
 				String seatType = rs.getString(2);
 				int seatBlock = rs.getInt(3);

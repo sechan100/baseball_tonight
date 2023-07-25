@@ -7,9 +7,9 @@ import com.baseballtonight.dto.Member;
 import com.baseballtonight.dto.Team;
 import com.baseballtonight.service.MainService;
 import com.baseballtonight.service.information.StadiumInfoService;
-import com.baseballtonight.util.console.Coloring;
-import com.baseballtonight.util.console.Message;
-import com.baseballtonight.util.console.UserInput;
+import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.Message;
+import com.baseballtonight.util.UserInput;
 
 public class StadiumInfoController {
 	// 해당 컨트롤러에서 입력 가능한 명령어 리스트.
