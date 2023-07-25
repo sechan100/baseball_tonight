@@ -94,6 +94,8 @@ public class BlockService {
 		// premium석과 다른 석의 블록 선택 로직 분기.
 		if(!seatType.equals("premium")) {
 			Coloring.greenOut(seatType + "석 블럭중, 관람을 원하시는 블럭 번호를 입력하여 주십시오.");
+			
+			// 출력 메세지 바꾸기 -> "매진된 블록입니다."
 			seatBlock = UserInput.receiveContainedNum(seatBlock_set);
 		} else {
 			Coloring.greenOut("\n" + seatType + "석은 단일 블록입니다. \n"

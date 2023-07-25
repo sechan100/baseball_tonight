@@ -76,6 +76,9 @@ public class SeatChoiceService {
 		
 		System.out.println(seatView);
 		
+		
+		// ===== 좌석 선택값 입력 로직 ======
+		
 		// 열(column) 입력 받기.
 		HashSet<String> columns = new HashSet<>();
 		columns.add("a");
