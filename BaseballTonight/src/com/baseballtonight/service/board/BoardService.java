@@ -30,6 +30,10 @@ public class BoardService {
 		}
 	}
 	
+	public String getArticleTitle(int articleId) { // 07/26 시작
+		return parkInfoArticleDao.getArticleTitle(articleId);
+	} // 07/26 끝
+	
 	public void showSearchedArticle(String searchKey) {         // 수정함 07/20!!!!!!!!!!!!!!!!!!!!!!!!!
 		articles = parkInfoArticleDao.getSearchedArticle(searchKey);
 		System.out.println();
@@ -56,8 +60,8 @@ public class BoardService {
 		
 		if(article == null) {
 			System.out.println();
-			System.out.println("제목 입력이 잘못되었습니다.");
-			System.out.println("정확한 제목을 입력해주세요.");
+			System.out.println("번호 입력이 잘못되었습니다."); // 07/26 시작 (제목 -> 번호)
+			System.out.println("정확한 번호를 입력해주세요."); // 07/26 끝   (제목 -> 번호)
 			System.out.println();
 			return -1;
 		}
@@ -151,6 +155,20 @@ public class BoardService {
 		}
 	}
 	
+	//  07/26 시작!!!!!
+	public void setArticleOrderByRecommend() {
+		parkInfoArticleDao.setArticleOrderByRecommend();
+	}
+	
+	public void setArticleOrderByHit() {
+		parkInfoArticleDao.setArticleOrderByHit();
+	}
+	
+	public void setArticleOrderById() {
+		parkInfoArticleDao.setArticleOrderById();
+	}
+	//07/26 끝!!!!!!!!!
+	
 	public void showArticleRecommendList(String articleTitle) {  // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this.replys = parkInfoArticleDao.getArticleReplyList(parkInfoArticleDao.getArticle(articleTitle).id);
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
@@ -171,16 +189,28 @@ public class BoardService {
 	
 	}
 	
-	public void doArticleRecommendIncrease(String articleTitle) {
-		parkInfoArticleDao.increaseRecommend(parkInfoArticleDao.getArticle(articleTitle).id);
-		System.out.println("추천완료!");
-		System.out.println();
+	public void doArticleRecommendIncrease(String articleTitle, String mem_id) { // 07/26 mem_id 들 추가됨 if 문 추가됨
+		int result = parkInfoArticleDao.increaseRecommend(parkInfoArticleDao.getArticle(articleTitle).id, mem_id);
+		
+		if( result == -1 ) {
+			System.out.println("이미 추천 되었습니다.");
+			System.out.println();
+		} else {
+			System.out.println("추천 완료!");
+			System.out.println();
+		}
 	}
 	
-	public void doArticleRecommendDecrease(String articleTitle) {
-		parkInfoArticleDao.decreaseRecommend(parkInfoArticleDao.getArticle(articleTitle).id);
-		System.out.println("추천취소!");
-		System.out.println();
+	public void doArticleRecommendDecrease(String articleTitle, String mem_id) { // 07/26 mem_id 들 추가됨  if 문 추가됨
+		int result = parkInfoArticleDao.decreaseRecommend(parkInfoArticleDao.getArticle(articleTitle).id, mem_id);
+				
+		if( result == -1 ) {
+			System.out.println("아직 추천하지 않았습니다.");
+			System.out.println();
+		} else {
+			System.out.println("추천 취소!");
+			System.out.println();
+		}
 	}
 
 }

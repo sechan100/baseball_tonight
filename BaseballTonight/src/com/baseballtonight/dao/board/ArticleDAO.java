@@ -15,12 +15,14 @@ public class ArticleDAO {
 	private ArrayList<Article> articles;
 	private ArrayList<Article> searchedArticles;
 	private ArrayList<ArticleReply> replys;
+	private String articleOrderSql; // 07/26 추가됨
 
 	public ArticleDAO(int parkId) {
 		this.parkId = parkId;
+		this.articleOrderSql = "select * from article where parkId = " + parkId + " ORDER BY id DESC;"; // 07/26 추가됨.
 		try {
 			this.articles = new ArrayList<>();
-			resultSet = dao.select("select * from article where parkId = " + parkId + " ORDER BY hit DESC"); // 조회수 높은 순
+			resultSet = dao.select(articleOrderSql); // 07/26 ( select 괄호 안이 바뀜 )
 			while(resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String regDate = resultSet.getString("regDate");
@@ -36,6 +38,21 @@ public class ArticleDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	//07/26 시작!!!!!!!!!!!!!
+	public void setArticleOrderByRecommend() {
+		this.articleOrderSql = "select * from article where parkId = " + parkId + " ORDER BY recommend DESC;";
+	}
+	
+	public void setArticleOrderByHit() {
+		this.articleOrderSql = "select * from article where parkId = " + parkId + " ORDER BY hit DESC;";
+	}
+	
+	public void setArticleOrderById() {
+		this.articleOrderSql = "select * from article where parkId = " + parkId + " ORDER BY id DESC;";
+	}
+	
+	//07/26 끝!!!!!!!!!!!!!
 
 	public ArrayList<Article> getArticleList() {
 		reSet();
@@ -65,6 +82,16 @@ public class ArticleDAO {
 		return null;
 	}
 
+	public String getArticleTitle(int articleId) { // 07/26 시작
+		reSet();
+		for(int i = 0; i < articles.size(); i++) {
+			if(articles.get(i).id == articleId) {
+				return articles.get(i).title;
+			}
+		}
+		return null;
+	} // 07/26 끝
+	
 	public void doArticleWrite(String title, String body, int parkId, String mem_id) {
 		dao.update("INSERT INTO article\n" +
 			"SET regDate = NOW(),\n" +
@@ -104,19 +131,27 @@ public class ArticleDAO {
 		}
 	} // 조회수 증가 함수
 
-	public void increaseRecommend(int id) {
+	public int increaseRecommend(int id, String mem_id) { // 07/26 시작
 		try {
+			resultSet = dao.select("SELECT * FROM recommend_list WHERE article_id = "+id+" AND member_user_id = '"+mem_id+"';");
+			if(resultSet.isBeforeFirst() == true) return -1; 
+			dao.update("INSERT INTO recommend_list SET article_id = "+id+", member_user_id = '"+mem_id+"';");
 			dao.update("UPDATE article SET recommend = recommend + 1 WHERE id = " + id);
 		} catch(Exception e) {
 		}
-	} // 추천수 증가 함수
+		return 0;
+	} // 추천수 증가 함수   07/26 끝
 
-	public void decreaseRecommend(int id) {
+	public int decreaseRecommend(int id, String mem_id) { // 07/26 시작
 		try {
+			resultSet = dao.select("SELECT * FROM recommend_list WHERE article_id = "+id+" AND member_user_id = '"+mem_id+"';");
+			if(resultSet.isBeforeFirst() == false) return -1;
+			dao.update("DELETE FROM recommend_list WHERE article_id = "+id+" AND member_user_id = '"+mem_id+"';");
 			dao.update("UPDATE article SET recommend = recommend - 1 WHERE id = " + id);
 		} catch(Exception e) {
 		}
-	} // 추천수 감소 함수
+		return 0;
+	} // 추천수 감소 함수   07/26 끝
 
 	public ArrayList<ArticleReply> getArticleReplyList(int articleId) {
 		try {
@@ -150,7 +185,7 @@ public class ArticleDAO {
 	private void reSet() {
 		try {
 			this.articles = new ArrayList<>();
-			resultSet = dao.select("select * from article where parkId = " + parkId + " ORDER BY hit DESC"); // 조회수 높은 순
+			resultSet = dao.select(articleOrderSql); // 07/26 ( select 괄호 안이 바뀜 )
 			while(resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String regDate = resultSet.getString("regDate");

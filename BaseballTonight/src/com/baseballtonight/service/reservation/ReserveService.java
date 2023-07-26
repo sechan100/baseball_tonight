@@ -38,7 +38,7 @@ public class ReserveService {
 		// 좌석 타입.
 		dao.showSeatList(gameId);
 		Coloring.greenOut("예매를 원하시는 좌석의 종류를 입력하여 주십시오.");
-		seatType = UserInput.receiveSeatType();
+		seatType = UserInput.receiveSeatType()	;
 
 		// 좌석 블록 선택하기.
 		BlockService.showSeatBlocks(seatType);
