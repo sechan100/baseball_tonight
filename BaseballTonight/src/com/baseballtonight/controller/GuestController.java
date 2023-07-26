@@ -2,7 +2,6 @@ package com.baseballtonight.controller;
 
 import java.io.IOException;
 
-import com.baseballtonight.AppEntering;
 import com.baseballtonight.service.MainService;
 import com.baseballtonight.service.member.JoinService;
 import com.baseballtonight.service.member.LoginService;

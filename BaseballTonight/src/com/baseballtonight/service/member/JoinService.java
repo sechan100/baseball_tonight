@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.baseballtonight.AppEntering;
 import com.baseballtonight.dao.member.JoinDAO;
 import com.baseballtonight.dao.member.LoginDAO;
-import com.baseballtonight.dto.Member;
 import com.baseballtonight.dto.Team;
 import com.baseballtonight.util.Coloring;
 import com.baseballtonight.util.UserInput;
