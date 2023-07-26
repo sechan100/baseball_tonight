@@ -62,7 +62,7 @@ public class MyreserveDAO {
 				System.out.print(new SeatDAO().getColumnAndRowBySeatId(rs.getInt("seat_id")));				
 				System.out.print(" | ");
 				System.out.print(startWhen);
-				System.out.print("--------------------------------------------------------------------------------------------------------------------------------\n");
+				System.out.print("\n--------------------------------------------------------------------------------------------------------------------------------\n");
 				emptyReservation = false;
 			}
 			rs.close();
