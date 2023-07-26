@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.controller.GuestController;
-import com.baseballtonight.service.MainService;
 import com.baseballtonight.util.Coloring;
 import com.baseballtonight.util.Message;
 import com.baseballtonight.util.UserInput;
@@ -31,10 +30,6 @@ public class AppEntering {
 			// only join OR login.
 			String userCmd = UserInput.receiveContainedString(cmd_set);
 			GuestController.cmdRun(userCmd);
-			if(userCmd.equals("login")){
-				MainService.mainMenu();
-				break;
-			}
 		}
 	}
 }

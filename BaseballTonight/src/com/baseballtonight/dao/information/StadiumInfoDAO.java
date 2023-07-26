@@ -4,9 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.baseballtonight.dao.DAO;
+import com.baseballtonight.util.Coloring;
 
 public class StadiumInfoDAO {
-    private String setNull = "등록된 정보가 없습니다\n";
+    private String setNull = Coloring.getPurple("등록된 정보가 없습니다\n");
     ResultSet resultSet;
     public StadiumInfoDAO(int parkId) {
     	DAO dao = new DAO();
@@ -40,6 +41,7 @@ public class StadiumInfoDAO {
         String food = "";
         try {
             food = resultSet.getString("food");
+            food = food.replace(",", Coloring.getCyan(""));
         } catch (SQLException e) {}
         return food;
     }
@@ -72,7 +74,7 @@ public class StadiumInfoDAO {
             sub = resultSet.getString("traffic_sub");
         } catch (SQLException e) {}
 
-        if(sub.equals("")) {
+        if(sub == null) {
             return setNull;
         }
         return sub;
@@ -85,7 +87,7 @@ public class StadiumInfoDAO {
             parking = resultSet.getString("traffic_parking");
         } catch (SQLException e) {}
 
-        if(parking.equals("")) {
+        if(parking == null) {
             return setNull;
         }
         return parking;

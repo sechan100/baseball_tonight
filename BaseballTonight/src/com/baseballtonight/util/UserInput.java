@@ -1,10 +1,12 @@
 package com.baseballtonight.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 
 public class UserInput {
-	
+
 	public static boolean receiveYesOrNo() throws IOException {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
@@ -28,9 +30,9 @@ public class UserInput {
 		seatType_set.add("red");
 		seatType_set.add("navy");
 		seatType_set.add("green");
-		
+
 		String seatType = UserInput.receiveContainedString(seatType_set);
-		
+
 		return seatType;
 	}
 
@@ -52,6 +54,32 @@ public class UserInput {
 		}
 	}
 
+	public static String receiveRestrictedString(String first) {
+		while(true) {
+			String input = UserInput.receiveNoSpaceString();
+			if(input.equals(first)) {
+				return input;
+			} else {
+				Coloring.redOut("유효한 입력이 아닙니다.");				
+			}
+		}
+	}
+	
+	public static String receiveRestrictedString(String first, String second) {
+		while(true) {
+			String input = UserInput.receiveNoSpaceString();
+			if(input.equals(first)) {
+				return input;
+			} else if(input.equals(second)){
+				return input;
+			} else {
+				Coloring.redOut("유효한 입력이 아닙니다.");				
+			}
+		}
+	}
+	
+	
+
 	public static String receiveContainedString(HashSet<String> set) {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
@@ -63,7 +91,7 @@ public class UserInput {
 				}
 				return userInput;
 			} catch(NullPointerException e) {
-				Coloring.redOut("올바른 문자를 입력하여 주십시오.");
+				Coloring.redOut("유효한 입력이 아닙니다.");
 			} catch(IOException e) {
 				System.out.println("ConsoleUtil.receiveContainedString throw IOException!: " + e);
 			}
@@ -105,13 +133,13 @@ public class UserInput {
 		}
 	}
 
-	public static String receiveNoSpaceString() throws IOException {
+	public static String receiveNoSpaceString() {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
-		while(true){
+		while(true) {
 			try {
 				System.out.print(">>>");
 				String input = rd.readLine();
-				if(input.contains(" ")){
+				if(input.contains(" ")) {
 					throw new IOException();
 				}
 				return input;

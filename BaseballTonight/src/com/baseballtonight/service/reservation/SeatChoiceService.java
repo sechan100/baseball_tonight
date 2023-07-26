@@ -12,7 +12,7 @@ public class SeatChoiceService {
 	
 	
 	
-	public static int choiceSeat() {
+	public static int choiceSeat(int nowNumber, int totalNumber) {
 		String seatView = String.format(""
 			+ "+===================================+		\n"
 			+ "|  	열 |  a열   b열  c열   d열  e열	|		\n"
@@ -74,6 +74,7 @@ public class SeatChoiceService {
 			dao.loadSeatStatusToOX(7, 5)
 			);
 		
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println(seatView);
 		
 		
@@ -92,6 +93,7 @@ public class SeatChoiceService {
 		int user_row;
 		
 		while(true){
+			Coloring.cyanOut( "예매 인원 현황: ("+ nowNumber + "/" + totalNumber + ")" );
 			Coloring.greenOut("원하시는 좌석의 열을 선택해주세요(a, b, c, d, e)");
 			String user_column_string = UserInput.receiveContainedString(columns);
 			switch(user_column_string){

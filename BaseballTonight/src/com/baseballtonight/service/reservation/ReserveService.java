@@ -44,12 +44,17 @@ public class ReserveService {
 		BlockService.showSeatBlocks(seatType);
 		seatBlock = BlockService.choiceSeatBlock(seatType);
 
-		// 좌석 선택.
-		int seat_id = SeatChoiceService.choiceSeat();
+		// 인원수 선택.
+		Coloring.greenOut("예매하실 인원 수를 선택해주십시오.(1 ~ 10)");
+		int theNumber = UserInput.receiveLimitedRangeNum(1, 10);
+		for(int i = 1; i<=theNumber; i++){
+			// 좌석 선택.
+			int seat_id = SeatChoiceService.choiceSeat(i, theNumber);
 
-		// 선택한 예매 정보를 종합하여 update 쿼리로 전달.
-		dao.addNewReservation(gameId, seatType, seatBlock, seat_id);
-		Thread.sleep(400);
+			// 선택한 예매 정보를 종합하여 update 쿼리로 전달.
+			dao.addNewReservation(gameId, seatType, seatBlock, seat_id);
+			Thread.sleep(400);
+		}
 		Coloring.cyanOut("예매가 완료되었습니다. 감사합니다.");
 		Thread.sleep(1000);
 	}

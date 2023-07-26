@@ -2,6 +2,7 @@ package com.baseballtonight.service.member;
 
 import java.io.IOException;
 
+import com.baseballtonight.AppEntering;
 import com.baseballtonight.dao.member.JoinDAO;
 import com.baseballtonight.dao.member.LoginDAO;
 import com.baseballtonight.dto.Member;
@@ -74,10 +75,9 @@ public class JoinService {
 		dao.newJoin(memId, memPassword, prfTeam_num);
 		
 		
-		// Member에 상태 업데이트.
-		Member.setAll(memId, memPassword, prfTeam_num);
 		Coloring.greenOut("회원가입이 완료되었습니다. ID: " + memId);
 		Thread.sleep(1500);
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		AppEntering.enteringAsGuest();
 	}
 }

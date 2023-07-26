@@ -25,32 +25,43 @@ public class StadiumInfoController {
 	}
 
 	public static void cmdRun(Team team) throws IOException, InterruptedException {
-		// StadiumInfoDAO 객체에 팀 id정보 전
+		// StadiumInfoDAO 객체에 팀 id정보 전달.
 		StadiumInfoService.setShowTargetTeam(team);
 		
 		// 정보 페이지 명령어 리스트 출력과 명령어 입력 받기.
 		System.out.println(Message.stadium_info_cmd_ls);
 		String user_cmd = UserInput.receiveContainedString(stadium_info_cmd_set);
 		
-		
 		switch(user_cmd) {
 		case "eat":
 			StadiumInfoService.showParkFood();
+			System.out.println("------------------------------");
+			Coloring.greenOut("뒤로가기: b");
+			UserInput.receiveRestrictedString("b");
 			StadiumInfoController.cmdRun(team);			
 			break;
 			
 		case "bus":
 			StadiumInfoService.showParkBus();
+			System.out.println("------------------------------");
+			Coloring.greenOut("뒤로가기: b");
+			UserInput.receiveRestrictedString("b");
 			StadiumInfoController.cmdRun(team);
 			break;
 
 		case "subway":
 			StadiumInfoService.showParkSub();
+			System.out.println("------------------------------");
+			Coloring.greenOut("뒤로가기: b");
+			UserInput.receiveRestrictedString("b");
 			StadiumInfoController.cmdRun(team);
 			break;
 
 		case "parking":
 			StadiumInfoService.showParkParking();
+			System.out.println("------------------------------");
+			Coloring.greenOut("뒤로가기: b");
+			UserInput.receiveRestrictedString("b");
 			StadiumInfoController.cmdRun(team);
 			break;
 
@@ -74,7 +85,8 @@ public class StadiumInfoController {
 	
 	// (기본값) 선호하는 팀의 경기장 정보 보기.
 	public static void showPrfStadiumInfo() throws IOException, InterruptedException{
-		// ex) "회원님의 응원 구단인 한화이글스의 홈구장, 대전 한화생명 이글스파크의 정보 페이지입니다."처럼 출력.
+		
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println("회원님의 응원 구단인 " + Coloring.getPurple(Member.getPrfTeam().name) + "의 홈구장, '"
 			+ Coloring.getYellow(Member.getPrfTeam().stadium) + "'의 정보 페이지 입니다.\n\n");
 		StadiumInfoController.cmdRun(Member.getPrfTeam());

@@ -58,7 +58,7 @@ public class ArticleDAO {
 		reSet();
 		for(int i = 0; i < articles.size(); i++) {
 			if(articles.get(i).title.equals(articleTitle)) {
-				increaseHit(articles.get(i).id);
+//				increaseHit(articles.get(i).id);
 				return articles.get(i);
 			}
 		}
@@ -97,9 +97,9 @@ public class ArticleDAO {
 			+ "recommend = 0;");
 	}
 
-	private void increaseHit(int id) {
+	public void increaseHit(int id) {
 		try {
-			dao.update("UPDATE article SET hit = hit + 1 WHERE id = " + id);
+			dao.update("UPDATE article SET `hit` = `hit` + 1 WHERE id = " + id);
 		} catch(Exception e) {
 		}
 	} // 조회수 증가 함수

@@ -18,16 +18,16 @@ public class ReserveDAO {
 		try {
 			HashSet<Integer> gameIdSet = new HashSet<>();
 			
-			String selectAllGames_sql = "SELECT id, name, stadium, dateAndTime, DAYOFWEEK(dateAndTime) As part, opponent_club_num, home_club_num FROM games ORDER BY dateAndTime ASC";
+			String selectAllGames_sql = "SELECT id, name, stadium, dateAndTime, DAYOFWEEK(dateAndTime) As part, home_club_num, opponent_club_num, home_club_num FROM games ORDER BY dateAndTime ASC";
 			ResultSet rs = dao.select(selectAllGames_sql);
 			System.out
 				.println("--------------------------------------------------------------------------------------");
 			while(rs.next()) {
-				String name = Coloring.cyan + rs.getString(2) + Coloring.exit;
+				String name = Coloring.cyan + rs.getString("name") + Coloring.exit;
 				String stadium = Coloring.yellow + rs.getString(3) + Coloring.exit;
 				String dateAndTime = rs.getString(4);
 				System.out.printf("게임번호: %d | %-20s | 경기장: %-12s | %s \n", rs.getInt(1), name, stadium, String
-					.valueOf(MyreserveDAO.trimDateAndTime(dateAndTime, SQLUtil.getDayOfWeek(rs.getInt(11)))));
+					.valueOf(MyreserveDAO.trimDateAndTime(dateAndTime, SQLUtil.getDayOfWeek(rs.getInt("part")))));
 				System.out
 					.println("--------------------------------------------------------------------------------------");
 				gameIdSet.add(rs.getInt(1));

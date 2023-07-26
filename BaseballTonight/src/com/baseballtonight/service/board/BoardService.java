@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.baseballtonight.dao.board.ArticleDAO;
 import com.baseballtonight.dto.Article;
 import com.baseballtonight.dto.ArticleReply;
+import com.baseballtonight.util.Coloring;
 
 
 
@@ -33,21 +34,21 @@ public class BoardService {
 		articles = parkInfoArticleDao.getSearchedArticle(searchKey);
 		System.out.println();
 		System.out.println("< 검색 결과 >\n");
-		
 		System.out.println("\n");
-		System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 9. 뒤로가기                        <"+searchKey+" 검색결과 >                           0. 메인메뉴  \n");
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 번호   작성자         등록일     조회   추천    제목      \n");
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
+		System.out.printf(
+				"-------------------------------------------------------------------------------------------\n");
+		System.out.
+		printf("|  %s  |                        < %s 검색결과 >                        |   %s  |  \n", Coloring.getCyan("back"), searchKey, Coloring.getCyan("main"));
+		System.out.printf(
+				"-------------------------------------------------------------------------------------------\n");
+		System.out.printf("| 번호 |	작성자	|	등록일   | 조회 | 추천 | 제목	\n");
+		System.out.printf(
+				"-------------------------------------------------------------------------------------------\n");
         for (Article a : articles) {
 			System.out.printf(" %-5d%-10s%-13s%-6d%-6d%s\n",a.id,a.memberId,a.regDate,a.hit,a.recommend,a.title);
 		}
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
-		System.out.printf(" 3. 글쓰기                                                         1. 검색   2. 게시글 열기     \n");
-		
-		
-		
+		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("open"));
 	}
 	
 	public int showArticleDetail(String articleTitle,Scanner sc)	{ // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -60,17 +61,18 @@ public class BoardService {
 			System.out.println();
 			return -1;
 		}
+		parkInfoArticleDao.increaseHit(article.id);
 		
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 5. 뒤로가기                                                        3. 수정     4.삭제        \n");
+        System.out.printf("| 돌아가기: %s  |                                   | 수정: %s |     | 삭제: %s |        \n", Coloring.getCyan("back"), Coloring.getCyan("modify"), Coloring.getCyan("delete") );
         System.out.printf("-------------------------------------------------------------------------------------------\n");
         System.out.printf(" %-30s        %-24s  조회 : %-6d   추천 : %-6d\n",article.memberId,article.regDate,article.hit,article.recommend);
         System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" %s \n", article.title);
+        System.out.printf(" 제목: %s \n", article.title);
         System.out.println();
         System.out.printf(" %s \n", article.body);
         System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 1. 추천  2. 추천취소                                                                        \n");
+        System.out.printf(" | 추천: %s |  |추천 취소: %s|  \n", Coloring.getCyan("rcmd"), Coloring.getCyan("cancel") );
 		return 0;
 	}
 	
@@ -152,7 +154,7 @@ public class BoardService {
 	public void showArticleRecommendList(String articleTitle) {  // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this.replys = parkInfoArticleDao.getArticleReplyList(parkInfoArticleDao.getArticle(articleTitle).id);
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 작성자           작성일         댓글                                        6. 댓글작성       \n" );
+        System.out.printf(" 작성자           작성일         댓글                                     | 댓글작성:%s |   \n", Coloring.getCyan("reply") );
         System.out.printf("-------------------------------------------------------------------------------------------\n");
 		for (ArticleReply ar : replys) {
 			System.out.printf(" %-13s %-13s %s\n",ar.memberId,ar.regDate,ar.body);

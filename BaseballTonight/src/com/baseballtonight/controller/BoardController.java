@@ -1,11 +1,13 @@
 package com.baseballtonight.controller;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import com.baseballtonight.dto.Team;
 import com.baseballtonight.service.MainService;
 import com.baseballtonight.service.board.BoardService;
+import com.baseballtonight.util.Coloring;
 import com.baseballtonight.util.UserInput;
 
 public class BoardController { // 새로 추가된 Controller class
@@ -16,9 +18,26 @@ public class BoardController { // 새로 추가된 Controller class
 	private String mem_id;
 	private String parkName;
 	private BoardService parkInfoArticleService; // service 패키지 ParkInfoArticleSerive 추가.
+	
+	
 
 	@SuppressWarnings("unused")
 	public BoardController(int parkId, String parkName, String mem_id) throws IOException, InterruptedException {
+		HashSet<String> boardCmdSet = new HashSet<>();
+		boardCmdSet.add("back");
+		boardCmdSet.add("main");
+		boardCmdSet.add("write");
+		boardCmdSet.add("search");
+		boardCmdSet.add("open");
+		
+		HashSet<String> boardCmd2Set = new HashSet<>();
+		boardCmd2Set.add("rcmd");
+		boardCmd2Set.add("cancel");
+		boardCmd2Set.add("modify");
+		boardCmd2Set.add("delete");
+		boardCmd2Set.add("back");
+		boardCmd2Set.add("reply");
+		
 		this.parkName = parkName;
 		this.parkId = parkId;
 		this.mem_id = mem_id;
@@ -30,20 +49,16 @@ public class BoardController { // 새로 추가된 Controller class
 			System.out.println();
 			// 원하는 메뉴를 입력하세요 없어짐 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-			int command = UserInput.receiveLimitedRangeNum(0, 9);
+			String command = UserInput.receiveContainedString(boardCmdSet);
 
-			if ((command > 3 && command != 9) || command < 0) { // 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!! 5였던거 3으로 바뀜
-				System.out.println("없는 메뉴 입니다. 메뉴번호를 다시 입력하세요.\n");
-				System.out.println();
-				continue;
-			} else if (command == 0) {
+			if (command.equals("main")) {
 				MainService.mainMenu();
 				break;
-			} else if (command == 9) {
+			} else if (command.equals("back")) {
 				StadiumInfoController.cmdRun(Team.getTeamByTeamNum(parkId));
 				break;
 			} else {
-				if (command == 1) {
+				if (command.equals("search")) {
 					System.out.println();
 					System.out.println("<게시글 검색>");
 					System.out.println();
@@ -51,7 +66,7 @@ public class BoardController { // 새로 추가된 Controller class
 					String searchKey = sc.nextLine();
 					parkInfoArticleService.showSearchedArticle(searchKey);// 게시글 검색
 				}
-				if (command == 2) { //// 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				if (command.equals("open")) { //// 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					System.out.println();
 					System.out.println("<게시글 열기>");
 					System.out.println();
@@ -61,26 +76,26 @@ public class BoardController { // 새로 추가된 Controller class
 						parkInfoArticleService.showArticleRecommendList(articleTitle); // recommend 여기로 나옴
 						// detailmenu 였던것. 07/20
 						while (true) { // while문 추가 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-							int command2 = sc.nextInt();
-							sc.nextLine();
-							if (command2 == 1) {
+							String command2 = UserInput.receiveContainedString(boardCmd2Set);
+							
+							if (command2.equals("rcmd")) {
 								parkInfoArticleService.doArticleRecommendIncrease(articleTitle);
 								continue;
-							} else if (command2 == 2) {
+							} else if (command2.equals("cancel")) {
 								parkInfoArticleService.doArticleRecommendDecrease(articleTitle);
 								continue;
-							} else if (command2 == 3) { // 함수 내용 바뀜. 07/20
+							} else if (command2.equals("modify")) { // 함수 내용 바뀜. 07/20
 								parkInfoArticleService.doArticleModify(articleTitle, sc);
 								showParkInfoArticleMenu(); // 요거 추가됨 07/20!!!!!!!!!!!!!!!!!!!!!!!
 								break;
-							} else if (command2 == 4) { // command2 == 바뀜. 함수내용 바뀜 07/20
+							} else if (command2.equals("delete")) { // command2 == 바뀜. 함수내용 바뀜 07/20
 								parkInfoArticleService.doArticleDelete(articleTitle, sc);
 								showParkInfoArticleMenu(); // 요거 추가됨 07/20!!!!!!!!!!!!!!!!!!!!!!!
 								break;
-							} else if (command2 == 5) { // command2 5번 추가됨. 07/20
+							} else if (command2.equals("back")) { // command2 5번 추가됨. 07/20
 								showParkInfoArticleMenu(); // 요거 추가됨 07/20!!!!!!!!!!!!!!!!!!!!!!!
 								break;
-							} else if (command2 == 6) { // 6으로 바뀜 07/20!!!!!!!!
+							} else if (command2.equals("reply")) { // 6으로 바뀜 07/20!!!!!!!!
 								System.out.println();
 								System.out.println("< 댓글 쓰기 >");
 								System.out.println();
@@ -97,7 +112,7 @@ public class BoardController { // 새로 추가된 Controller class
 					} // 여기까지 while문
 
 				}
-				if (command == 3) {
+				if (command.equals("write")) {
 					System.out.println();
 					System.out.println("<게시글 작성>");
 					System.out.printf("제목입력 >> ");
@@ -136,17 +151,17 @@ public class BoardController { // 새로 추가된 Controller class
 		System.out.println("\n");
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
-		System.out
-				.printf(" 9. 뒤로가기                        <" + parkName + " 자유게시판 >                        0. 메인메뉴  \n");
+		System.out.
+		printf("|  %s  |                        < %s 자유게시판 >                        |   %s  |  \n", Coloring.getCyan("back"), parkName, Coloring.getCyan("main"));
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
-		System.out.printf(" 번호   작성자         등록일     조회   추천    제목      \n");
+		System.out.printf("| 번호 |	작성자	|	등록일   | 조회 | 추천 | 제목	\n");
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
 		parkInfoArticleService.showArticleList(); // 게시글 목록
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
-		System.out.printf(" 3. 글쓰기                                                         1. 검색   2. 게시글 열기     \n");
+		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("open"));
 	}
 
 //	private void showArticleDetailMenu() { // 이제 안씀 필요없음 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
