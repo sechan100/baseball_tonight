@@ -25,7 +25,7 @@ public class BlockService {
 	
 	static BlockView view;
 	
-	public static void showSeatBlocks(String seatType) {
+	public static void showSeatBlocks(String seatType) throws InterruptedException {
 		/*
 		 * (Block)view 객체에, 적절한 seatType view 객체로써 초기화 해준다.
 		 */

@@ -20,7 +20,7 @@ public class NavyBlockView implements BlockView {
 				
 				if(crt_page == 1){
 					
-					Coloring.purpleOut("이전 페이지가 없습니다.");
+					Coloring.redOut("이전 페이지가 없습니다.");
 					
 				} else if(crt_page == 2){
 					
@@ -70,7 +70,7 @@ public class NavyBlockView implements BlockView {
 					
 				}  else if(crt_page == 6){
 					
-					Coloring.purpleOut("다음 페이지가 없습니다.");
+					Coloring.redOut("다음 페이지가 없습니다.");
 					
 				}
 				

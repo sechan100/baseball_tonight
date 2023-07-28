@@ -1,7 +1,6 @@
 package com.baseballtonight.dao;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +22,7 @@ public class MyreserveDAO {
 		return DAT;
 	}
 
-	public boolean showReservationList(String userID) throws IOException, InterruptedException {
+	public boolean showReservationList(String userID) throws InterruptedException {
 		try {
 			String sql = "SELECT reservationID,\n"
 				+ " seatType,\n"
@@ -41,7 +40,7 @@ public class MyreserveDAO {
 			ResultSet rs = dao.select(sql);
 			System.out.println();
 			Coloring.greenOut(userID + " 회원님의 예매 정보입니다.");
-			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+			System.out.println("-------------------------------------------------------------------------------------------------------------------");
 			boolean emptyReservation = true;
 			while(rs.next()) {
 				int reservationID = rs.getInt(1);
@@ -61,7 +60,7 @@ public class MyreserveDAO {
 				System.out.print(new SeatDAO().getColumnAndRowBySeatId(rs.getInt("seat_id")));				
 				System.out.print(" | ");
 				System.out.print(startWhen);
-				System.out.print("\n--------------------------------------------------------------------------------------------------------------------------------\n");
+				System.out.print("\n-------------------------------------------------------------------------------------------------------------------\n");
 				emptyReservation = false;
 			}
 			rs.close();

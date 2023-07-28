@@ -1,6 +1,5 @@
 package com.baseballtonight.service;
 
-import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.controller.SelfController;
@@ -24,7 +23,7 @@ public class SelfService {
 	}
 	////
 	
-	public static void serviceRun() throws IOException, InterruptedException {
+	public static void serviceRun() throws InterruptedException {
 		SelfService.showMe();
 	}
 
@@ -33,7 +32,7 @@ public class SelfService {
 	
 	
 	//////
-	public static void showMe() throws IOException, InterruptedException {
+	public static void showMe() throws InterruptedException {
 		String info = String.format("\n\n\n\n\n\n\n\n\n\n\n"
 			+ Coloring.getGreen("		<나의 정보 페이지 입니다>\n")
 			+ "-------------------------------------------------------\n"
@@ -47,7 +46,7 @@ public class SelfService {
 	}
 	
 
-	public static void changePassword() throws IOException, InterruptedException {
+	public static void changePassword() throws InterruptedException {
 		LoginDAO loginDAO = new LoginDAO();
 		while(true){
 			Coloring.greenOut("현재 비밀번호");
@@ -87,12 +86,12 @@ public class SelfService {
 			Thread.sleep(1500);
 			SelfService.showMe();
 		} else {
-			Coloring.purpleOut("비밀번호를 변경하지 못했습니다. 내정보 페이지로 돌아갑니다.");
+			Coloring.redOut("비밀번호를 변경하지 못했습니다. 내정보 페이지로 돌아갑니다.");
 			Thread.sleep(1000);
 			SelfService.showMe();
 		}
 	}
-	public static void changePrfTean() throws InterruptedException, IOException {
+	public static void changePrfTean() throws InterruptedException {
 		Coloring.greenOut("현재 선호하는 팀: " + Member.getPrfTeam().name);
 		Thread.sleep(1000);
 		
@@ -113,7 +112,7 @@ public class SelfService {
 			Thread.sleep(1000);
 			
 		} else {
-			Coloring.purpleOut("응원 팀을 변경하지 못했습니다. 내정보 페이지로 이동합니다.");
+			Coloring.redOut("응원 팀을 변경하지 못했습니다. 내정보 페이지로 이동합니다.");
 			Thread.sleep(1000);
 		}
 		

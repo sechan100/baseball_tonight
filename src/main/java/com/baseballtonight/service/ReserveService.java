@@ -1,6 +1,5 @@
 package com.baseballtonight.service;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -20,7 +19,7 @@ public class ReserveService {
 	public static int seatRow; // 좌석 행.
 	//
 
-	public static void serviceRun() throws IOException, InterruptedException {
+	public static void serviceRun() throws InterruptedException {
 
 		// 응원팀 경기만을 조회했다면 true.
 		boolean showOnlyPrfTeamGame = Games.showGameList(dao);
@@ -47,16 +46,28 @@ public class ReserveService {
 		// 인원수 선택.
 		Coloring.greenOut("예매하실 인원 수를 선택해주십시오.(1 ~ 10)");
 		int theNumber = UserInput.receiveLimitedRangeNum(1, 10);
+		int[] seat_ids = new int[theNumber];
 		for(int i = 1; i<=theNumber; i++){
 			// 좌석 선택.
-			int seat_id = SeatChoiceService.choiceSeat(i, theNumber);
-
+			seat_ids[i-1] = SeatChoiceService.choiceSeat(i, theNumber);
+			
 			// 선택한 예매 정보를 종합하여 update 쿼리로 전달.
-			dao.addNewReservation(gameId, seatType, seatBlock, seat_id);
-			Thread.sleep(400);
+			dao.addNewReservation(gameId, seatType, seatBlock, seat_ids[i-1]);
+			Thread.sleep(300);
 		}
-		Coloring.cyanOut("예매가 완료되었습니다. 감사합니다.");
 		Thread.sleep(1000);
+		
+		for(int seatId : seat_ids){
+			ReserveDAO.showReservationBySeatId(seatId);
+		}
+		
+		Coloring.greenOut("위의 예매 내역을 확인하시고, 메인으로 나가시려면 Enter를 눌러주세요.");
+		
+		UserInput.receiveString();
+		
+		Coloring.cyanOut("\n예매가 완료되었습니다. 감사합니다.");
+		Thread.sleep(1500);
+		
 	}
 }
 
@@ -65,7 +76,7 @@ class Games {
 	public static HashMap<Integer, Integer> game_id_map;
 	public static int gameId;
 
-	public static boolean showGameList(ReserveDAO dao) throws IOException, InterruptedException {
+	public static boolean showGameList(ReserveDAO dao) throws InterruptedException {
 
 		Coloring.greenOut("응원 팀의 경기 일정만을 보시겠습니까? (Y/N)  (N: 전체 경기일정 보기)");
 		boolean user_answer = UserInput.receiveYesOrNo();
@@ -79,7 +90,7 @@ class Games {
 			// 경기 calendar 출력.
 			game_id_map = GameCalendarService.showCalendar();
 
-			System.out.println(Coloring.getPurple("보라색: ") + "응원 팀 홈 경기");
+			System.out.println(Coloring.getBlack(Coloring.cyanBack + "응원 팀 홈 경기" + Coloring.exit));
 
 			// 등록된 모든 경기 출력.
 		} else {
@@ -94,14 +105,14 @@ class Games {
 		return user_answer;
 	}
 
-	public static int choiceGamebyId() {
+	public static int choiceGamebyId() throws InterruptedException {
 		System.out.print(Coloring.getGreen(
 			"관람을 원하시는 경기를 선택하시고, 해당 경기의 \'게임번호\'를 입력하여 주십시오.\n") + "게임번호:");
 		gameId = UserInput.receiveContainedNum(gameIdSet);
 		return gameId;
 	}
 
-	public static int choiceGamebyDay() {
+	public static int choiceGamebyDay() throws InterruptedException {
 		System.out.print(Coloring.getGreen(
 			"관람을 원하시는 경기의 \'날짜(일)\'를 입력하여 주십시오.\n") + "일:");
 		int game_day = UserInput.receiveContainedNum(new HashSet<Integer>(game_id_map.keySet()));

@@ -8,6 +8,7 @@ public class Coloring {
     public static final String blue     = "\u001B[34m" ;
     public static final String purple   = "\u001B[35m" ;
     public static final String cyan     = "\u001B[36m" ;
+    public static final String black    = "\u001B[30m" ;
     
     // background colors.
 	public static final String redBack = "\u001B[41m";     
@@ -40,6 +41,8 @@ public class Coloring {
     	System.out.println(cyan + text + exit);
     }
     
+
+
     public static String getRed(String text) {
     	return Coloring.red + text + Coloring.exit;
     }
@@ -58,5 +61,17 @@ public class Coloring {
     public static String getCyan(String text) {
     	return Coloring.cyan + text + Coloring.exit;
     }
-
+    public static String getBlack(String text) {
+    	return Coloring.black + text + Coloring.exit;
+    }
+    
+    
+    
+    
+    public static String getCyanBack(String text) {
+    	return Coloring.cyanBack + text + Coloring.exit;
+    }
+    public static String getWhiteBack(String text) {
+    	return Coloring.whiteBack + text + Coloring.exit;
+    }
 }

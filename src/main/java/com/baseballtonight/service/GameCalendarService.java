@@ -15,16 +15,16 @@ public class GameCalendarService {
 		public static HashMap<Integer, String> day_schedule_time = new HashMap<>();
 		static {
 			home_game[0] = ("         ");
-			home_game[1] = Coloring.getPurple("   SSG   ");
-			home_game[2] = Coloring.getPurple(" KIWOOM  ");
-			home_game[3] = Coloring.getPurple("   LG    ");
-			home_game[4] = Coloring.getPurple("   KT    ");
-			home_game[5] = Coloring.getPurple("   KIA   ");
-			home_game[6] = Coloring.getPurple("   NC    ");
-			home_game[7] = Coloring.getPurple(" SAMSUNG ");
-			home_game[8] = Coloring.getPurple("  LOTTE  ");
-			home_game[9] = Coloring.getPurple(" DOOSAN  ");
-			home_game[10] = Coloring.getPurple(" HANWHA  ");
+			home_game[1] = Coloring.getCyanBack(Coloring.getBlack("   SSG   "));
+			home_game[2] = Coloring.getCyanBack(Coloring.getBlack(" KIWOOM  "));
+			home_game[3] = Coloring.getCyanBack(Coloring.getBlack("   LG    "));
+			home_game[4] = Coloring.getCyanBack(Coloring.getBlack("   KT    "));
+			home_game[5] = Coloring.getCyanBack(Coloring.getBlack("   KIA   "));
+			home_game[6] = Coloring.getCyanBack(Coloring.getBlack("   NC    "));
+			home_game[7] = Coloring.getCyanBack(Coloring.getBlack(" SAMSUNG "));
+			home_game[8] = Coloring.getCyanBack(Coloring.getBlack("  LOTTE  "));
+			home_game[9] = Coloring.getCyanBack(Coloring.getBlack(" DOOSAN  "));
+			home_game[10] = Coloring.getCyanBack(Coloring.getBlack(" HANWHA  "));
 			///////////
 			away_game[0] = ("         ");
 			away_game[1] = ("   SSG   ");

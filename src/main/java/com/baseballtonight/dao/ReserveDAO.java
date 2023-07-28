@@ -16,7 +16,7 @@ public class ReserveDAO {
 	public HashSet<Integer> showAllGameList() {
 		try {
 			HashSet<Integer> gameIdSet = new HashSet<>();
-			
+
 			String selectAllGames_sql = "SELECT id, name, stadium, dateAndTime, DAYOFWEEK(dateAndTime) As part, home_club_num, opponent_club_num, home_club_num FROM games ORDER BY dateAndTime ASC";
 			ResultSet rs = dao.select(selectAllGames_sql);
 			System.out
@@ -39,8 +39,6 @@ public class ReserveDAO {
 		return null;
 	}
 
-	
-	
 	/**
 	 * 
 	 * @param gameId: 요일 정보를 가져와서, 주중 or 주말 판단후 가격 출력.
@@ -51,35 +49,30 @@ public class ReserveDAO {
 			ResultSet rs = dao.select(loadDayOfWeekByGameId_sql);
 			rs.next();
 			int[] priceOfSeatType_arr = getPriceOfSeatType(SQLUtil.getDayOfWeek(rs.getInt("part")));
-			
-			String seatTypeList = Coloring.getPurple(
-				"-------------------------------------------\n"
-					+ "PREMIUM석: 최고의 자리, 후회없는 경기 직관\n")
+
+			String seatTypeList =
+					"-------------------------------------------\n"
+					+ Coloring.getWhiteBack(Coloring.getPurple("PREMIUM석")) + ": 최고의 자리, 후회없는 경기 직관\n"
 				+ getNumberOfAvailableSeat("premium") + " | 가격: " + priceOfSeatType_arr[0] + "\n\n"
-				+ Coloring.getYellow(
-					"-------------------------------------------\n"
-						+ "TABLE석: 편안한 테이블과 함께 입이 즐거운 관람\n")
+					+ "-------------------------------------------\n"
+						+ Coloring.getYellow("TABLE석") + ": 편안한 테이블과 함께 입이 즐거운 관람\n"
 				+ getNumberOfAvailableSeat("table") + " | 가격: " + priceOfSeatType_arr[1] + "\n\n"
-				+ Coloring.getBlue(
-					"-------------------------------------------\n"
-						+ "BLUE석: 쾌적한 자리, 중앙에서 외야를 조망\n")
+					+ "-------------------------------------------\n"
+						+ Coloring.getWhiteBack(Coloring.getBlue("BLUE석")) + ": 쾌적한 자리, 중앙에서 외야를 조망\n"
 				+ getNumberOfAvailableSeat("blue") + " | 가격: " + priceOfSeatType_arr[2] + "\n\n"
-				+ Coloring.getRed(
-					"-------------------------------------------\n"
-						+ "RED석: 일반석, 합리적인 가격에 경기를 관람\n")
+					+ "-------------------------------------------\n"
+						+ Coloring.getRed("RED석") + ": 일반석, 합리적인 가격에 경기를 관람\n"
 				+ getNumberOfAvailableSeat("red") + " | 가격: " + priceOfSeatType_arr[3] + "\n\n"
-				+ Coloring.getCyan(
-					"-------------------------------------------\n"
-						+ "NAVY석: 안락한 위층에서 경기를 한눈에 조망\n")
+					+ "-------------------------------------------\n"
+						+ Coloring.getCyan("NAVY석") + ": 안락한 위층에서 경기를 한눈에 조망\n"
 				+ getNumberOfAvailableSeat("navy") + " | 가격: " + priceOfSeatType_arr[4] + "\n\n"
-				+ Coloring.getGreen(
-					"-------------------------------------------\n"
-						+ "GREEN석: 가족과 함께 경기를 즐기고 홈런볼의 주인이 되세요!\n")
+					+ "-------------------------------------------\n"
+						+ Coloring.getGreen("GREEN석") + ": 가족과 함께 경기를 즐기고 홈런볼의 주인이 되세요!\n"
 				+ getNumberOfAvailableSeat("green") + " | 가격: " + priceOfSeatType_arr[5] + "\n\n"
 				+ "-------------------------------------------\n";
-			
+
 			System.out.print(seatTypeList);
-			
+
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,18 +81,17 @@ public class ReserveDAO {
 	public int[] getPriceOfSeatType(String dayOfWeek) {
 		String loadPriceData_sql = "SELECT seatType, weekdayPrice, weekendPrice FROM seatType ORDER BY weekdayPrice DESC";
 		ResultSet priceData = dao.select(loadPriceData_sql);
-		
+
 		int[] price = new int[6]; // Array to return.
-		
+
 		String columnNameByDayOfWeek; // column name for query. (weekdayPrice OR weekendPrice).
-		
-		if( dayOfWeek.equals("토요일") || dayOfWeek.equals("일요일") ) {
+
+		if(dayOfWeek.equals("토요일") || dayOfWeek.equals("일요일")) {
 			columnNameByDayOfWeek = "weekendPrice";
 		} else {
 			columnNameByDayOfWeek = "weekdayPrice";
 		}
-		
-		
+
 		try {
 			int i = 0;
 			// 각 타입마다 순회하면서 가격 정보를 배열에 저장.
@@ -109,7 +101,7 @@ public class ReserveDAO {
 			}
 			priceData.close();
 			return price;
-			
+
 		} catch(SQLException e) {
 			System.out.println(e);
 		}
@@ -120,7 +112,7 @@ public class ReserveDAO {
 		int number_of_available_seat = new SeatDAO().getNumberOfAvailableSeatBySeatType(ReserveService.gameId,
 			seat_type);
 		if(number_of_available_seat != 0) {
-			return "예매 가능한 좌석: " + number_of_available_seat + "석";
+			return "예매 가능한 좌석:" + Coloring.getGreen(" "+ number_of_available_seat) + "석";
 		} else {
 			return "예약 가능한 좌석이 없습니다.";
 		}
@@ -144,4 +136,54 @@ public class ReserveDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public static void showReservationBySeatId(int seat_id) {
+		DAO dao = new DAO();
+		try {
+			String cancelTargetReservationSelectSQL = "SELECT reservationID,\n"
+				+ " seatType,\n"
+				+ " seatBlock,\n"
+				+ " userID,\n"
+				+ " name,\n"
+				+ " stadium,\n"
+				+ " dateAndTime,\n"
+				+ " DAYOFWEEK(dateAndTime) As part, \n"
+				+ " seat_id \n"
+				+ " reservationID \n"
+				+ " FROM reservations\n"
+				+ "JOIN games\n"
+				+ "on gameID = id\n"
+				+ "WHERE seat_id =" + seat_id;
+			ResultSet rs = dao.select(cancelTargetReservationSelectSQL);
+
+			rs.next();
+			if(!rs.getString(4).equals(Member.getId())) {
+				throw new Exception();
+			}
+			String gameName = rs.getString(5);
+			String stadium = rs.getString(6);
+			String DayOfWeek = SQLUtil.getDayOfWeek(rs.getInt(8));
+			StringBuilder startWhen = MyreserveDAO.trimDateAndTime(rs.getString(7), DayOfWeek);
+			String seatType = rs.getString(2);
+			int seatBlock = rs.getInt(3);
+			int reservationId = rs.getInt("reservationID");
+			System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+			System.out.print("예매번호: " + reservationId + " | ");
+			System.out.print(Coloring.cyan + gameName + Coloring.exit);
+			System.out.print(" | ");
+			System.out.print(Coloring.yellow + stadium + Coloring.exit);
+			System.out.print(" | ");
+			System.out.print(seatType + "석 " + seatBlock + "블록 ");
+			System.out.print(" | ");
+			System.out.print(new SeatDAO().getColumnAndRowBySeatId(seat_id));
+			System.out.print(" | ");
+			System.out.print(startWhen);
+			System.out.println(
+				"-------------------------------------------------------------------------------------------------------------------");
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
 }

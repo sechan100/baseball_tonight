@@ -12,7 +12,7 @@ public class SeatChoiceService {
 	
 	
 	
-	public static int choiceSeat(int nowNumber, int totalNumber) {
+	public static int choiceSeat(int nowNumber, int totalNumber) throws InterruptedException {
 		String seatView = String.format(""
 			+ "+===================================+		\n"
 			+ "|  	열 |  a열   b열  c열   d열  e열	|		\n"
@@ -133,7 +133,7 @@ public class SeatChoiceService {
 				
 			// 이미 예약된 좌석인 경우.
 			} else {
-				Coloring.purpleOut("이미 예약된 좌석입니다. 다른 좌석을 선택해주세요.\n");
+				Coloring.redOut("이미 예약된 좌석입니다. 다른 좌석을 선택해주세요.\n");
 			}
 		}
 		

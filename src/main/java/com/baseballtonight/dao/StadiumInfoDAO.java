@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.baseballtonight.util.Coloring;
 
 public class StadiumInfoDAO {
-    private String setNull = Coloring.getPurple("등록된 정보가 없습니다\n");
+    private String setNull = Coloring.getRed("등록된 정보가 없습니다\n");
     ResultSet resultSet;
     public StadiumInfoDAO(int parkId) {
     	DAO dao = new DAO();

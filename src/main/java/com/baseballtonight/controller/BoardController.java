@@ -1,6 +1,5 @@
 package com.baseballtonight.controller;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -23,7 +22,7 @@ public class BoardController { // 새로 추가된 Controller class
 	
 
 	@SuppressWarnings("unused")
-	public BoardController(int parkId, String parkName, String mem_id) throws IOException, InterruptedException {
+	public BoardController(int parkId, String parkName, String mem_id) throws InterruptedException {
 		HashSet<String> boardCmdSet = new HashSet<>();
 		boardCmdSet.add("back");
 		boardCmdSet.add("main");

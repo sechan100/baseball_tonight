@@ -1,6 +1,5 @@
 package com.baseballtonight.service;
 
-import java.io.IOException;
 
 import com.baseballtonight.AppEntering;
 import com.baseballtonight.dao.JoinDAO;
@@ -12,7 +11,7 @@ import com.baseballtonight.util.UserInput;
 public class JoinService {
 	static JoinDAO dao = new JoinDAO();
 	
-	public static void doJoin() throws IOException, InterruptedException {
+	public static void doJoin() throws InterruptedException {
 		String memId;
 		String memPassword;
 		int prfTeam_num;
@@ -31,7 +30,7 @@ public class JoinService {
 			if(registeredPassword != null){
 				Coloring.greenOut("\n이미 존재하는 아이디입니다. 해당 아이디로 로그인 할까요?(Y/N) (N: 회원가입 재시도)");
 				if(UserInput.receiveYesOrNo()){
-					Coloring.purpleOut("\n로그인 페이지로 이동합니다.");
+					Coloring.redOut("\n로그인 페이지로 이동합니다.");
 					Thread.sleep(1000);
 					LoginService.doLoginSincePassword(memId);
 					break;

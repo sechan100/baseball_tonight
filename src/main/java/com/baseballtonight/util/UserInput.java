@@ -5,24 +5,49 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
+import com.baseballtonight.service.MainService;
+
 public class UserInput {
 
-	public static boolean receiveYesOrNo() throws IOException {
+	public static String receiveString() throws InterruptedException {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
 			System.out.print(">>>");
-			String userAnswer = rd.readLine().toLowerCase();
-			if(userAnswer.equals("y")) {
-				return true;
-			} else if(userAnswer.equals("n")) {
-				return false;
-			} else {
-				Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
+			String input;
+			try {
+				input = rd.readLine();
+				if(input.equals("main")) {
+					MainService.mainMenu();
+				}
+				return input;
+
+			} catch(IOException e) {
+				e.printStackTrace();
+				return null;
 			}
 		}
 	}
 
-	public static String receiveSeatType() {
+	public static boolean receiveYesOrNo() {
+		while(true) {
+			System.out.print(">>>");
+			String userAnswer;
+			try {
+				userAnswer = UserInput.receiveString().toLowerCase();
+				if(userAnswer.equals("y") || userAnswer.equals("")) {
+					return true;
+				} else if(userAnswer.equals("n")) {
+					return false;
+				} else {
+					Coloring.redOut("유효하지 않은 답변입니다. 다시 입력해주십시오.\n");
+				}
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static String receiveSeatType() throws InterruptedException {
 		HashSet<String> seatType_set = new HashSet<>();
 		seatType_set.add("premium");
 		seatType_set.add("table");
@@ -36,109 +61,94 @@ public class UserInput {
 		return seatType;
 	}
 
-	public static int receiveContainedNum(HashSet<Integer> set) {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+	public static int receiveContainedNum(HashSet<Integer> set) throws InterruptedException {
 		while(true) {
 			try {
 				System.out.print(">>>");
-				int num = Integer.parseInt(rd.readLine());
+				int num = Integer.parseInt(UserInput.receiveString());
 				if(!set.contains(num)) {
 					throw new NumberFormatException();
 				}
 				return num;
 			} catch(NumberFormatException e) {
 				Coloring.redOut("올바른 범위의 수를 입력하여 주십시오.");
-			} catch(IOException e) {
-				System.out.println("ConsoleUtil.receiveCustomRangeNum throw IOException!: " + e);
 			}
 		}
 	}
 
-	public static String receiveRestrictedString(String first) {
+	public static String receiveRestrictedString(String first) throws InterruptedException {
 		while(true) {
 			String input = UserInput.receiveNoSpaceString();
 			if(input.equals(first)) {
 				return input;
 			} else {
-				Coloring.redOut("유효한 입력이 아닙니다.");				
+				Coloring.redOut("유효한 입력이 아닙니다.");
 			}
 		}
 	}
-	
-	public static String receiveRestrictedString(String first, String second) {
+
+	public static String receiveRestrictedString(String first, String second) throws InterruptedException {
 		while(true) {
 			String input = UserInput.receiveNoSpaceString();
 			if(input.equals(first)) {
 				return input;
-			} else if(input.equals(second)){
+			} else if(input.equals(second)) {
 				return input;
 			} else {
-				Coloring.redOut("유효한 입력이 아닙니다.");				
+				Coloring.redOut("유효한 입력이 아닙니다.");
 			}
 		}
 	}
-	
-	
 
-	public static String receiveContainedString(HashSet<String> set) {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+	public static String receiveContainedString(HashSet<String> set) throws InterruptedException {
 		while(true) {
 			try {
 				System.out.print(">>>");
-				String userInput = rd.readLine().toLowerCase();
+				String userInput = UserInput.receiveString().toLowerCase();
 				if(!set.contains(userInput)) {
 					throw new NullPointerException();
 				}
 				return userInput;
 			} catch(NullPointerException e) {
 				Coloring.redOut("유효한 입력이 아닙니다.");
-			} catch(IOException e) {
-				System.out.println("ConsoleUtil.receiveContainedString throw IOException!: " + e);
 			}
 		}
 	}
 
-	public static int receiveLimitedRangeNum(int start, int end) {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+	public static int receiveLimitedRangeNum(int start, int end) throws InterruptedException {
 		while(true) {
 			try {
 				System.out.print(">>>");
-				int num = Integer.parseInt(rd.readLine());
+				int num = Integer.parseInt(UserInput.receiveString());
 				if(num < start || num > end) {
 					throw new NumberFormatException();
 				}
 				return num;
 			} catch(NumberFormatException e) {
 				Coloring.redOut("올바른 범위의 수를 입력하여 주십시오.");
-			} catch(IOException e) {
-				System.out.println("ConsoleUtil.receiveCustomRangeNum throw IOException!: " + e);
 			}
 		}
 	}
 
-	public static int receiveNaturalNumber() {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+	public static int receiveNaturalNumber() throws InterruptedException {
 		while(true) {
 			try {
-				int num = Integer.parseInt(rd.readLine());
+				int num = Integer.parseInt(UserInput.receiveString());
 				if(num <= 0) {
 					throw new NumberFormatException();
 				}
 				return num;
 			} catch(NumberFormatException e) {
 				Coloring.redOut("0보다 큰 정수를 입력하여 주십시오.");
-			} catch(IOException e) {
-				System.out.println("ConsoleUtil.receiveNaturalNumber throw IOException!");
 			}
 		}
 	}
 
-	public static String receiveNoSpaceString() {
-		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+	public static String receiveNoSpaceString() throws InterruptedException {
 		while(true) {
 			try {
 				System.out.print(">>>");
-				String input = rd.readLine();
+				String input = UserInput.receiveString();
 				if(input.contains(" ")) {
 					throw new IOException();
 				}

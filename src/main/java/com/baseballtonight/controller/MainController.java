@@ -1,7 +1,5 @@
 package com.baseballtonight.controller;
 
-
-import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.service.MainService;
@@ -25,7 +23,7 @@ public class MainController {
 	}
 	
 	
-	public static void cmdRun(String cmd) throws IOException, InterruptedException {
+	public static void cmdRun(String cmd) throws InterruptedException {
 		
 		switch(cmd){
 		
@@ -50,7 +48,7 @@ public class MainController {
 			break;
 			
 		case "exit":
-			Coloring.purpleOut("종료되었습니다.");
+			Coloring.redOut("종료되었습니다.");
 			System.exit(0);
 			break;
 		}

@@ -1,7 +1,5 @@
 package com.baseballtonight.service;
 
-import java.io.IOException;
-
 import com.baseballtonight.dao.LoginDAO;
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.util.Coloring;
@@ -12,7 +10,7 @@ public class LoginService {
 	static String user_password;
 	static LoginDAO dao = new LoginDAO();
 
-	public static void doLogin() throws IOException, InterruptedException {
+	public static void doLogin() throws InterruptedException {
 		try {
 			Coloring.greenOut("\n로그인: 아이디");
 			user_id = UserInput.receiveNoSpaceString();
@@ -41,7 +39,7 @@ public class LoginService {
 			Coloring.greenOut("회원정보가 없습니다. 회원가입 페이지로 이동하시겠습니까?(Y/N) (N: 로그인 재시도)");
 			if(UserInput.receiveYesOrNo()) {
 
-				Coloring.purpleOut("회원가입 페이지로 이동합니다.");
+				Coloring.redOut("회원가입 페이지로 이동합니다.");
 				Thread.sleep(1000);
 				JoinService.doJoin();
 			} else {
@@ -52,7 +50,7 @@ public class LoginService {
 
 	}
 
-	public static void doLoginSincePassword(String user_id) throws IOException, InterruptedException {
+	public static void doLoginSincePassword(String user_id) throws InterruptedException {
 		String user_password_confirm = dao.getUserPasswordByUserId(user_id);
 		while(true) {
 			Coloring.greenOut("\n로그인: 비밀번호");

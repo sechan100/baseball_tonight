@@ -1,13 +1,12 @@
 package com.baseballtonight.controller;
 
-import java.io.IOException;
 
-import com.baseballtonight.service.MainService;
 import com.baseballtonight.service.JoinService;
 import com.baseballtonight.service.LoginService;
+import com.baseballtonight.service.MainService;
 
 public class GuestController {
-	public static void cmdRun(String cmd) throws IOException, InterruptedException {
+	public static void cmdRun(String cmd) throws InterruptedException {
 		switch(cmd){
 		case "join":
 			JoinService.doJoin();

@@ -1,13 +1,12 @@
 package com.baseballtonight.service;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 import com.baseballtonight.dao.CancelDAO;
 
 public class CancelServer {
 
-	public static void serverRun() throws IOException {
+	public static void serverRun() {
 		CancelDAO dao = new CancelDAO();
 		try {
 			dao.cancelReservation();

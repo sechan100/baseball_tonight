@@ -1,6 +1,5 @@
 package com.baseballtonight.controller;
 
-import java.io.IOException;
 import java.util.HashSet;
 
 import com.baseballtonight.dto.Member;
@@ -24,7 +23,7 @@ public class StadiumInfoController {
 		stadium_info_cmd_set.add("main");
 	}
 
-	public static void cmdRun(Team team) throws IOException, InterruptedException {
+	public static void cmdRun(Team team) throws InterruptedException {
 		// StadiumInfoDAO 객체에 팀 id정보 전달.
 		StadiumInfoService.setShowTargetTeam(team);
 		
@@ -84,16 +83,16 @@ public class StadiumInfoController {
 	}
 	
 	// (기본값) 선호하는 팀의 경기장 정보 보기.
-	public static void showPrfStadiumInfo() throws IOException, InterruptedException{
+	public static void showPrfStadiumInfo() throws InterruptedException{
 		
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.println("회원님의 응원 구단인 " + Coloring.getPurple(Member.getPrfTeam().name) + "의 홈구장, '"
+		System.out.println("회원님의 응원 구단인 " + Coloring.getRed(Member.getPrfTeam().name) + "의 홈구장, '"
 			+ Coloring.getYellow(Member.getPrfTeam().stadium) + "'의 정보 페이지 입니다.\n\n");
 		StadiumInfoController.cmdRun(Member.getPrfTeam());
 	}
 	
 	// 선호하는 팀이 아닌 다른 구단의 경기장 정보 보기. (other 명령어의 응답 함수)
-	public static void showOtherStadiumInfo(Team other_team) throws IOException, InterruptedException{
+	public static void showOtherStadiumInfo(Team other_team) throws InterruptedException{
 		Coloring.greenOut(Coloring.getCyan(other_team.name) + "의 홈구장, '"
 			+ Coloring.getYellow(other_team.stadium) + "'의 정보 페이지 입니다.");
 		StadiumInfoController.cmdRun(other_team);

@@ -1,18 +1,18 @@
 package com.baseballtonight.util;
 
 public class Message {
-	public static String app_starting_msg =
+	public static String app_logo =
 		  Coloring.getCyan("______                    _             _  _          _____                _         _      _   \n")
 		+ Coloring.getCyan("| ___ \\                  | |           | || |        |_   _|              (_)       | |    | |  \n")
 		+ Coloring.getCyan("| |_/ /  __ _  ___   ___ | |__    __ _ | || |  ____    | |    ___   _ __   _   __ _ | |__  | |_ \n")
 		+ Coloring.getCyan("| ___ \\ / _` |/ __| / _ \\| '_ \\  / _` || || | |____|   | |   / _ \\ | '_ \\ | | / _` || '_ \\ | __|\n")
 		+ Coloring.getCyan("| |_/ /| (_| |\\__ \\|  __/| |_) || (_| || || |          | |  | (_) || | | || || (_| || | | || |_ \n")
-		+ Coloring.getBlue("\\____/  \\__,_||___/ \\___||_.__/  \\__,_||_||_|          \\_/   \\___/ |_| |_||_| \\__, ||_| |_| \\__|\n")
-		+ Coloring.getBlue("                                                                               __/ |            \n")
-		+ Coloring.getBlue("                                                                              |___/             \n");
+		+ Coloring.getCyan("\\____/  \\__,_||___/ \\___||_.__/  \\__,_||_||_|          \\_/   \\___/ |_| |_||_| \\__, ||_| |_| \\__|\n")
+		+ Coloring.getCyan("                                                                               __/ |            \n")
+		+ Coloring.getCyan("                                                                              |___/             \n");
 	
 	public static String main_menu_cmd_ls = 
-		  Coloring.getBlue("	<MAIN MENU>\n")
+		  "			<MAIN MENU>\n"
 		+"-----------------------------------------\n"
 		+ Coloring.getCyan("경기 예매하기:		reserve \n")
 		+"-----------------------------------------\n"

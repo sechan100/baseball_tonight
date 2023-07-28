@@ -19,7 +19,7 @@ public class TableBlockView implements BlockView{
 			case PREVIOUS:
 				
 				if(crt_page == 1){
-					Coloring.purpleOut("이전 페이지가 없습니다.");
+					Coloring.redOut("이전 페이지가 없습니다.");
 				} else if(crt_page == 2){
 					showFirstPage();
 				}
@@ -32,7 +32,7 @@ public class TableBlockView implements BlockView{
 				if(crt_page == 1){
 					showSecondPage();
 				} else if(crt_page == 2){
-					Coloring.purpleOut("다음 페이지가 없습니다.");
+					Coloring.redOut("다음 페이지가 없습니다.");
 				}
 				
 				break;
