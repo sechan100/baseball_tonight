@@ -19,7 +19,7 @@ public class JoinService {
 		while(true){
 			// 아이디 입력.
 			Coloring.greenOut("\n회원가입: 아이디");
-			memId = UserInput.receiveNoSpaceString();
+			memId = UserInput.receiveNoSpacingString();
 			
 			// 이미 등록된 아이디가 있는지 확인.(DB에서 비밀번호를 가져와서 null이 아니라면 기존 회원으로 판단.)
 			LoginDAO dao = new LoginDAO();
@@ -44,12 +44,12 @@ public class JoinService {
 		while(true) {
 			// 비밀번호 입력.
 			Coloring.greenOut("\n회원가입: 비밀번호");
-			memPassword = UserInput.receiveNoSpaceString();
+			memPassword = UserInput.receiveNoSpacingString();
 			
 			
 			// 비밀번호 확인
 			Coloring.greenOut("\n회원가입: 비밀번호 확인");
-			String member_password_confirm = UserInput.receiveNoSpaceString();
+			String member_password_confirm = UserInput.receiveNoSpacingString();
 			
 			
 			// '비밀번호 != 비밀번호 확인'이라면 == 일 때까지 무한 루프.

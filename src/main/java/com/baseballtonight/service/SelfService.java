@@ -50,7 +50,7 @@ public class SelfService {
 		LoginDAO loginDAO = new LoginDAO();
 		while(true){
 			Coloring.greenOut("현재 비밀번호");
-			String input_password = UserInput.receiveNoSpaceString();
+			String input_password = UserInput.receiveNoSpacingString();
 			String confirm_password = loginDAO.getUserPasswordByUserId(Member.getId());
 			
 			// 비밀번호 불일치시 -> continue;
@@ -65,11 +65,11 @@ public class SelfService {
 		while(true) {
 			// 비밀번호 입력.
 			Coloring.greenOut("변경하실 비밀번호를 입력해주십시오.");
-			new_password = UserInput.receiveNoSpaceString();
+			new_password = UserInput.receiveNoSpacingString();
 			
 			// 비밀번호 확인
 			Coloring.greenOut("\n비밀번호 확인을 위해 다시한번 입력해주십시오.");
-			String password_confirm = UserInput.receiveNoSpaceString();
+			String password_confirm = UserInput.receiveNoSpacingString();
 			
 			// '비밀번호 != 확인_비밀번호'이라면 == 일 때까지 무한 루프.
 			if(!new_password.equals(password_confirm)){

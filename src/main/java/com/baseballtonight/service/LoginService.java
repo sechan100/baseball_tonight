@@ -13,7 +13,7 @@ public class LoginService {
 	public static void doLogin() throws InterruptedException {
 		try {
 			Coloring.greenOut("\n로그인: 아이디");
-			user_id = UserInput.receiveNoSpaceString();
+			user_id = UserInput.receiveNoSpacingString();
 			String user_password_confirm = dao.getUserPasswordByUserId(user_id);
 
 			// DB에서 아이디로 긁어온 비밀번호가 존재하지 않는다면, 유저정보가 없는 것이다.
@@ -22,7 +22,7 @@ public class LoginService {
 			}
 			while(true) {
 				Coloring.greenOut("\n로그인: 비밀번호");
-				user_password = UserInput.receiveNoSpaceString();
+				user_password = UserInput.receiveNoSpacingString();
 
 				// DB 비밀번호와 입력한 비밀번호가 일치한다면 로그인 성공.
 				if(user_password.equals(user_password_confirm)) {
@@ -54,7 +54,7 @@ public class LoginService {
 		String user_password_confirm = dao.getUserPasswordByUserId(user_id);
 		while(true) {
 			Coloring.greenOut("\n로그인: 비밀번호");
-			user_password = UserInput.receiveNoSpaceString();
+			user_password = UserInput.receiveNoSpacingString();
 
 			// DB 비밀번호와 입력한 비밀번호가 일치한다면 로그인 성공.
 			if(user_password.equals(user_password_confirm)) {

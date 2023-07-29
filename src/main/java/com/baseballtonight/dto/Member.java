@@ -1,6 +1,6 @@
 package com.baseballtonight.dto;
 
-public class Member { // getter로 가져다쓰면 됩니다.
+public class Member { 
 	
 	private static String id;
 	private static String password;

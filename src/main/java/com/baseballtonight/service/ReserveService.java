@@ -107,14 +107,14 @@ class Games {
 
 	public static int choiceGamebyId() throws InterruptedException {
 		System.out.print(Coloring.getGreen(
-			"관람을 원하시는 경기를 선택하시고, 해당 경기의 \'게임번호\'를 입력하여 주십시오.\n") + "게임번호:");
+			"관람을 원하시는 경기를 선택하시고, 해당 경기의 \'게임번호\'를 입력하여 주십시오."));
 		gameId = UserInput.receiveContainedNum(gameIdSet);
 		return gameId;
 	}
 
 	public static int choiceGamebyDay() throws InterruptedException {
 		System.out.print(Coloring.getGreen(
-			"관람을 원하시는 경기의 \'날짜(일)\'를 입력하여 주십시오.\n") + "일:");
+			"관람을 원하시는 경기의 \'날짜(일)\'를 입력하여 주십시오."));
 		int game_day = UserInput.receiveContainedNum(new HashSet<Integer>(game_id_map.keySet()));
 		gameId = game_id_map.get(game_day);
 		return gameId;

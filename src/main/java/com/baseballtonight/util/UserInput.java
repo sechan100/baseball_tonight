@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
+import com.baseballtonight.dto.Member;
 import com.baseballtonight.service.MainService;
 
 public class UserInput {
@@ -16,7 +17,10 @@ public class UserInput {
 			String input;
 			try {
 				input = rd.readLine();
-				if(input.equals("main")) {
+				
+				boolean isLogined = ( Member.getId() == null ? false : true );
+				
+				if(input.equals("main") && isLogined) {
 					MainService.mainMenu();
 				}
 				return input;
@@ -30,7 +34,6 @@ public class UserInput {
 
 	public static boolean receiveYesOrNo() {
 		while(true) {
-			System.out.print(">>>");
 			String userAnswer;
 			try {
 				userAnswer = UserInput.receiveString().toLowerCase();
@@ -64,7 +67,6 @@ public class UserInput {
 	public static int receiveContainedNum(HashSet<Integer> set) throws InterruptedException {
 		while(true) {
 			try {
-				System.out.print(">>>");
 				int num = Integer.parseInt(UserInput.receiveString());
 				if(!set.contains(num)) {
 					throw new NumberFormatException();
@@ -78,7 +80,7 @@ public class UserInput {
 
 	public static String receiveRestrictedString(String first) throws InterruptedException {
 		while(true) {
-			String input = UserInput.receiveNoSpaceString();
+			String input = UserInput.receiveNoSpacingString();
 			if(input.equals(first)) {
 				return input;
 			} else {
@@ -89,7 +91,7 @@ public class UserInput {
 
 	public static String receiveRestrictedString(String first, String second) throws InterruptedException {
 		while(true) {
-			String input = UserInput.receiveNoSpaceString();
+			String input = UserInput.receiveNoSpacingString();
 			if(input.equals(first)) {
 				return input;
 			} else if(input.equals(second)) {
@@ -103,7 +105,6 @@ public class UserInput {
 	public static String receiveContainedString(HashSet<String> set) throws InterruptedException {
 		while(true) {
 			try {
-				System.out.print(">>>");
 				String userInput = UserInput.receiveString().toLowerCase();
 				if(!set.contains(userInput)) {
 					throw new NullPointerException();
@@ -118,7 +119,6 @@ public class UserInput {
 	public static int receiveLimitedRangeNum(int start, int end) throws InterruptedException {
 		while(true) {
 			try {
-				System.out.print(">>>");
 				int num = Integer.parseInt(UserInput.receiveString());
 				if(num < start || num > end) {
 					throw new NumberFormatException();
@@ -144,10 +144,9 @@ public class UserInput {
 		}
 	}
 
-	public static String receiveNoSpaceString() throws InterruptedException {
+	public static String receiveNoSpacingString() throws InterruptedException {
 		while(true) {
 			try {
-				System.out.print(">>>");
 				String input = UserInput.receiveString();
 				if(input.contains(" ")) {
 					throw new IOException();
