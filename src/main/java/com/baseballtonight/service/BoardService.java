@@ -1,12 +1,12 @@
 package com.baseballtonight.service;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import com.baseballtonight.dao.ArticleDAO;
 import com.baseballtonight.dto.Article;
 import com.baseballtonight.dto.ArticleReply;
 import com.baseballtonight.util.Coloring;
+import com.baseballtonight.util.UserInput;
 
 
 
@@ -55,7 +55,7 @@ public class BoardService {
 		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("open"));
 	}
 	
-	public int showArticleDetail(String articleTitle,Scanner sc)	{ // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public int showArticleDetail(String articleTitle)	{ // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!
 		Article article = parkInfoArticleDao.getArticle(articleTitle);
 		
 		if(article == null) {
@@ -67,16 +67,17 @@ public class BoardService {
 		}
 		parkInfoArticleDao.increaseHit(article.id);
 		
-		System.out.printf("-------------------------------------------------------------------------------------------\n");
+		System.out.printf("===========================================================================================\n");
         System.out.printf("| 돌아가기: %s  |                                   | 수정: %s |     | 삭제: %s |        \n", Coloring.getCyan("back"), Coloring.getCyan("modify"), Coloring.getCyan("delete") );
         System.out.printf("-------------------------------------------------------------------------------------------\n");
         System.out.printf(" %-30s        %-24s  조회 : %-6d   추천 : %-6d\n",article.memberId,article.regDate,article.hit,article.recommend);
         System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 제목: %s \n", article.title);
+        System.out.printf(Coloring.getWhiteBack(Coloring.getBlack("제목: %s \n")), article.title);
         System.out.println();
-        System.out.printf(" %s \n", article.body);
+        System.out.printf(Coloring.getWhiteBack(Coloring.getBlack(" %s \n")), article.body);
         System.out.printf("-------------------------------------------------------------------------------------------\n");
         System.out.printf(" | 추천: %s |  |추천 취소: %s|  \n", Coloring.getCyan("rcmd"), Coloring.getCyan("cancel") );
+        System.out.println("\n\n\n");
 		return 0;
 	}
 	
@@ -88,7 +89,7 @@ public class BoardService {
 		
 	}
 	
-	public void doArticleModify(String articleTitle, Scanner sc) { // 로그인 옵션, id 대조 필요
+	public void doArticleModify(String articleTitle) throws InterruptedException { // 로그인 옵션, id 대조 필요
 		Article article = parkInfoArticleDao.getArticle(articleTitle);
 		if(article == null) {
 			System.out.println("게시글 제목이 없습니다.");
@@ -102,16 +103,16 @@ public class BoardService {
 			System.out.println();
 			return;
 		}
-		System.out.printf("새로운 제목입력 >> ");
-		String title = sc.nextLine();
-		System.out.printf("새로운 내용입력 >> ");
-		String body = sc.nextLine();
+		System.out.printf("새로운 제목입력");
+		String title = UserInput.receiveString();
+		System.out.printf("새로운 내용입력");
+		String body = UserInput.receiveString();
 		parkInfoArticleDao.doArticleModify(title, body, article.id);
 		System.out.println("게시글 수정이 완료되었습니다.");
 		System.out.println();
 	}
 	
-	public void doArticleDelete(String articleTitle, Scanner sc) { // 로그인 옵션,  id 대조 필요
+	public void doArticleDelete(String articleTitle) { // 로그인 옵션,  id 대조 필요
 		Article article = parkInfoArticleDao.getArticle(articleTitle);
 		if(article == null) {
 			System.out.println("게시글 제목이 없습니다.");
@@ -125,33 +126,15 @@ public class BoardService {
 			System.out.println();
 			return;
 		}
-
-		while(true) {
-			System.out.print("정말 게시글을 삭제하시겠습니까? (y/n) >> ");
-			String yesOrNo = sc.nextLine();
-			yesOrNo.toLowerCase();
-			if (yesOrNo.length() != 1) {
-				System.out.println("y 또는 n 을 입력 해주세요.");
-				System.out.println();
-				continue;
-			} else {
-				if(yesOrNo.equals("y")) {
-					parkInfoArticleDao.doArticleDelete(article.id);
-					System.out.println();
-					System.out.println("게시글이 삭제되었습니다.");
-					System.out.println();
-					return;
-				} else if (yesOrNo.equals("n")) {
-					System.out.println();
-					System.out.println("삭제가 취소되었습니다.");
-					System.out.println();
-					return;
-				} else {
-					System.out.println("y 또는 n 을 입력해주세요.");
-					System.out.println();
-					continue;
-				}
-			}
+		
+		
+		System.out.print("정말 게시글을 삭제하시겠습니까? (y/n)");
+		if(UserInput.receiveYesOrNo()){
+			parkInfoArticleDao.doArticleDelete(article.id);
+			Coloring.greenOut("게시글이 삭제되었습니다.");
+			
+		} else {
+			Coloring.redOut("게시글 삭제에 실패했습니다.");
 		}
 	}
 	
@@ -172,10 +155,10 @@ public class BoardService {
 	public void showArticleRecommendList(String articleTitle) {  // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this.replys = parkInfoArticleDao.getArticleReplyList(parkInfoArticleDao.getArticle(articleTitle).id);
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 작성자           작성일         댓글                                     | 댓글작성:%s |   \n", Coloring.getCyan("reply") );
+        System.out.printf(" 작성자    |    작성일       |     %s                                     | 댓글작성:%s |   \n", Coloring.getWhiteBack(Coloring.getBlack("댓글")), Coloring.getCyan("reply") );
         System.out.printf("-------------------------------------------------------------------------------------------\n");
 		for (ArticleReply ar : replys) {
-			System.out.printf(" %-13s %-13s %s\n",ar.memberId,ar.regDate,ar.body);
+			System.out.printf(" %-8s | %-13s | %s  \n",ar.memberId,ar.regDate,ar.body);
 		}
 		System.out.println();
 		

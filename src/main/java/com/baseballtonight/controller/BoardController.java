@@ -1,7 +1,6 @@
 package com.baseballtonight.controller;
 
 import java.util.HashSet;
-import java.util.Scanner;
 
 import com.baseballtonight.dto.Team;
 import com.baseballtonight.service.MainService;
@@ -10,7 +9,6 @@ import com.baseballtonight.util.Coloring;
 import com.baseballtonight.util.UserInput;
 
 public class BoardController { // 새로 추가된 Controller class
-	private Scanner sc;
 	@SuppressWarnings("unused")
 	private int parkId;
 	@SuppressWarnings("unused")
@@ -28,7 +26,7 @@ public class BoardController { // 새로 추가된 Controller class
 		boardCmdSet.add("main");
 		boardCmdSet.add("write");
 		boardCmdSet.add("search");
-		boardCmdSet.add("open");
+		boardCmdSet.add("read");
 		boardCmdSet.add("filter"); // 07/26 추가됨.
 		
 		HashSet<String> boardCmd2Set = new HashSet<>();
@@ -48,7 +46,6 @@ public class BoardController { // 새로 추가된 Controller class
 		this.parkId = parkId;
 		this.mem_id = mem_id;
 		this.parkInfoArticleService = new BoardService(parkId, mem_id);
-		this.sc = new Scanner(System.in);
 		
 		showParkInfoArticleMenu(); 
 		
@@ -70,21 +67,21 @@ public class BoardController { // 새로 추가된 Controller class
 					System.out.println();
 					System.out.println("<게시글 검색>");
 					System.out.println();
-					System.out.printf("검색 내용 입력 >> ");
-					String searchKey = sc.nextLine();
+					System.out.printf("검색 내용 입력");
+					String searchKey = UserInput.receiveString();
 					parkInfoArticleService.showSearchedArticle(searchKey);// 게시글 검색
 				}
-				if (command.equals("open")) { //// 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				if (command.equals("read")) { //// 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					System.out.println();
 					System.out.println("<게시글 열기>");
 					System.out.println();
-					System.out.printf("게시글 번호 입력 >> "); // 07/26 시작
+					System.out.printf("게시글 번호 입력"); // 07/26 시작
 					int articleId = UserInput.receiveNaturalNumber();
 					
 					String articleTitle = parkInfoArticleService.getArticleTitle(articleId);
 					/// 07/26 끝
 					
-					if (parkInfoArticleService.showArticleDetail(articleTitle, sc) == 0) {
+					if (parkInfoArticleService.showArticleDetail(articleTitle) == 0) {
 						parkInfoArticleService.showArticleRecommendList(articleTitle); // recommend 여기로 나옴
 						// detailmenu 였던것. 07/20
 						while (true) { // while문 추가 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -102,11 +99,11 @@ public class BoardController { // 새로 추가된 Controller class
 								// 07/26 끝.
 								
 							} else if (command2.equals("modify")) { // 함수 내용 바뀜. 07/20
-								parkInfoArticleService.doArticleModify(articleTitle, sc);
+								parkInfoArticleService.doArticleModify(articleTitle);
 								showParkInfoArticleMenu(); // 요거 추가됨 07/20!!!!!!!!!!!!!!!!!!!!!!!
 								break;
 							} else if (command2.equals("delete")) { // command2 == 바뀜. 함수내용 바뀜 07/20
-								parkInfoArticleService.doArticleDelete(articleTitle, sc);
+								parkInfoArticleService.doArticleDelete(articleTitle);
 								showParkInfoArticleMenu(); // 요거 추가됨 07/20!!!!!!!!!!!!!!!!!!!!!!!
 								break;
 							} else if (command2.equals("back")) { // command2 5번 추가됨. 07/20
@@ -116,10 +113,10 @@ public class BoardController { // 새로 추가된 Controller class
 								System.out.println();
 								System.out.println("< 댓글 쓰기 >");
 								System.out.println();
-								System.out.print("댓글 입력 >> ");
-								String body = sc.nextLine();
+								System.out.print("댓글 입력");
+								String body = UserInput.receiveString();
 								parkInfoArticleService.doArticleReplyWrite(articleTitle, body);
-								parkInfoArticleService.showArticleDetail(articleTitle, sc);
+								parkInfoArticleService.showArticleDetail(articleTitle);
 								parkInfoArticleService.showArticleRecommendList(articleTitle);
 								continue;
 							} else
@@ -153,37 +150,17 @@ public class BoardController { // 새로 추가된 Controller class
 				if (command.equals("write")) {
 					System.out.println();
 					System.out.println("<게시글 작성>");
-					System.out.printf("제목입력 >> ");
-					String title = sc.nextLine();
-					System.out.printf("내용입력 >> ");
-					String body = sc.nextLine();
+					System.out.printf("제목입력");
+					String title = UserInput.receiveString();
+					System.out.printf("내용입력");
+					String body = UserInput.receiveString();
 					parkInfoArticleService.doArticleWrite(title, body, parkId); // 게시글 작성 (로그인 옵션 추가 필요)
 					showParkInfoArticleMenu(); // 요거 추가됨 07/20!!!!!!!!!!!!!!!!!!!!!!!
 				}
-//				if (command == 4) {    // 이제 안씀 필요없음 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//					System.out.println();
-//					System.out.println("<게시글 수정>");
-//					System.out.println();
-//					System.out.printf("게시글 제목 입력 >> ");
-//					String articleTitle = sc.nextLine();
-//					System.out.println();
-//					parkInfoArticleService.doArticleModify(articleTitle, sc); // 게시글 수정 ( 로그인 옵션 추가 필요 // memberId 와 대조
-//																				// 권한 확인)
-//				}
-//				if (command == 5) {
-//					System.out.println();
-//					System.out.println("<게시글 삭제>");
-//					System.out.println();
-//					System.out.printf("게시글 제목 입력 >> ");
-//					String articleTitle = sc.nextLine();
-//					System.out.println();
-//					parkInfoArticleService.doArticleDelete(articleTitle, sc); // 게시글 삭제 ( 로그인 옵션 추가 필요 // memberId 와 대조
-//																				// 권한 확)
-//				}
 
-			} // else
-		} // while 끝
-	} // constructor 끝
+			}
+		} 
+	} 
 
 	private int showParkInfoArticleMenu() { // 07/26 void -> int 맨밑에 return 0;
 		System.out.println("\n");
@@ -199,17 +176,10 @@ public class BoardController { // 새로 추가된 Controller class
 		parkInfoArticleService.showArticleList(); // 게시글 목록
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
-		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("open"));
+		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("read"));
 		
 		return 0;
 	}
 
-//	private void showArticleDetailMenu() { // 이제 안씀 필요없음 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		System.out.println("1. 추천하기"); // 추천기능 너무 막 만들었다. 빼버리던가 업그레이드 하는것이 좋겠다.
-//		System.out.println("2. 추천취소");
-//		System.out.println("3. 댓글보기");
-//		System.out.println("4. 댓글작성");
-//		System.out.println("5. 뒤로가기");
-//	}
 
 }
