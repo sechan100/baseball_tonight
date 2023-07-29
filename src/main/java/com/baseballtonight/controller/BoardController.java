@@ -164,8 +164,7 @@ public class BoardController { // 새로 추가된 Controller class
 
 	private int showParkInfoArticleMenu() { // 07/26 void -> int 맨밑에 return 0;
 		System.out.println("\n");
-		System.out.printf(
-				"-------------------------------------------------------------------------------------------\n");
+		System.out.printf("===========================================================================================\n");
 		System.out.
 		printf("|  %s  |                        < %s 자유게시판 >                        |   %s  |  \n", Coloring.getCyan("back"), parkName, Coloring.getCyan("main"));
 		System.out.printf(
@@ -177,6 +176,7 @@ public class BoardController { // 새로 추가된 Controller class
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
 		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("read"));
+		System.out.printf("-------------------------------------------------------------------------------------------\n");
 		
 		return 0;
 	}

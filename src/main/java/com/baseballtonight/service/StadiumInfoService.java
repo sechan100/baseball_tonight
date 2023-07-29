@@ -12,7 +12,7 @@ public class StadiumInfoService {
     public static void setShowTargetTeam(Team team) {
     	 try {
 			dao = new StadiumInfoDAO(team.num);
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+			System.out.println("\n\n\n\n\n");
 			StadiumInfoService.showStadiumBasicInfo();
 		} catch(Exception e) {
 			e.printStackTrace();

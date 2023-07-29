@@ -24,6 +24,7 @@ public class StadiumInfoController {
 	}
 
 	public static void cmdRun(Team team) throws InterruptedException {
+		
 		// StadiumInfoDAO 객체에 팀 id정보 전달.
 		StadiumInfoService.setShowTargetTeam(team);
 		
@@ -88,6 +89,7 @@ public class StadiumInfoController {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println("회원님의 응원 구단인 " + Coloring.getRed(Member.getPrfTeam().name) + "의 홈구장, '"
 			+ Coloring.getYellow(Member.getPrfTeam().stadium) + "'의 정보 페이지 입니다.\n\n");
+		Thread.sleep(1500);
 		StadiumInfoController.cmdRun(Member.getPrfTeam());
 	}
 	
