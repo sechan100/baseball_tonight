@@ -1,4 +1,6 @@
-package com.baseballtonight.util;
+package com.baseballtonight.resources;
+
+import com.baseballtonight.util.Coloring;
 
 public class Message {
 	public static String app_logo =

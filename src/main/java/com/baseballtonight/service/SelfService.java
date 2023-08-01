@@ -7,8 +7,8 @@ import com.baseballtonight.dao.LoginDAO;
 import com.baseballtonight.dao.MemberDAO;
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.dto.Team;
+import com.baseballtonight.resources.Message;
 import com.baseballtonight.util.Coloring;
-import com.baseballtonight.util.Message;
 import com.baseballtonight.util.UserInput;
 
 public class SelfService {

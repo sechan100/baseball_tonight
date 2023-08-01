@@ -1,4 +1,4 @@
-package com.baseballtonight.util;
+package com.baseballtonight.resources;
 
 public enum PageControll {
 	PREVIOUS("a"),

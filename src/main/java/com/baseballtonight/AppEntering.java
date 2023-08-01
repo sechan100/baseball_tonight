@@ -3,8 +3,8 @@ package com.baseballtonight;
 import java.util.HashSet;
 
 import com.baseballtonight.controller.GuestController;
+import com.baseballtonight.resources.Message;
 import com.baseballtonight.util.Coloring;
-import com.baseballtonight.util.Message;
 import com.baseballtonight.util.UserInput;
 
 public class AppEntering {

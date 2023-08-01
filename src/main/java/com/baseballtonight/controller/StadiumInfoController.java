@@ -4,10 +4,10 @@ import java.util.HashSet;
 
 import com.baseballtonight.dto.Member;
 import com.baseballtonight.dto.Team;
+import com.baseballtonight.resources.Message;
 import com.baseballtonight.service.MainService;
 import com.baseballtonight.service.StadiumInfoService;
 import com.baseballtonight.util.Coloring;
-import com.baseballtonight.util.Message;
 import com.baseballtonight.util.UserInput;
 
 public class StadiumInfoController {

@@ -1,8 +1,8 @@
 package com.baseballtonight.view.block;
 
 import com.baseballtonight.dao.BlockDAO;
+import com.baseballtonight.resources.PageControll;
 import com.baseballtonight.util.Coloring;
-import com.baseballtonight.util.PageControll;
 
 public class GreenBlockView implements BlockView {
 	public static int crt_page = 1;

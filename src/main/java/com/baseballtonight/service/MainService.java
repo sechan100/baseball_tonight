@@ -2,7 +2,7 @@ package com.baseballtonight.service;
 
 
 import com.baseballtonight.controller.MainController;
-import com.baseballtonight.util.Message;
+import com.baseballtonight.resources.Message;
 import com.baseballtonight.util.UserInput;
 
 public class MainService {
