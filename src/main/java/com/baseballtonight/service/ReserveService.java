@@ -88,7 +88,8 @@ class Games {
 			Thread.sleep(1000);
 
 			// 경기 calendar 출력.
-			game_id_map = GameCalendarService.showCalendar();
+			GameCalendarService gameCalender = new GameCalendarService();
+			game_id_map = gameCalender.showCalendar(gameCalender);
 
 			System.out.println(Coloring.getBlack(Coloring.cyanBack + "응원 팀 홈 경기" + Coloring.exit));
 

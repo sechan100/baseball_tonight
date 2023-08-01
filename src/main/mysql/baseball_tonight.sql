@@ -173,7 +173,7 @@ DROP TABLE IF EXISTS `recommend_list`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recommend_list` (
   `article_id` int NOT NULL,
-  `member_user_id` varchar(45) COLLATE utf8mb4_general_ci NOT NULL
+  `member_user_id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -225,7 +225,7 @@ DROP TABLE IF EXISTS `seats`;
 CREATE TABLE `seats` (
   `seat_id` int unsigned NOT NULL AUTO_INCREMENT,
   `game_id` int unsigned NOT NULL,
-  `seat_type` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `seat_type` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `seat_block` int unsigned NOT NULL,
   `seat_column` int unsigned NOT NULL,
   `seat_row` int unsigned NOT NULL,
@@ -282,4 +282,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-28  9:16:04
+-- Dump completed on 2023-08-02  0:23:54

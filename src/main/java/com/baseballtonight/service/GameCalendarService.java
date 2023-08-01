@@ -9,11 +9,12 @@ import com.baseballtonight.dto.Member;
 import com.baseballtonight.util.Coloring;
 
 public class GameCalendarService {
-		public static String[] home_game = new String[11];
-		public static String[] away_game = new String[11];
-		public static HashMap<Integer, String> day_schedule_club = new HashMap<>();
-		public static HashMap<Integer, String> day_schedule_time = new HashMap<>();
-		static {
+		public String[] home_game = new String[11];
+		public String[] away_game = new String[11];
+		public HashMap<Integer, String> day_schedule_club = new HashMap<>();
+		public HashMap<Integer, String> day_schedule_time = new HashMap<>();
+		
+		GameCalendarService(){
 			home_game[0] = ("         ");
 			home_game[1] = Coloring.getCyanBack(Coloring.getBlack("   SSG   "));
 			home_game[2] = Coloring.getCyanBack(Coloring.getBlack(" KIWOOM  "));
@@ -44,9 +45,9 @@ public class GameCalendarService {
 			}
 		}
 
-		public static HashMap<Integer, Integer> showCalendar() {
+		public HashMap<Integer, Integer> showCalendar(GameCalendarService gameCalendar) {
 			GameCalendarDAO dao = new GameCalendarDAO();
-			HashMap<Integer, Integer> game_id_map = dao.loadSchedule();
+			HashMap<Integer, Integer> game_id_map = dao.loadSchedule(gameCalendar);
 			
 			String calendar = String.format(""
 				+ "=====================================================================\n"
@@ -153,9 +154,10 @@ public class GameCalendarService {
 class GameCalendarDAO {
 	DAO dao = new DAO();
 	
-	public HashMap<Integer, Integer> loadSchedule() {
+	public HashMap<Integer, Integer> loadSchedule(GameCalendarService gameCalendar) {
 		try {
 			HashMap<Integer, Integer> game_id_map = new HashMap<>();
+			
 			String select_preferred_games_SQL = String.format(
 				"SELECT id, "
 				+ "name, "
@@ -171,22 +173,24 @@ class GameCalendarDAO {
 				Member.getPrfTeam().name);
 			
 			ResultSet rs = dao.select(select_preferred_games_SQL);
+			
 			while(rs.next()){
-				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분 ";
+				String time = rs.getString(4).substring(11, 16).replace(":", "시 ") + "분";
 				int day = Integer.parseInt((rs.getString(4).substring(8, 9).equals("0") ? rs.getString(4).substring(9, 10) : rs.getString(4).substring(8, 10)));
-				int opponent_club_num = (rs.getInt(6) == Member.getPrfTeam().num ? rs.getInt(7) : rs.getInt(6) + 100);
+				
 				// 홈 경기인 경우, 100을 더해서 홈 경기임을 표시.
+				int opponent_club_num = (rs.getInt(6) == Member.getPrfTeam().num ? rs.getInt(7) : rs.getInt(6) + 100);
 				
 				// 홈 경기인 경우.
 				if(opponent_club_num > 100){
 					opponent_club_num -= 100;
-					GameCalendarService.day_schedule_club.put(day, GameCalendarService.home_game[opponent_club_num]);
-					GameCalendarService.day_schedule_time.put(day, time);
+					gameCalendar.day_schedule_club.put(day, gameCalendar.home_game[opponent_club_num]);
+					gameCalendar.day_schedule_time.put(day, time);
 				
 				// 어웨이 경기인 경우.
 				} else {
-					GameCalendarService.day_schedule_club.put(day, GameCalendarService.away_game[opponent_club_num]);
-					GameCalendarService.day_schedule_time.put(day, time);
+					gameCalendar.day_schedule_club.put(day, gameCalendar.away_game[opponent_club_num]);
+					gameCalendar.day_schedule_time.put(day, time);
 				}
 				game_id_map.put(day, rs.getInt(1));
 			}

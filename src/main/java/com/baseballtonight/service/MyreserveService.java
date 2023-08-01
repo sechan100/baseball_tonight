@@ -21,7 +21,7 @@ public class MyreserveService {
 
 			}
 		} else {
-			System.out.println("예매 취소 페이지로 이동하시겠습니까? (Y/N)");
+			Coloring.greenOut("예매 취소 페이지로 이동하시겠습니까? (Y/N)");
 			if(UserInput.receiveYesOrNo()) {
 				CancelServer.serverRun();
 			} else {

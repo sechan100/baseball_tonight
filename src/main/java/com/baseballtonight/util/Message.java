@@ -36,13 +36,13 @@ public class Message {
 		+"-----------------------------------------\n"
 		+ Coloring.getCyan("경기장 찾기-지하철:	subway\n")
 		+"-----------------------------------------\n"
-		+ Coloring.getCyan("주차장:			parking\n")
+		+ Coloring.getCyan("주차장:				parking\n")
 		+"-----------------------------------------\n"
 		+ Coloring.getCyan("구단 게시판:		board\n")
 		+"-----------------------------------------\n"
 		+ Coloring.getCyan("다른 경기장 조회:	other\n")
 		+"-----------------------------------------\n"
-		+ Coloring.getCyan("메인 메뉴:		main\n")
+		+ Coloring.getCyan("메인 메뉴:			main\n")
 		+"-----------------------------------------\n";
 	
 	public static String self_cmd_ls = 

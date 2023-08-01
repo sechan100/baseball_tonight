@@ -17,19 +17,19 @@ public class SeatChoiceService {
 			+ "+===================================+		\n"
 			+ "|  	열 |  a열   b열  c열   d열  e열	|		\n"
 			+ "|-----------------------------------|		\n"
-			+ "| 1번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"
+			+ "| 1번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"
 			+ "|									|		\n"
-			+ "| 2번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"
+			+ "| 2번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"
 			+ "|									|		\n"			   
-			+ "| 3번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"
+			+ "| 3번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"
 			+ "|									|		\n"			                                                
-			+ "| 4번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"
+			+ "| 4번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"
 			+ "|									|		\n"			                                 
-			+ "| 5번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"
+			+ "| 5번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"
 			+ "|									|		\n"			                  
-			+ "| 6번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"               
+			+ "| 6번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"               
 			+ "|									|		\n"			   
-			+ "| 7번줄:  [%s]  [%s]  [%s]  [%s]  [%s]		|		\n"
+			+ "| 7번줄:  [%s]  [%s]  [%s]  [%s]  [%s]	|		\n"
 			+ "+===================================+",
 			dao.loadSeatStatusToOX(1, 1),
 			dao.loadSeatStatusToOX(1, 2),
@@ -93,7 +93,7 @@ public class SeatChoiceService {
 		int user_row;
 		
 		while(true){
-			Coloring.cyanOut( "예매 인원 현황: ("+ nowNumber + "/" + totalNumber + ")" );
+			Coloring.cyanOut( "예매 인원 현황: ("+ (nowNumber-1) + "/" + totalNumber + ")" );
 			Coloring.greenOut("원하시는 좌석의 열을 선택해주세요(a, b, c, d, e)");
 			String user_column_string = UserInput.receiveContainedString(columns);
 			switch(user_column_string){

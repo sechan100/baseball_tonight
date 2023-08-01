@@ -23,7 +23,7 @@ public class BlockDAO {
 			if(rs.getInt(1) != 0) {
 				return Coloring.getGreen(String.valueOf(rs.getInt(1))) + "석";
 			} else {
-				return Coloring.getRed("매진	");
+				return Coloring.getRed("매진.");
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();

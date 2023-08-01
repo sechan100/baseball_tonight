@@ -13,7 +13,7 @@ public class CancelDAO {
 	DAO dao = new DAO();
 
 	public void cancelReservation() throws NumberFormatException, SQLException, InterruptedException {
-		System.out.print("\n취소를 원하시는 예매의 예매번호를 입력하여 주십시오.\n>>>");
+		Coloring.greenOut("\n취소를 원하시는 예매의 예매번호를 입력하여 주십시오.");
 		int reservationID;
 		int seat_id;
 		/////////
@@ -63,9 +63,8 @@ public class CancelDAO {
 					}
 				}
 
-				Coloring.redOut("정말로 다음의 예매를 취소하시겠습니까? (Y/N)");
-				System.out.println(
-					"-------------------------------------------------------------------------------------------------------------------");
+				Coloring.redOut("\n\n정말로 다음의 예매를 취소하시겠습니까? (Y/N)");
+				System.out.print("-----------------------------------------------------------------------------------------------------------------------------------------\n");
 				System.out.print("예매번호: " + reservationID + " | ");
 				System.out.print(Coloring.cyan + gameName + Coloring.exit);
 				System.out.print(" | ");
@@ -76,11 +75,11 @@ public class CancelDAO {
 				System.out.print(new SeatDAO().getColumnAndRowBySeatId(rs.getInt("seat_id")));
 				System.out.print(" | ");
 				System.out.print(startWhen);
-				System.out.println(
-					"-------------------------------------------------------------------------------------------------------------------");
+				System.out.print("\n-----------------------------------------------------------------------------------------------------------------------------------------\n");
+
 				break;
 			} catch(Exception e) {
-				Coloring.redOut("해당 번호로 조회한 예매가 존재하지 않습니다. 다시 입력해 주십시오.\n >>>");
+				Coloring.redOut("해당 번호로 조회한 예매가 존재하지 않습니다. 다시 입력해 주십시오.\n");
 			}
 		}
 		//////////

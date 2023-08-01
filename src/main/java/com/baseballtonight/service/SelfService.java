@@ -104,7 +104,7 @@ public class SelfService {
 			
 			// member class의 필드 변경.
 			Member.setPrfTeam(Team.getTeamByTeamNum(newPrfTeam_num));
-			
+
 			// DB 변경.
 			dao.updateNewPrfTeam(newPrfTeam_num);
 			

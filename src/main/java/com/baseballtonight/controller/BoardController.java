@@ -166,16 +166,16 @@ public class BoardController { // 새로 추가된 Controller class
 		System.out.println("\n");
 		System.out.printf("===========================================================================================\n");
 		System.out.
-		printf("|  %s  |                        < %s 자유게시판 >                        |   %s  |  \n", Coloring.getCyan("back"), parkName, Coloring.getCyan("main"));
+		printf("|  %s  |                        < %s 자유게시판 >                    |   %s  |  \n", Coloring.getCyan("back"), parkName, Coloring.getCyan("main"));
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
-		System.out.printf("| 번호 |	작성자	|	등록일   | 조회 | 추천 | 제목	                              |  %s  |  \n", Coloring.getCyan("filter")); // 07/26 filter 추가
+		System.out.printf("| 번호 |	작성자	|	등록일   | 조회 | 추천 | 제목	                       |  %s  |  \n", Coloring.getCyan("filter")); // 07/26 filter 추가
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
 		parkInfoArticleService.showArticleList(); // 게시글 목록
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
-		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("read"));
+		System.out.printf("| %s |                                                   	   	|  %s  |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("read"));
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
 		
 		return 0;

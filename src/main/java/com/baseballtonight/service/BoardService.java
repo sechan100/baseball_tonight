@@ -24,9 +24,9 @@ public class BoardService {
 	
 	public void showArticleList() { // 수정됨 07/20!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		articles = parkInfoArticleDao.getArticleList();
-				
+
 		for (Article a : articles) {
-			System.out.printf(" %-5d%-10s%-13s%-6d%-6d%s\n",a.id,a.memberId,a.regDate,a.hit,a.recommend,a.title);
+			System.out.printf("|  %-2d  | %-10s | %-10s | %-4d | %-4d | %s \n",a.id,a.memberId,a.regDate,a.hit,a.recommend,a.title);
 		}
 	}
 	
@@ -42,7 +42,7 @@ public class BoardService {
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
 		System.out.
-		printf("|  %s  |                        < %s 검색결과 >                        |   %s  |  \n", Coloring.getCyan("back"), searchKey, Coloring.getCyan("main"));
+		printf("|  %s  |                        < %s 검색결과 >                             |  %s  |  \n", Coloring.getCyan("back"), searchKey, Coloring.getCyan("main"));
 		System.out.printf(
 				"-------------------------------------------------------------------------------------------\n");
 		System.out.printf("| 번호 |	작성자	|	등록일   | 조회 | 추천 | 제목	\n");
@@ -52,7 +52,7 @@ public class BoardService {
 			System.out.printf(" %-5d%-10s%-13s%-6d%-6d%s\n",a.id,a.memberId,a.regDate,a.hit,a.recommend,a.title);
 		}
 		System.out.printf("-------------------------------------------------------------------------------------------\n");
-		System.out.printf("| %s |                                                   	 	|  %s  |  	 |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("open"));
+		System.out.printf("| %s |                                                   	       |  %s  |  %s  |  \n", Coloring.getCyan("write"), Coloring.getCyan("search"), Coloring.getCyan("read"));
 	}
 	
 	public int showArticleDetail(String articleTitle)	{ // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -68,15 +68,15 @@ public class BoardService {
 		parkInfoArticleDao.increaseHit(article.id);
 		
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		System.out.printf("===========================================================================================\n");
-        System.out.printf("| 돌아가기: %s  |                                   | 수정: %s |     | 삭제: %s |        \n", Coloring.getCyan("back"), Coloring.getCyan("modify"), Coloring.getCyan("delete") );
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" 작성자: %-10s			제목: "  + Coloring.getWhiteBack(Coloring.getBlack("< %s >"))  + "				%-10s  조회: %-4d 추천: %-4d\n",article.memberId, article.title, article.regDate,article.hit,article.recommend);
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
+		System.out.printf("================================================================================================================\n");
+        System.out.printf("|  %s  |                                  											 |  %s  |  %s  |        \n", Coloring.getCyan("back"), Coloring.getCyan("modify"), Coloring.getCyan("delete") );
+        System.out.printf("----------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf(" 작성자: %-10s				제목: "  + Coloring.getWhiteBack(Coloring.getBlack("< %s >"))  + "				%-10s  |  조회: %-4d | 추천: %-4d\n",article.memberId, article.title, article.regDate,article.hit,article.recommend);
+        System.out.printf("----------------------------------------------------------------------------------------------------------------\n");
         System.out.printf("  "+ Coloring.getWhiteBack(Coloring.getBlack(" %s \n")), article.body);
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
-        System.out.printf(" | 추천: %s |  |추천 취소: %s|  \n", Coloring.getCyan("rcmd"), Coloring.getCyan("cancel") );
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
+        System.out.printf("----------------------------------------------------------------------------------------------------------------\n");
+        System.out.printf("| 추천: %s |  추천 취소: %s  |  \n", Coloring.getCyan("rcmd"), Coloring.getCyan("cancel") );
+        System.out.printf("----------------------------------------------------------------------------------------------------------------\n");
         System.out.println("\n\n\n");
 		return 0;
 	}
@@ -157,9 +157,9 @@ public class BoardService {
 	
 	public void showArticleRecommendList(String articleTitle) {  // 수정됨 07/20 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		this.replys = parkInfoArticleDao.getArticleReplyList(parkInfoArticleDao.getArticle(articleTitle).id);
-		System.out.printf("===========================================================================================\n");
-        System.out.printf(" 작성자    |    작성일       |     %s                                     | 댓글작성:%s |   \n", Coloring.getWhiteBack(Coloring.getBlack("댓글")), Coloring.getCyan("reply") );
-        System.out.printf("-------------------------------------------------------------------------------------------\n");
+		System.out.printf("================================================================================================================\n");
+        System.out.printf(" 작성자   |    작성일     |                   %s                       |  %s  |   \n", Coloring.getWhiteBack(Coloring.getBlack("댓글")), Coloring.getCyan("reply") );
+        System.out.printf("----------------------------------------------------------------------------------------------------------------\n");
 		for (ArticleReply ar : replys) {
 			System.out.printf(" %-8s | %-13s | %s  \n",ar.memberId,ar.regDate,ar.body);
 		}
